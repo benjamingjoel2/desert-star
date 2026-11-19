@@ -1,189 +1,162 @@
 import Link from "next/link";
 import Pic from "@/components/Pic";
-import Rail from "@/components/Rail";
-import Strips from "@/components/Strips";
-import TourCard from "@/components/TourCard";
-import DuneRule from "@/components/DuneRule";
 import Split from "@/components/Split";
-import { categories, site, waLink } from "@/data/site";
+import TripPanels from "@/components/TripPanels";
+import { site, waLink } from "@/data/site";
 import { posts } from "@/data/journal";
-import { byCategory, getTour, price, tours } from "@/lib/tours";
+import { cover, getTour, price, tours } from "@/lib/tours";
+
+function Swoosh({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 420 60" className={className} fill="none" aria-hidden="true">
+      <path d="M2 38 C 90 6, 250 8, 418 30 M40 52 C 150 30, 300 34, 400 44" stroke="currentColor" strokeWidth="1" className="draw-line" />
+    </svg>
+  );
+}
+
+const places = [
+  { name: "Lehbab", img: "camel-grazing", note: "The red dunes", href: "/experiences#desert" },
+  { name: "Dubai", img: "dubai-skyline", note: "Creek, souks, Burj Khalifa", href: "/experiences/dubai-city-tour" },
+  { name: "Abu Dhabi", img: "mosque-1", note: "Grand Mosque, Emirates Palace", href: "/experiences/abu-dhabi-city-tour" },
+  { name: "Al Ain", img: "alain-1", note: "Oases and Jebel Hafeet", href: "/experiences/al-ain-city-tour" },
+];
 
 export default function Home() {
-  const evening = getTour("premium-evening-desert-safari")!;
-  const morning = getTour("premium-morning-desert-safari")!;
-  const marina = getTour("dubai-marina-dhow-cruise")!;
-  const signature = [
+  const trips = [
+    "premium-evening-desert-safari",
     "evening-desert-safari",
+    "premium-morning-desert-safari",
     "grand-mosque-and-desert-safari",
-    "dubai-abu-dhabi-desert-safari-3-in-1",
-    "abu-dhabi-city-tour",
-    "al-ain-city-tour",
-    "dubai-creek-dhow-cruise",
+    "dubai-city-tour",
     "burj-khalifa-at-the-top",
-  ].map((s) => getTour(s)!);
+  ].map((s) => {
+    const t = getTour(s)!;
+    return { href: `/experiences/${t.slug}`, title: t.title, price: price(t), meta: t.timing, text: t.short, img: cover(t) };
+  });
 
   return (
     <>
-      {/* Hero: full-bleed, text bottom-left */}
-      <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-night text-white">
-        <div className="hero-zoom absolute inset-0" data-parallax="0.18">
-          <Pic name="premium-evening-1" priority alt="A Desert Stars 4x4 cresting a red dune in the Lehbab desert" />
+      {/* Hero: giant wordmark over a pale desert sky */}
+      <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-dune">
+        <div className="hero-zoom absolute inset-0" data-parallax="0.15">
+          <Pic name="dunes-cruiser" priority alt="A 4x4 crossing pale dunes in the Dubai desert" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-black/35" />
-        <div className="px-page absolute inset-x-0 bottom-0 grid gap-8 pb-12 lg:grid-cols-[1.6fr_1fr] lg:items-end lg:pb-16">
-          <div>
-            <p className="eyebrow fade-in mb-5 text-white/85" style={{ ["--d" as string]: "200ms" }}>Lehbab desert, Dubai</p>
-            <h1 className="display max-w-[14ch] text-[48px] sm:text-[64px] lg:text-[88px]">
-              <Split delay={250}>Where the dunes <em>meet the stars</em></Split>
-            </h1>
-          </div>
-          <div className="fade-in max-w-sm lg:justify-self-end" style={{ ["--d" as string]: "900ms" }}>
-            <p className="mb-5 text-[16px] text-white/90">
-              Private desert evenings, dhow dinners and guided days across the Emirates, arranged by one concierge from
-              first message to the last mile home.
-            </p>
-            <Link href="/experiences" className="u-link text-white">Discover the experiences</Link>
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-sand/60 via-transparent to-black/40" />
+        <h1 className="px-page wordmark absolute inset-x-0 top-[16vh] text-[21vw] text-ink lg:top-[14vh] lg:text-[17.4vw]">
+          <Split delay={150}>Desert Stars</Split>
+        </h1>
+        <div className="px-page absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 pb-10 text-white">
+          <p className="title fade-in max-w-[22ch] text-[30px] lg:text-[42px]" style={{ ["--d" as string]: "900ms" }}>
+            Private evenings in the Arabian desert
+          </p>
+          <a href="#intro" className="fade-in text-[13px] tracking-[0.2em]" style={{ ["--d" as string]: "1200ms" }}>SCROLL ↓</a>
         </div>
       </section>
 
       {/* Statement */}
-      <section className="px-page grid gap-10 py-24 lg:grid-cols-[1fr_2fr] lg:py-36">
-        <p className="eyebrow text-muted reveal">Desert Stars</p>
-        <div>
-          <p className="display text-[32px] sm:text-[44px] lg:text-[56px]">
-            <Split>The red sands of Lehbab at golden hour, a camp lit by lanterns, and a sky with more stars than the city ever shows you.</Split>
+      <section id="intro" className="px-page py-32 lg:py-48">
+        <div className="lg:pl-[22%]">
+          <div className="reveal mb-8 flex items-center gap-4">
+            <Swoosh className="h-8 w-40 opacity-60" />
+            <span className="script text-[22px]">The Arabian Desert</span>
+          </div>
+          <p className="display max-w-[24ch] text-[32px] sm:text-[46px] lg:text-[66px]">
+            <Split>Vast, golden and silent: an evening in the dunes of Lehbab stays with you long after the drive home.</Split>
           </p>
-          <div className="reveal mt-10 grid gap-8 text-muted sm:grid-cols-2 lg:max-w-3xl" style={{ ["--d" as string]: "300ms" }}>
-            <p>
-              We have hosted more than 11,000 guests in the desert and across the seven emirates. Every journey starts
-              with a pick-up at your door and ends with a drive home under the night sky.
-            </p>
-            <p>
-              Choose a premium evening in the dunes, a quiet dawn safari, a dhow cruise along the old Creek, or a day
-              with a guide in Abu Dhabi, Al Ain or Sharjah.
-            </p>
+          <div className="reveal mt-16 grid max-w-3xl gap-8 text-[16px] leading-relaxed text-muted sm:grid-cols-2 lg:ml-[18%]">
+            <p>Every Desert Stars journey begins at your door in Dubai. Air-conditioned 4x4s carry up to six guests across the red dunes to a camp lit by lanterns.</p>
+            <p>More than 11,000 guests have spent an evening with us in the desert, on the water and across the seven emirates.</p>
           </div>
         </div>
       </section>
 
-      {/* Category strips (White Desert) */}
-      <section className="px-page pb-24 lg:pb-36">
-        <div className="mb-10 flex items-end justify-between gap-6">
-          <h2 className="display text-[40px] lg:text-[64px]"><Split>Our experiences</Split></h2>
-          <Link href="/experiences" className="u-link mb-3 hidden whitespace-nowrap sm:inline-block">View all {tours.length}</Link>
+      {/* Experiences: expanding panels */}
+      <section id="experiences" className="px-page pb-32 lg:pb-44">
+        <div className="relative mb-14 flex flex-wrap items-end justify-between gap-6">
+          <h2 className="display text-[46px] leading-none lg:text-[88px]"><Split>Our experiences</Split></h2>
+          <Swoosh className="absolute -bottom-8 left-[8%] h-12 w-[min(70vw,520px)] opacity-50" />
+          <Link href="/experiences" className="btn btn-line">All {tours.length} experiences</Link>
         </div>
-        <div className="reveal"><Strips items={categories.map((c) => ({ ...c, count: byCategory(c.slug).length }))} /></div>
+        <div className="reveal"><TripPanels trips={trips} /></div>
       </section>
 
-      {/* Two features (Aman) */}
-      <section className="px-page grid gap-16 pb-24 lg:grid-cols-[1.35fr_1fr] lg:gap-10 lg:pb-36">
-        {[evening, morning].map((t, i) => (
-          <article key={t.slug} className={i === 1 ? "lg:mt-40" : ""}>
-            <Link href={`/experiences/${t.slug}`} className="zoom reveal-img block overflow-hidden">
-              <div className={i === 0 ? "aspect-[4/3]" : "aspect-[4/5]"}>
-                <Pic name={t.images[i === 0 ? 2 : 1] ?? t.images[0]} sizes="(min-width:1024px) 55vw, 100vw" alt="" />
+      {/* Destinations: giant words, photo on hover */}
+      <section id="destinations" className="px-page border-t border-line py-28 lg:py-40">
+        <p className="script mb-12 text-[26px]">Where we take you</p>
+        <ul>
+          {places.map((p, i) => (
+            <li key={p.name} className="group relative border-b border-line">
+              <Link href={p.href} className="grid items-center gap-4 py-6 lg:grid-cols-[1fr_auto] lg:py-8">
+                <span className="wordmark text-[16vw] transition-colors duration-500 group-hover:text-ember lg:text-[9vw]">{p.name}</span>
+                <span className="text-[14px] text-muted">{String(i + 1).padStart(2, "0")} · {p.note}</span>
+              </Link>
+              <div className="pointer-events-none absolute right-[22%] top-1/2 hidden h-[300px] w-[230px] overflow-hidden opacity-0 transition-[opacity,transform] duration-700 [transform:translateY(-40%)_rotate(-3deg)] group-hover:opacity-100 group-hover:[transform:translateY(-50%)_rotate(2deg)] lg:block">
+                <Pic name={p.img} sizes="230px" />
               </div>
-            </Link>
-            <div className="reveal" style={{ ["--d" as string]: "250ms" }}>
-            <p className="eyebrow mt-6 text-muted">{i === 0 ? "Evening in the dunes" : "Before the city wakes"}</p>
-            <h3 className="title mt-2 text-[28px]">{t.title}</h3>
-            <p className="mt-3 max-w-xl text-muted">{t.short}</p>
-            <p className="mt-5 flex gap-8 text-[13px]">
-              <Link href={`/experiences/${t.slug}`} className="u-link">Discover more</Link>
-              <span className="text-muted">{price(t)}</span>
-            </p>
-            </div>
-          </article>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Strip band */}
+      <section aria-label="Moments in the desert" className="grid h-[72svh] min-h-[460px] grid-cols-3 gap-1 lg:grid-cols-6">
+        {["camel-ride", "camp-lanterns", "premium-morning-4", "combo-mosque-3", "camel-grazing", "desert-sunset"].map((n, i) => (
+          <div key={n} className={`reveal-img overflow-hidden ${i % 2 ? "mt-16" : ""} ${i > 2 ? "max-lg:hidden" : ""}`} style={{ ["--d" as string]: `${i * 120}ms` }}>
+            <Pic name={n} sizes="(min-width:1024px) 17vw, 33vw" />
+          </div>
         ))}
       </section>
 
-      {/* Rail (Aman "Seasonal Experiences") */}
-      <section className="border-t border-line bg-dune/50 py-24 lg:py-32">
-        <div className="px-page grid gap-12 lg:grid-cols-[minmax(260px,1fr)_3fr]">
-          <div className="reveal">
-            <p className="eyebrow mb-4 text-muted">Across the Emirates</p>
-            <h2 className="title text-[34px] lg:text-[40px]"><Split>Signature journeys</Split></h2>
-            <p className="mt-4 max-w-xs text-muted">
-              From the Grand Mosque at first light to dinner on the water, each one with door-to-door transfers.
-            </p>
-            <Link href="/experiences" className="u-link mt-8">Discover more</Link>
-          </div>
-          <Rail label="Signature journeys">
-            {signature.map((t) => (
-              <TourCard key={t.slug} t={t} className="w-[78vw] shrink-0 snap-start sm:w-[44vw] lg:w-[25vw]" />
-            ))}
-          </Rail>
-        </div>
-      </section>
-
-      {/* Night band */}
-      <section className="relative overflow-hidden bg-night text-sand">
-        <div className="absolute inset-0 opacity-70" data-parallax="0.25"><Pic name="night-sky" sizes="100vw" /></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-night/40 via-transparent to-night" />
-        <div className="px-page relative py-28 lg:py-40">
-          <p className="eyebrow mb-6 text-sand/70">After dark</p>
-          <h2 className="display max-w-[18ch] text-[40px] lg:text-[72px]">
-            <Split>When the shows end, <em>look up.</em></Split>
-          </h2>
-          <p className="reveal mt-6 max-w-lg text-sand/80">
-            Far from the city lights, the Lehbab sky fills with stars. Our evening safaris end with time to sit on the
-            sand and simply watch it.
+      {/* Brand line */}
+      <section className="px-page grid gap-10 py-32 lg:grid-cols-[1fr_2fr] lg:py-44">
+        <span className="script text-[90px] leading-none text-muted/60">“</span>
+        <div>
+          <p className="title max-w-[30ch] text-[32px] leading-[1.25] lg:text-[48px]">
+            <Split>The desert is not empty. It is full of things you only notice once the engine stops and the stars come out.</Split>
           </p>
-          <dl className="mt-20 grid grid-cols-2 gap-y-10 border-t border-white/15 pt-10 lg:grid-cols-4">
-            {site.stats.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse">
-                <dt className="eyebrow mt-3 text-sand/65">{s.label}</dt>
-                <dd className="display text-[44px] lg:text-[60px]" data-count={/\d/.test(s.value) && !s.value.includes("/") ? s.value : undefined}>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
+          <p className="reveal mt-8 text-[13px] tracking-[0.2em]">THE DESERT STARS GUIDES</p>
         </div>
       </section>
 
-      {/* Full-bleed cruise */}
-      <section className="relative h-[80svh] min-h-[520px] overflow-hidden text-white">
-        <div className="absolute inset-0" data-parallax="0.15"><Pic name={marina.images[0]} sizes="100vw" alt="Dhows moored in Dubai Marina at night" /></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        <div className="px-page absolute inset-x-0 bottom-0 pb-12 lg:pb-16">
-          <p className="eyebrow mb-4 text-white/85">Dhow cruises</p>
-          <h2 className="title max-w-xl text-[34px] lg:text-[48px]"><Split>Dinner on the water, from the old Creek to the Marina</Split></h2>
-          <Link href="/experiences#cruises" className="u-link mt-6">Discover more</Link>
-        </div>
+      {/* Numbers */}
+      <section className="bg-ink text-sand">
+        <dl className="px-page grid grid-cols-2 lg:grid-cols-4">
+          {site.stats.map((s, i) => (
+            <div key={s.label} className={`flex flex-col-reverse border-white/15 py-14 lg:py-20 ${i % 2 ? "border-l pl-6" : ""} ${i === 2 ? "lg:border-l lg:pl-6" : ""}`}>
+              <dt className="mt-4 text-[12px] tracking-[0.2em] text-sand/70">{s.label.toUpperCase()}</dt>
+              <dd className="wordmark text-[64px] lg:text-[112px]" data-count={/\d/.test(s.value) && !s.value.includes("/") ? s.value : undefined}>{s.value}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* Journal */}
-      <section className="px-page py-24 lg:py-36">
-        <div className="mb-12 flex items-end justify-between gap-6">
-          <div>
-            <p className="eyebrow mb-4 text-muted">The journal</p>
-            <h2 className="title text-[34px] lg:text-[40px]"><Split>Notes from the Emirates</Split></h2>
-          </div>
-          <Link href="/journal" className="u-link mb-2">All stories</Link>
+      <section className="px-page py-28 lg:py-40">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <h2 className="display text-[40px] leading-none lg:text-[72px]"><Split>The journal</Split></h2>
+          <Link href="/journal" className="btn btn-line">All stories</Link>
         </div>
         <div className="grid gap-12 md:grid-cols-3 md:gap-6">
           {posts.map((p, i) => (
             <Link key={p.slug} href={`/journal/${p.slug}`} className="group">
-              <div className="zoom reveal-img aspect-[3/2] overflow-hidden bg-dune" style={{ ["--d" as string]: `${i * 150}ms` }}><Pic name={p.image} sizes="(min-width:768px) 33vw, 100vw" /></div>
+              <div className="zoom reveal-img aspect-[4/5] overflow-hidden bg-dune" style={{ ["--d" as string]: `${i * 150}ms` }}><Pic name={p.image} sizes="(min-width:768px) 33vw, 100vw" /></div>
               <p className="eyebrow mt-5 text-muted">{p.category}</p>
-              <h3 className="title mt-2 text-[22px]">{p.title}</h3>
-              <p className="mt-2 text-[14px] text-muted">{p.excerpt}</p>
+              <h3 className="title mt-2 text-[28px]">{p.title}</h3>
             </Link>
           ))}
         </div>
       </section>
 
-      <DuneRule className="px-page" />
-
       {/* Enquire */}
-      <section className="px-page grid gap-10 py-24 lg:grid-cols-[1.6fr_1fr] lg:py-32">
-        <h2 className="display text-[40px] lg:text-[64px]"><Split>Plan your evening in the dunes</Split></h2>
-        <div className="reveal self-end">
-          <p className="text-muted">{site.response} Tell us your dates and group size and we will hold the right vehicle and camp.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/enquire" className="btn btn-dark">Send an enquiry</Link>
-            <a href={waLink("Hello Desert Stars, I'd like to plan a desert safari.")} className="btn btn-line">WhatsApp</a>
+      <section className="relative overflow-hidden text-white">
+        <div className="absolute inset-0" data-parallax="0.18"><Pic name="dubai-skyline" sizes="100vw" alt="Dubai at sunset" /></div>
+        <div className="absolute inset-0 bg-ink/55" />
+        <div className="px-page relative py-32 lg:py-48">
+          <h2 className="display text-[44px] leading-[1] lg:text-[96px]"><Split>Begin your journey</Split></h2>
+          <p className="reveal mt-6 max-w-md text-white/85">{site.response} Tell us your dates and group size and we&apos;ll hold the right vehicle and camp.</p>
+          <div className="reveal mt-10 flex flex-wrap gap-3">
+            <Link href="/enquire" className="btn bg-white text-ink hover:bg-sand">Send an enquiry</Link>
+            <a href={waLink("Hello Desert Stars, I'd like to plan a desert evening.")} className="btn border border-white hover:bg-white hover:text-ink">WhatsApp {site.phone}</a>
           </div>
         </div>
       </section>

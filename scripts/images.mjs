@@ -6,7 +6,7 @@ import path from "node:path";
 
 const SRC = "src-images";
 const OUT = "public/img";
-const WIDTHS = [640, 1080, 1600];
+const WIDTHS = [640, 1080, 1600, 2400];
 await mkdir(OUT, { recursive: true });
 const meta = {};
 for (const file of (await readdir(SRC)).sort()) {
@@ -14,11 +14,11 @@ for (const file of (await readdir(SRC)).sort()) {
   const name = file.replace(/\.[^.]+$/, "");
   const img = sharp(path.join(SRC, file)).rotate();
   const { width, height } = await img.metadata();
-  const widths = WIDTHS.filter((w) => w < width).concat(width < 1600 ? [width] : []);
+  const widths = WIDTHS.filter((w) => w < width).concat(width < 2400 ? [width] : []);
   for (const w of widths) {
     const r = img.clone().resize({ width: w });
-    await r.clone().avif({ quality: 50 }).toFile(`${OUT}/${name}-${w}.avif`);
-    await r.clone().webp({ quality: 72 }).toFile(`${OUT}/${name}-${w}.webp`);
+    await r.clone().avif({ quality: 64 }).toFile(`${OUT}/${name}-${w}.avif`);
+    await r.clone().webp({ quality: 84 }).toFile(`${OUT}/${name}-${w}.webp`);
   }
   meta[name] = { w: width, h: height, widths };
 }

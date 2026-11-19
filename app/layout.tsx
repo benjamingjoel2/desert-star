@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Figtree } from "next/font/google";
+import { Oswald, Marcellus, Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import Motion from "@/components/Motion";
 import { site } from "@/data/site";
 
-const serif = Newsreader({ subsets: ["latin"], weight: ["300", "400"], style: ["normal", "italic"], variable: "--font-newsreader", display: "swap" });
-const sans = Figtree({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-figtree", display: "swap" });
+const mark = Oswald({ subsets: ["latin"], weight: ["400"], variable: "--font-mark", display: "swap" });
+const serif = Marcellus({ subsets: ["latin"], weight: ["400"], variable: "--font-marcellus", display: "swap" });
+const script = Cormorant_Garamond({ subsets: ["latin"], weight: ["400"], style: ["italic"], variable: "--font-script", display: "swap" });
+const sans = Hanken_Grotesk({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-hanken", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   icons: { icon: "/icon.svg" },
 };
 
-export const viewport: Viewport = { themeColor: "#11151d" };
+export const viewport: Viewport = { themeColor: "#fbf9f6" };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -30,7 +32,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en" className={`${mark.variable} ${serif.variable} ${script.variable} ${sans.variable}`}>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-sand">Skip to content</a>
         {children}

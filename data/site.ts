@@ -31,7 +31,7 @@ export const categories = [
     slug: "desert",
     name: "Desert safaris",
     blurb: "Red dunes, Bedouin camps and dinner under the stars.",
-    image: "premium-evening-1",
+    image: "camp-lanterns",
   },
   {
     slug: "city",
@@ -43,13 +43,13 @@ export const categories = [
     slug: "cruises",
     name: "Dhow cruises",
     blurb: "Dinner on the water, from old Dubai Creek to the Marina.",
-    image: "marina-1",
+    image: "dubai-night",
   },
   {
     slug: "attractions",
     name: "Signature tickets",
     blurb: "Burj Khalifa at the Top and Ferrari World, arranged for you.",
-    image: "burj-1",
+    image: "burj-palms",
   },
 ] as const;
 

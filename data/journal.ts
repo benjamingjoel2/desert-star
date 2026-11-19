@@ -21,7 +21,7 @@ export const posts: Post[] = [
     title: "Sunset to Skyline: Five Moments You Can't Miss in Dubai",
     category: "Dubai",
     date: "2025-07-28",
-    image: "premium-evening-2",
+    image: "desert-sunset",
     excerpt:
       "From soaring towers to golden desert horizons, the five Dubai moments that turn a checklist into a story.",
     body: [
@@ -98,7 +98,7 @@ export const posts: Post[] = [
     title: "Abu Dhabi in One Day: Heritage Meets Modern Wonders",
     category: "Abu Dhabi",
     date: "2025-07-28",
-    image: "abudhabi-city-1",
+    image: "mosque-bluehour",
     excerpt:
       "Abu Dhabi doesn't rush you, but if time is tight it delivers. How to see the best of the capital in a single day.",
     body: [

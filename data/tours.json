@@ -71,7 +71,8 @@
    "premium-evening-2",
    "premium-evening-3",
    "premium-evening-4"
-  ]
+  ],
+  "hero": "camp-lanterns"
  },
  {
   "slug": "standard-sunset-desert-safari",
@@ -142,7 +143,8 @@
    "standard-sunset-2",
    "standard-sunset-3",
    "standard-sunset-4"
-  ]
+  ],
+  "hero": "desert-sunset"
  },
  {
   "slug": "self-drive-evening-desert-safari",
@@ -211,7 +213,8 @@
   "images": [
    "self-drive-1",
    "self-drive-2"
-  ]
+  ],
+  "hero": "dunes-cruiser"
  },
  {
   "slug": "premium-morning-desert-safari",
@@ -360,7 +363,8 @@
   "groupSize": "20 People",
   "images": [
    "evening-1"
-  ]
+  ],
+  "hero": "camel-caravan"
  },
  {
   "slug": "sheikh-zayed-grand-mosque-tour",
@@ -381,7 +385,8 @@
   "groupSize": "20 People",
   "images": [
    "mosque-1"
-  ]
+  ],
+  "hero": "mosque-bluehour"
  },
  {
   "slug": "grand-mosque-and-desert-safari",
@@ -471,7 +476,8 @@
    "combo-mosque-2",
    "combo-mosque-3",
    "combo-mosque-4"
-  ]
+  ],
+  "hero": "mosque-1"
  },
  {
   "slug": "dubai-abu-dhabi-desert-safari-3-in-1",
@@ -545,7 +551,8 @@
    "combo-3in1-1",
    "combo-3in1-2",
    "combo-3in1-3"
-  ]
+  ],
+  "hero": "dubai-night"
  },
  {
   "slug": "al-ain-city-tour",
@@ -677,10 +684,8 @@
    }
   ],
   "groupSize": "20 People",
-  "images": [
-   "sharjah-1",
-   "sharjah-2"
-  ]
+  "images": [],
+  "hero": "sharjah-blue-souk"
  },
  {
   "slug": "dubai-city-tour",
@@ -738,7 +743,8 @@
    "dubai-city-2",
    "dubai-city-3",
    "dubai-city-4"
-  ]
+  ],
+  "hero": "dubai-skyline"
  },
  {
   "slug": "abu-dhabi-city-tour",
@@ -809,7 +815,8 @@
    "abudhabi-city-2",
    "abudhabi-city-3",
    "abudhabi-city-4"
-  ]
+  ],
+  "hero": "mosque-1"
  },
  {
   "slug": "ferrari-world-abu-dhabi",
@@ -926,7 +933,8 @@
    "burj-1",
    "burj-2",
    "burj-3"
-  ]
+  ],
+  "hero": "burj-palms"
  },
  {
   "slug": "dubai-creek-dhow-cruise",

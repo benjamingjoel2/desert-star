@@ -5,7 +5,7 @@ import Pic from "@/components/Pic";
 import TourCard from "@/components/TourCard";
 import Split from "@/components/Split";
 import { categories, site, waLink } from "@/data/site";
-import { getTour, price, tours } from "@/lib/tours";
+import { cover, getTour, price, tours } from "@/lib/tours";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const t = getTour((await params).slug);
   if (!t) return {};
-  return { title: t.title, description: t.short, openGraph: { images: [`/img/${t.images[0]}-1080.webp`] } };
+  return { title: t.title, description: t.short, openGraph: { images: [`/img/${cover(t)}-1080.webp`] } };
 }
 
 function List({ items, mark = "—" }: { items: string[]; mark?: string }) {
@@ -45,7 +45,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
   return (
     <>
       <section className="relative h-[78svh] min-h-[540px] overflow-hidden bg-night text-white">
-        <div className="hero-zoom absolute inset-0" data-parallax="0.18"><Pic name={t.images[0]} priority alt={t.title} /></div>
+        <div className="hero-zoom absolute inset-0" data-parallax="0.18"><Pic name={cover(t)} priority alt={t.title} /></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
         <div className="px-page absolute inset-x-0 bottom-0 pb-10 lg:pb-14">
           <p className="eyebrow fade-in mb-4 text-white/85">
@@ -60,9 +60,9 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
           <p className="display text-[26px] lg:text-[34px]"><Split>{t.short}</Split></p>
           {t.overview && <p className="reveal mt-8 max-w-2xl text-[16px] text-muted">{t.overview}</p>}
 
-          {t.images.length > 1 && (
+          {t.images.filter((im) => im !== cover(t)).length > 0 && (
             <div className="no-scrollbar mt-14 flex snap-x gap-3 overflow-x-auto">
-              {t.images.slice(1).map((im) => (
+              {t.images.filter((im) => im !== cover(t)).map((im) => (
                 <div key={im} className="reveal-img aspect-[4/3] w-[80%] shrink-0 snap-start overflow-hidden bg-dune sm:w-[46%]">
                   <Pic name={im} sizes="(min-width:1024px) 30vw, 80vw" />
                 </div>

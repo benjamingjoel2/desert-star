@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
-/* Desert Stars: "Dune and Starlight" theme. Brand colours live here and in data/site.ts. */
+/* Desert Stars: "Sand and Silence" theme (White Desert direction).
+   Brand colours live here and in data/site.ts. */
 @theme {
-  --color-sand: #f4eee6;
-  --color-dune: #e9e0d3;
-  --color-line: #d6cab9;
-  --color-ink: #221d18;
-  --color-muted: #665c51;
-  --color-night: #11151d;
-  --color-night-2: #1b212c;
-  --color-ember: #9e4c1c;
-  --font-serif: var(--font-newsreader), "Times New Roman", Georgia, serif;
-  --font-sans: var(--font-figtree), "Helvetica Neue", Arial, sans-serif;
+  --color-sand: #fbf9f6;
+  --color-dune: #f1ece4;
+  --color-line: #dcd6cc;
+  --color-ink: #1d2333;
+  --color-muted: #5b6070;
+  --color-night: #1d2333;
+  --color-night-2: #262d40;
+  --color-ember: #8f5e34;
+  --font-serif: var(--font-marcellus), "Times New Roman", Georgia, serif;
+  --font-script: var(--font-script), "Times New Roman", Georgia, serif;
+  --font-mark: var(--font-mark), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -51,17 +54,28 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+/* Uppercase classical serif for statements; italic script for names and accents */
 .display {
   font-family: var(--font-serif);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.05;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1.04;
+}
+.display em, .title em {
+  font-family: var(--font-script);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
 }
 .title {
-  font-family: var(--font-serif);
+  font-family: var(--font-script);
+  font-style: italic;
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.12;
 }
+.script { font-family: var(--font-script); font-style: italic; }
+.wordmark { font-family: var(--font-mark); text-transform: uppercase; line-height: 0.82; letter-spacing: -0.01em; }
 
 /* Aman-style underlined text link that draws in on hover */
 .u-link {
@@ -98,10 +112,9 @@ body {
   justify-content: center;
   gap: 10px;
   min-height: 44px;
-  padding: 12px 22px;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 .btn-dark { background: var(--color-ink); color: var(--color-sand); }
@@ -167,7 +180,7 @@ html.lenis, html.lenis body { height: auto; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
 .prose-ds p { margin: 0 0 1.1em; }
-.prose-ds h2 { font-family: var(--font-serif); font-size: 26px; line-height: 1.2; margin: 1.8em 0 0.6em; }
+.prose-ds h2 { font-family: var(--font-serif); text-transform: uppercase; font-size: 24px; line-height: 1.2; margin: 1.8em 0 0.6em; }
 .prose-ds ul { margin: 0 0 1.2em; padding-left: 1.1em; list-style: disc; }
 .prose-ds li { margin: 0.35em 0; }
 
