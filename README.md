@@ -2,7 +2,7 @@
 
 Luxury rebuild of musktours.com: desert safaris, dhow cruises and guided days across the Emirates.
 
-Live: https://desert-stars.vercel.app (target domain: desertstars.tourground.com)
+Live: https://desert-stars-benjamin-sevo.vercel.app (target domain: desertstars.tourground.com)
 
 ## Run and edit
 
