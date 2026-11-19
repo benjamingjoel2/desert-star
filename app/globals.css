@@ -154,7 +154,7 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes fadeIn { from { opacity: 0; transform: translate3d(0, 16px, 0); } to { opacity: 1; transform: none; } }
 
 /* Page transition */
-.page-enter { animation: pageIn 0.9s var(--ease-out) both; }
+.navigated .page-enter { animation: pageIn 0.8s var(--ease-out) both; }
 @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* Parallax layers need room to move */

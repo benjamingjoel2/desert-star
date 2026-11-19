@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
@@ -48,7 +48,11 @@ export default function Motion() {
   }, []);
 
   // Per page: reset scroll, observe new elements
+  const first = useRef(true);
   useEffect(() => {
+    // Page fade only after the first load, so it never delays the first paint
+    if (first.current) first.current = false;
+    else document.documentElement.classList.add("navigated");
     if (!location.hash) lenis?.scrollTo(0, { immediate: true });
     else setTimeout(() => { const t = document.querySelector(location.hash); if (t) lenis?.scrollTo(t as HTMLElement, { offset: -120, immediate: true }); }, 50);
 
