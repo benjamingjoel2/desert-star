@@ -175,3 +175,15 @@ html.lenis, html.lenis body { height: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .js .reveal, .js .reveal-img, .js .reveal-img img, .js .split .sw-i { opacity: 1; transform: none; clip-path: none; }
 }
+
+/* ---------- Concept helpers ---------- */
+.kenburns img { animation: kenburns 9s ease-out both; }
+@keyframes kenburns { from { transform: scale(1.16) translate3d(1.5%, 1%, 0); } to { transform: scale(1.02) translate3d(0, 0, 0); } }
+.slide-progress { animation: slideProgress 6.5s linear both; }
+@keyframes slideProgress { from { width: 0; } to { width: 100%; } }
+.marquee { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
+.chapter { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.draw-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw-line 2.6s var(--ease-out) 0.4s forwards; }
+@keyframes draw-line { to { stroke-dashoffset: 0; } }

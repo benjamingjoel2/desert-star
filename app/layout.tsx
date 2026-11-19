@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, Figtree } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Motion from "@/components/Motion";
 import { site } from "@/data/site";
 
@@ -35,9 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-sand">Skip to content</a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        {children}
         <Motion />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
