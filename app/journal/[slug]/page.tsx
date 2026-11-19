@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Pic from "@/components/Pic";
 import { posts, type Block } from "@/data/journal";
+import Split from "@/components/Split";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => posts.map((p) => ({ slug: p.slug }));
@@ -49,9 +50,9 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
     <article>
       <header className="px-page grid gap-8 pb-14 pt-36 lg:grid-cols-[1fr_2fr] lg:pt-48">
         <p className="eyebrow text-muted"><Link href="/journal" className="hover:underline">Journal</Link> · {p.category}</p>
-        <h1 className="display text-[40px] sm:text-[56px] lg:text-[68px]">{p.title}</h1>
+        <h1 className="display text-[40px] sm:text-[56px] lg:text-[68px]"><Split delay={100}>{p.title}</Split></h1>
       </header>
-      <div className="aspect-[16/8] max-h-[78svh] w-full overflow-hidden bg-dune"><Pic name={p.image} priority alt="" /></div>
+      <div className="relative aspect-[16/8] max-h-[78svh] w-full overflow-hidden bg-dune"><div className="hero-zoom absolute inset-0" data-parallax="0.12"><Pic name={p.image} priority alt="" /></div></div>
       <div className="px-page grid gap-8 py-16 lg:grid-cols-[1fr_2fr] lg:py-24">
         <p className="eyebrow text-muted">{new Date(p.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
         <div className="prose-ds max-w-2xl text-[17px]">{p.body.map(render)}</div>

@@ -21,7 +21,7 @@ export default function About() {
         title={<>Companions in <em>discovery</em></>}
         intro="We plan journeys through the heart of the Emirates: the red dunes of Lehbab, the old quarters of Dubai Creek, the Grand Mosque in Abu Dhabi and the oases of Al Ain. Authentic, seamless and exciting from the first message to the drive home."
       />
-      <div className="aspect-[16/8] max-h-[80svh] overflow-hidden bg-dune"><Pic name="self-drive-1" sizes="100vw" alt="A lone 4x4 among orange dunes at sunset" /></div>
+      <div className="relative aspect-[16/8] max-h-[80svh] overflow-hidden bg-dune"><div className="absolute inset-0" data-parallax="0.15"><Pic name="self-drive-1" sizes="100vw" alt="A lone 4x4 among orange dunes at sunset" /></div></div>
       <section className="px-page grid gap-10 py-24 lg:grid-cols-[1fr_2fr] lg:py-32">
         <p className="eyebrow text-muted">How we travel</p>
         <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
@@ -36,7 +36,7 @@ export default function About() {
       <section className="bg-night text-sand">
         <dl className="px-page grid grid-cols-2 gap-y-10 py-20 lg:grid-cols-4">
           {site.stats.map((s) => (
-            <div key={s.label}><dd className="display text-[48px] lg:text-[64px]">{s.value}</dd><dt className="eyebrow mt-2 text-sand/65">{s.label}</dt></div>
+            <div key={s.label}><dd className="display text-[48px] lg:text-[64px]" data-count={/\d/.test(s.value) && !s.value.includes("/") ? s.value : undefined}>{s.value}</dd><dt className="eyebrow mt-2 text-sand/65">{s.label}</dt></div>
           ))}
         </dl>
       </section>

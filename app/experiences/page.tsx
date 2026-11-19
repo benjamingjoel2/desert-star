@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHead from "@/components/PageHead";
 import TourCard from "@/components/TourCard";
+import Split from "@/components/Split";
 import { categories } from "@/data/site";
 import { byCategory, tours } from "@/lib/tours";
 
@@ -27,11 +28,11 @@ export default function Experiences() {
       {categories.map((c) => (
         <section key={c.slug} id={c.slug} className="px-page scroll-mt-32 border-b border-line py-20 lg:py-28">
           <div className="mb-12 grid gap-4 lg:grid-cols-[1fr_2fr]">
-            <h2 className="title text-[34px] lg:text-[44px]">{c.name}</h2>
+            <h2 className="title text-[34px] lg:text-[44px]"><Split>{c.name}</Split></h2>
             <p className="max-w-xl text-muted lg:pt-3">{c.blurb}</p>
           </div>
           <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
-            {byCategory(c.slug).map((t) => <TourCard key={t.slug} t={t} className="reveal" />)}
+            {byCategory(c.slug).map((t) => <TourCard key={t.slug} t={t} />)}
           </div>
         </section>
       ))}

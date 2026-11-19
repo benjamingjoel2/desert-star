@@ -18,9 +18,15 @@ export default function Header() {
   const overHero = path === "/";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 40);
+    let last = window.scrollY;
+    const on = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      if (Math.abs(y - last) > 6) { setHidden(y > last && y > 160); last = y; }
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
@@ -37,7 +43,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[color,background-color,border-color,transform] duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${hidden && !open ? "header-hidden" : ""} ${
           light ? "text-white" : open ? "text-sand" : "bg-sand/95 text-ink backdrop-blur border-b border-line/70"
         }`}
       >
@@ -78,7 +84,11 @@ export default function Header() {
           <nav aria-label="Primary">
             <ul>
               {links.map((l, i) => (
-                <li key={l.href} className="border-b border-white/10">
+                <li
+                  key={l.href}
+                  className={`border-b border-white/10 transition-[opacity,transform] duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+                  style={{ transitionDelay: open ? `${120 + i * 60}ms` : "0ms" }}
+                >
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
@@ -91,7 +101,7 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-          <div className="self-end text-sand/80">
+          <div className={`self-end text-sand/80 transition-opacity delay-500 duration-700 ${open ? "opacity-100" : "opacity-0"}`}>
             <p className="eyebrow mb-4 text-sand/60">Concierge</p>
             <p className="title mb-6 text-[22px] text-sand">{site.response}</p>
             <p className="mb-1"><a className="u-link" href={site.phoneHref}>{site.phone}</a></p>

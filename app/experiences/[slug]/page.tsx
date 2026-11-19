@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Pic from "@/components/Pic";
 import TourCard from "@/components/TourCard";
+import Split from "@/components/Split";
 import { categories, site, waLink } from "@/data/site";
 import { getTour, price, tours } from "@/lib/tours";
 
@@ -44,25 +45,25 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
   return (
     <>
       <section className="relative h-[78svh] min-h-[540px] overflow-hidden bg-night text-white">
-        <div className="absolute inset-0"><Pic name={t.images[0]} priority alt={t.title} /></div>
+        <div className="hero-zoom absolute inset-0" data-parallax="0.18"><Pic name={t.images[0]} priority alt={t.title} /></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
         <div className="px-page absolute inset-x-0 bottom-0 pb-10 lg:pb-14">
-          <p className="eyebrow mb-4 text-white/85">
+          <p className="eyebrow fade-in mb-4 text-white/85">
             <Link href={`/experiences#${cat.slug}`} className="hover:underline">{cat.name}</Link> · {t.location}
           </p>
-          <h1 className="display max-w-[20ch] text-[40px] sm:text-[56px] lg:text-[72px]">{t.title}</h1>
+          <h1 className="display max-w-[20ch] text-[40px] sm:text-[56px] lg:text-[72px]"><Split delay={200}>{t.title}</Split></h1>
         </div>
       </section>
 
       <div className="px-page grid gap-16 py-16 lg:grid-cols-[1fr_380px] lg:gap-20 lg:py-24">
         <div className="min-w-0">
-          <p className="display text-[26px] lg:text-[34px]">{t.short}</p>
-          {t.overview && <p className="mt-8 max-w-2xl text-[16px] text-muted">{t.overview}</p>}
+          <p className="display text-[26px] lg:text-[34px]"><Split>{t.short}</Split></p>
+          {t.overview && <p className="reveal mt-8 max-w-2xl text-[16px] text-muted">{t.overview}</p>}
 
           {t.images.length > 1 && (
             <div className="no-scrollbar mt-14 flex snap-x gap-3 overflow-x-auto">
               {t.images.slice(1).map((im) => (
-                <div key={im} className="aspect-[4/3] w-[80%] shrink-0 snap-start overflow-hidden bg-dune sm:w-[46%]">
+                <div key={im} className="reveal-img aspect-[4/3] w-[80%] shrink-0 snap-start overflow-hidden bg-dune sm:w-[46%]">
                   <Pic name={im} sizes="(min-width:1024px) 30vw, 80vw" />
                 </div>
               ))}
@@ -70,7 +71,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
           )}
 
           {t.highlights.length > 0 && (
-            <section className="mt-20">
+            <section className="reveal mt-20">
               <h2 className="eyebrow mb-6 text-muted">Highlights</h2>
               <List items={t.highlights} mark="✦" />
             </section>
@@ -81,7 +82,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
               <h2 className="eyebrow mb-6 text-muted">How the day unfolds</h2>
               <ol className="border-l border-line">
                 {t.itinerary.map((s, i) => (
-                  <li key={s} className="relative pb-7 pl-8 last:pb-0">
+                  <li key={s} className="reveal relative pb-7 pl-8 last:pb-0" style={{ ["--d" as string]: `${i * 70}ms` }}>
                     <span className="absolute -left-[5px] top-2 h-[9px] w-[9px] rounded-full border border-ink bg-sand" aria-hidden="true" />
                     <span className="eyebrow text-muted">{String(i + 1).padStart(2, "0")}</span>
                     <p className="title mt-1 text-[19px]">{s}</p>
@@ -92,7 +93,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
           )}
 
           {(t.included.length > 0 || t.excluded.length > 0) && (
-            <section className="mt-20 grid gap-12 md:grid-cols-2 md:gap-8">
+            <section className="reveal mt-20 grid gap-12 md:grid-cols-2 md:gap-8">
               {t.included.length > 0 && (
                 <div><h2 className="eyebrow mb-6 text-muted">Included</h2><List items={t.included} mark="+" /></div>
               )}
@@ -135,7 +136,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="border border-line bg-white/40 p-7">
+          <div className="fade-in border border-line bg-white/40 p-7">
             <p className="eyebrow text-muted">Reserve</p>
             <p className="display mt-3 text-[36px]">{price(t)}</p>
             <dl className="mt-6 divide-y divide-line border-y border-line text-[14px]">

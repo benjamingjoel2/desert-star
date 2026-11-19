@@ -121,10 +121,47 @@ body {
   color: var(--color-line);
 }
 
-/* Reveal on scroll (progressively enhanced in Reveal.tsx) */
-.reveal { opacity: 1; }
-.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft); }
+/* ---------- Motion ----------
+   All motion is transform / opacity / clip-path only (GPU-composited).
+   Content is fully visible without JS; .js is added by Motion.tsx. */
+:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-inout: cubic-bezier(0.65, 0, 0.35, 1); }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* Fade + lift */
+.js .reveal { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity 1.1s var(--ease-out), transform 1.3s var(--ease-out); transition-delay: var(--d, 0ms); }
 .js .reveal.in { opacity: 1; transform: none; }
+
+/* Image wipe: the frame opens upward while the photo settles from a slight zoom */
+.js .reveal-img { clip-path: inset(100% 0 0 0); transition: clip-path 1.5s var(--ease-inout); transition-delay: var(--d, 0ms); }
+.js .reveal-img img { transform: scale(1.18); transition: transform 2.2s var(--ease-out); transition-delay: var(--d, 0ms); }
+.js .reveal-img.in { clip-path: inset(0 0 0 0); }
+.js .reveal-img.in img { transform: scale(1); }
+.js .zoom.reveal-img.in:hover img { transform: scale(1.04); transition-duration: 1.4s; transition-delay: 0ms; }
+
+/* Word-by-word headline rise */
+.split .sw { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.06em 0.12em 0; margin: 0 -0.06em -0.12em 0; }
+.split .sw-i { display: inline-block; }
+.js .split .sw-i { transform: translate3d(0, 110%, 0); transition: transform 1.2s var(--ease-out); }
+.js .split.in .sw-i { transform: none; }
+
+/* Hero: slow settle on first paint */
+.hero-zoom img { animation: heroZoom 2.8s var(--ease-out) both; }
+@keyframes heroZoom { from { transform: scale(1.14); } to { transform: scale(1); } }
+.fade-in { animation: fadeIn 1.4s var(--ease-out) both; animation-delay: var(--d, 0ms); }
+@keyframes fadeIn { from { opacity: 0; transform: translate3d(0, 16px, 0); } to { opacity: 1; transform: none; } }
+
+/* Page transition */
+.page-enter { animation: pageIn 0.9s var(--ease-out) both; }
+@keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Parallax layers need room to move */
+[data-parallax] { will-change: transform; }
+
+/* Header hides on scroll down */
+.header-hidden { transform: translate3d(0, -100%, 0); }
 
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -136,5 +173,5 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .js .reveal { opacity: 1; transform: none; }
+  .js .reveal, .js .reveal-img, .js .reveal-img img, .js .split .sw-i { opacity: 1; transform: none; clip-path: none; }
 }
