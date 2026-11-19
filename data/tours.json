@@ -67,10 +67,10 @@
   ],
   "groupSize": "6 People",
   "images": [
-   "/images/tours/premium-evening-1.jpg",
-   "/images/tours/premium-evening-2.jpg",
-   "/images/tours/premium-evening-3.jpg",
-   "/images/tours/premium-evening-4.png"
+   "premium-evening-1",
+   "premium-evening-2",
+   "premium-evening-3",
+   "premium-evening-4"
   ]
  },
  {
@@ -138,10 +138,10 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/standard-sunset-1.jpg",
-   "/images/tours/standard-sunset-2.png",
-   "/images/tours/standard-sunset-3.png",
-   "/images/tours/standard-sunset-4.jpg"
+   "standard-sunset-1",
+   "standard-sunset-2",
+   "standard-sunset-3",
+   "standard-sunset-4"
   ]
  },
  {
@@ -209,8 +209,8 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/self-drive-1.webp",
-   "/images/tours/self-drive-2.webp"
+   "self-drive-1",
+   "self-drive-2"
   ]
  },
  {
@@ -284,10 +284,10 @@
   ],
   "groupSize": "6 People",
   "images": [
-   "/images/tours/premium-morning-1.jpg",
-   "/images/tours/premium-morning-2.jpg",
-   "/images/tours/premium-morning-3.jpg",
-   "/images/tours/premium-morning-4.jpg"
+   "premium-morning-1",
+   "premium-morning-2",
+   "premium-morning-3",
+   "premium-morning-4"
   ]
  },
  {
@@ -359,7 +359,7 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/evening-1.jpg"
+   "evening-1"
   ]
  },
  {
@@ -380,7 +380,7 @@
   "faq": [],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/mosque-1.jpg"
+   "mosque-1"
   ]
  },
  {
@@ -467,10 +467,10 @@
   ],
   "groupSize": "6 People",
   "images": [
-   "/images/tours/combo-mosque-1.jpg",
-   "/images/tours/combo-mosque-2.jpg",
-   "/images/tours/combo-mosque-3.png",
-   "/images/tours/combo-mosque-4.png"
+   "combo-mosque-1",
+   "combo-mosque-2",
+   "combo-mosque-3",
+   "combo-mosque-4"
   ]
  },
  {
@@ -542,9 +542,9 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/combo-3in1-1.jpg",
-   "/images/tours/combo-3in1-2.jpg",
-   "/images/tours/combo-3in1-3.jpg"
+   "combo-3in1-1",
+   "combo-3in1-2",
+   "combo-3in1-3"
   ]
  },
  {
@@ -611,7 +611,7 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/alain-1.webp"
+   "alain-1"
   ]
  },
  {
@@ -678,8 +678,8 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/sharjah-1.webp",
-   "/images/tours/sharjah-2.webp"
+   "sharjah-1",
+   "sharjah-2"
   ]
  },
  {
@@ -734,10 +734,10 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/dubai-city-1.webp",
-   "/images/tours/dubai-city-2.webp",
-   "/images/tours/dubai-city-3.webp",
-   "/images/tours/dubai-city-4.webp"
+   "dubai-city-1",
+   "dubai-city-2",
+   "dubai-city-3",
+   "dubai-city-4"
   ]
  },
  {
@@ -805,10 +805,10 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/abudhabi-city-1.webp",
-   "/images/tours/abudhabi-city-2.webp",
-   "/images/tours/abudhabi-city-3.webp",
-   "/images/tours/abudhabi-city-4.webp"
+   "abudhabi-city-1",
+   "abudhabi-city-2",
+   "abudhabi-city-3",
+   "abudhabi-city-4"
   ]
  },
  {
@@ -865,8 +865,8 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/ferrari-1.webp",
-   "/images/tours/ferrari-2.webp"
+   "ferrari-1",
+   "ferrari-2"
   ]
  },
  {
@@ -923,9 +923,9 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/burj-1.webp",
-   "/images/tours/burj-2.webp",
-   "/images/tours/burj-3.webp"
+   "burj-1",
+   "burj-2",
+   "burj-3"
   ]
  },
  {
@@ -995,8 +995,8 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/creek-1.webp",
-   "/images/tours/creek-2.webp"
+   "creek-1",
+   "creek-2"
   ]
  },
  {
@@ -1065,8 +1065,8 @@
   ],
   "groupSize": "20 People",
   "images": [
-   "/images/tours/marina-1.webp",
-   "/images/tours/marina-2.webp"
+   "marina-1",
+   "marina-2"
   ]
  }
 ]

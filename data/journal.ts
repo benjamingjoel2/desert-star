@@ -21,7 +21,7 @@ export const posts: Post[] = [
     title: "Sunset to Skyline: Five Moments You Can't Miss in Dubai",
     category: "Dubai",
     date: "2025-07-28",
-    image: "/images/tours/premium-evening-2.jpg",
+    image: "premium-evening-2",
     excerpt:
       "From soaring towers to golden desert horizons, the five Dubai moments that turn a checklist into a story.",
     body: [
@@ -98,7 +98,7 @@ export const posts: Post[] = [
     title: "Abu Dhabi in One Day: Heritage Meets Modern Wonders",
     category: "Abu Dhabi",
     date: "2025-07-28",
-    image: "/images/tours/abudhabi-city-1.webp",
+    image: "abudhabi-city-1",
     excerpt:
       "Abu Dhabi doesn't rush you, but if time is tight it delivers. How to see the best of the capital in a single day.",
     body: [
@@ -141,7 +141,7 @@ export const posts: Post[] = [
     title: "Ferrari World or Warner Bros World: Which Suits Your Family?",
     category: "Theme parks",
     date: "2025-07-28",
-    image: "/images/tours/ferrari-1.webp",
+    image: "ferrari-1",
     excerpt:
       "Two icons on Yas Island. Compare Ferrari World's thrills with Warner Bros' family charm and choose your day.",
     body: [
