@@ -45,15 +45,15 @@ export default function White() {
             <a key={l} href={h} className="rounded-full bg-white/80 px-4 py-2.5 text-[13px] backdrop-blur transition-colors hover:bg-[#1d2333] hover:text-white">{l}</a>
           ))}
         </nav>
-        <Link href="/concepts/white" className="font-[family-name:var(--c-serif)] text-[15px] tracking-[0.3em] md:absolute md:left-1/2 md:-translate-x-1/2">DESERT STARS</Link>
+        <Link href="/concepts/white" className="font-[family-name:var(--c-serif)] text-[15px] tracking-[0.3em] md:hidden">DESERT STARS</Link>
         <Link href="/enquire" className="rounded-full bg-[#1d2333] px-5 py-2.5 text-[13px] text-white transition-opacity hover:opacity-85">Enquire</Link>
       </header>
 
       {/* Hero: giant wordmark over the sky */}
       <section className="relative h-[100svh] min-h-[640px] overflow-hidden">
         <div className="hero-zoom absolute inset-0" data-parallax="0.15"><Pic name="premium-evening-1" priority alt="A 4x4 crossing the dunes of Lehbab" /></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fbf9f6]/70 via-transparent to-transparent" />
-        <h1 className="px-page absolute inset-x-0 top-[13vh] font-[family-name:var(--c-mark)] text-[21vw] uppercase leading-[0.82] tracking-[-0.01em] lg:top-[11vh] lg:text-[17.5vw]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fbf9f6]/70 via-transparent to-black/45" />
+        <h1 className="px-page absolute inset-x-0 top-[15vh] font-[family-name:var(--c-mark)] text-[21vw] uppercase leading-[0.82] tracking-[-0.01em] lg:top-[11vh] lg:text-[17.5vw]">
           <Split delay={150}>Desert Stars</Split>
         </h1>
         <div className="px-page absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 pb-10 text-white">

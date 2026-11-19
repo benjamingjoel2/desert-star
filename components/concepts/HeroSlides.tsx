@@ -24,12 +24,14 @@ export default function HeroSlides({ slides, gold = "#c9a86a", children }: { sli
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-[#07080c] via-[#07080c]/20 to-[#07080c]/50" />
       <div className="px-page absolute inset-x-0 bottom-0 pb-10 lg:pb-14">
+        <div className="grid">
         {slides.map((s, k) => (
-          <div key={s.img} className={`${k === i ? "relative" : "absolute inset-x-0 bottom-0 pointer-events-none"}`} aria-hidden={k !== i}>
+          <div key={s.img} className={`[grid-area:1/1] self-end ${k === i ? "" : "pointer-events-none"}`} aria-hidden={k !== i}>
             <p className={`eyebrow mb-6 transition-all duration-1000 ${k === i ? "translate-y-0 opacity-100 delay-500" : "translate-y-4 opacity-0"}`} style={{ color: gold }}>{s.eyebrow}</p>
-            <h1 className={`max-w-[15ch] font-[family-name:var(--c-display)] text-[54px] font-light leading-[0.95] tracking-[-0.02em] transition-all duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)] sm:text-[80px] lg:text-[124px] ${k === i ? "translate-y-0 opacity-100 delay-300" : "translate-y-10 opacity-0"}`}>{s.title}</h1>
+            <h1 className={`max-w-[15ch] font-[family-name:var(--c-display)] text-[54px] font-light leading-[0.95] tracking-[-0.02em] transition-all duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)] sm:text-[80px] lg:text-[124px] ${k === i ? "translate-y-0 opacity-100 delay-500" : "-translate-y-6 opacity-0 duration-700"}`}>{s.title}</h1>
           </div>
         ))}
+        </div>
         <div className="mt-10 flex flex-wrap items-end justify-between gap-8">
           <div className="flex items-center gap-4">
             {slides.map((s, k) => (

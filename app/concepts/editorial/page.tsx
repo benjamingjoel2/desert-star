@@ -28,7 +28,7 @@ export default function Editorial() {
     ["32", "Al Ain: oases and a mountain road", "al-ain-city-tour"],
   ];
   const essay = [
-    { n: "combo-3in1-3", c: "A saker falcon, Lehbab, 17:40", cls: "col-span-12 md:col-span-7 aspect-[4/3]" },
+    { n: "premium-morning-4", c: "Tracks in the sand, seen from the ridge", cls: "col-span-12 md:col-span-7 aspect-[4/3]" },
     { n: "standard-sunset-4", c: "The camel ride along the ridge", cls: "col-span-6 md:col-span-5 aspect-[4/5] md:mt-24" },
     { n: "combo-mosque-3", c: "Tanoura under the string lights", cls: "col-span-6 md:col-span-4 aspect-[3/4]" },
     { n: "premium-evening-4", c: "From the grill: the camp buffet", cls: "col-span-12 md:col-span-4 aspect-[4/3] md:mt-32" },
