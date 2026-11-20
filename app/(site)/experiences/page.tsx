@@ -19,14 +19,14 @@ export default function Experiences() {
       {/* ───────── Hero: giant 2 lines, centre card grows ───────── */}
       <section className="v4-hero relative h-[200svh]" data-scrub="sticky" aria-label="The experiences">
         <div className="sticky top-0 h-svh overflow-hidden">
-          <div className="kenburns absolute inset-0"><Pic name="desert-sunset" alt="Red dunes under a low sun" sizes="100vw" priority /></div>
+          <div className="kenburns absolute inset-0"><Pic name="desert-sunset" alt="Red dunes under a low sun" sizes="100vw" /></div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0c0a08]/60 via-[#0c0a08]/15 to-[#0c0a08]/45" />
           <h1 className="v4-fade v4-g absolute inset-x-0 top-[64px] text-center md:top-[26px]">
             <span className="block"><Split>The</Split></span>
             <span className="block"><Split delay={140}>experiences</Split></span>
           </h1>
           <div className="v4-card shadow-[0_30px_80px_-30px_rgba(0,0,0,.6)]">
-            <div className="h-full w-full"><Pic name="camp-lanterns" alt="A lantern-lit Bedouin camp at dusk" sizes="100vw" low /></div>
+            <div className="h-full w-full"><Pic name="camp-lanterns" alt="A lantern-lit Bedouin camp at dusk" sizes="100vw" priority /></div>
             <div className="v4-tint absolute inset-0 bg-[#0c0a08]/50" />
           </div>
           <nav aria-label="Categories" className="v4-navrow absolute inset-x-0 z-10 grid -translate-y-1/2 grid-cols-4 px-2 text-center md:px-[10vw]">
