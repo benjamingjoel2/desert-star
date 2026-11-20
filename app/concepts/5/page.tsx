@@ -133,7 +133,7 @@ const css = `
 .v5 .v5-campimg { clip-path: inset(calc((1 - var(--q1)) * 10%) calc((1 - var(--q1)) * 8.8%)); }
 .v5 .v5-camptxt { opacity: clamp(0, calc(var(--p, 1) * 8 - 0.7), 1); }
 .v5 .v5-strip { transform: translate3d(0, calc((1 - clamp(0, calc((var(--p, 1) - 0.2) * 7 - var(--i) * 0.16), 1)) * 101%), 0); }
-.v5 .v5-track { --w: min(640px, 84vw); --g: 24px; transform: translate3d(calc(80vw - var(--q3) * (30vw + 2.5 * var(--w) + 2 * var(--g))), 0, 0); }
+.v5 .v5-track { --w: min(640px, 84vw); --g: 24px; transform: translate3d(calc(104vw - var(--q3) * (54vw + 2.5 * var(--w) + 2 * var(--g))), 0, 0); }
 .v5 .v5-card { width: var(--w); }
 .v5 .v5-pull { opacity: clamp(0, calc(1 - var(--p, 0) * 2.4), 1); transform: translate3d(0, calc(var(--p, 0) * -14vh), 0); }
 .v5 .v5-word { transform: translate3d(0, calc((1 - clamp(0, calc(var(--p, 0) * 1.4), 1)) * 52vh), 0); }
@@ -221,7 +221,7 @@ export default function Page() {
               <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.45] text-[#1f2a44]/85">
                 All year round, from soft winter evenings to long summer sunsets, we collect guests from their door in Dubai at 15:00 and drive south into the red sands of Lehbab. Never more than six to a 4x4, with our team on the ground until we drop you home at 21:30.
               </p>
-              <ul className="mt-6 flex max-w-[360px] flex-wrap gap-2 text-[#1f2a44]">
+              <ul className="mt-6 flex max-w-[360px] flex-wrap gap-2 text-[#1f2a44] [&>li]:bg-white/70 [&>li]:backdrop-blur-sm">
                 <li className={chip}>{site.stats[0].value} guests hosted</li>
                 <li className={chip}>Pick-up from your door</li>
                 <li className={chip}>Free cancellation 24h</li>
@@ -352,22 +352,22 @@ export default function Page() {
         <section className="relative bg-white px-3 pb-16 md:px-[0.83vw] md:pb-24" aria-labelledby="v5-route">
           <div className="border-t border-dashed border-[#1f2a44]/45 pt-3">
             <div className={`${fMono} grid grid-cols-2 gap-y-6 text-[17px] uppercase leading-[1.05] text-[#1f2a44]/75 lg:grid-cols-[1fr_auto_1fr]`}>
-              <div className="lg:row-span-2">
+              <div className="col-start-1 row-start-1 lg:row-span-2">
                 <p>25°12′N 55°16′E</p><p>Dubai · your door</p>
                 <p className="mt-6 hidden lg:block">Up to 6 per 4x4</p><p className="hidden lg:block">Private groups</p>
               </div>
-              <div className="col-span-2 row-start-2 px-2 text-center normal-case lg:col-span-1 lg:row-span-2 lg:row-start-1 lg:pt-1">
+              <div className="col-span-2 col-start-1 row-start-2 px-2 text-center normal-case lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pt-1">
                 <h2 id="v5-route" className={`${fSerif} mx-auto max-w-[640px] text-[38px] font-normal uppercase leading-[0.98] text-[#1f2a44] md:text-[58px]`}>To the heart of the desert</h2>
                 <p className="mx-auto mt-6 max-w-[470px] font-[family-name:var(--v5-sans)] text-[15px] leading-[1.45] text-[#5a6174]">
                   We pick you up from your hotel or home at 15:00 and drive out of the city into the high red dunes of Lehbab. Dune bashing, a camel at dusk, dinner under the stars, and back at your door by 21:30.
                 </p>
               </div>
-              <div className="text-right lg:col-start-3 lg:row-span-2 lg:row-start-1">
+              <div className="col-start-2 row-start-1 text-right lg:col-start-3 lg:row-span-2">
                 <p>Lehbab</p><p>Red dunes</p>
                 <p className="mt-6 hidden lg:block">Drop-off 21:30</p><p className="hidden lg:block">Back in Dubai</p>
               </div>
-              <div className="row-start-3 lg:hidden"><p>Up to 6</p><p>per 4x4</p></div>
-              <div className="row-start-3 text-right lg:hidden"><p>Drop-off</p><p>21:30</p></div>
+              <div className="col-start-1 row-start-3 lg:hidden"><p>Up to 6</p><p>per 4x4</p></div>
+              <div className="col-start-2 row-start-3 text-right lg:hidden"><p>Drop-off</p><p>21:30</p></div>
             </div>
           </div>
         </section>
@@ -381,7 +381,6 @@ export default function Page() {
                   <path key={i} d={`M-40 ${120 + i * 58} C 240 ${70 + i * 58}, 420 ${190 + i * 58}, 720 ${130 + i * 58} S 1180 ${60 + i * 58}, 1500 ${150 + i * 58}`} />
                 ))}
               </g>
-              <path d="M640 0 C 700 60, 780 80, 900 70 L 1440 40 L 1440 0 Z" fill="#ffffff" fillOpacity="0.05" />
               <path pathLength={1000} className="v5-route" d="M712 168 C 560 330, 600 560, 836 712" fill="none" stroke="#ffb47a" strokeWidth="1.6" />
               <circle cx="712" cy="168" r="5" fill="#ffffff" />
               <circle className="v5-pulse" cx="712" cy="168" r="10" fill="none" stroke="#ffffff" strokeOpacity="0.7" />
@@ -409,7 +408,7 @@ export default function Page() {
               ))}
             </dl>
           </div>
-          <Link href="/experiences/premium-evening-desert-safari" className="group absolute bottom-10 right-[17.22vw] hidden w-[22vw] min-w-[280px] border border-white/10 bg-[#141c31] p-2.5 lg:block">
+          <Link href="/experiences/premium-evening-desert-safari" className="group absolute bottom-10 right-[6vw] hidden w-[22vw] min-w-[280px] border border-white/10 bg-[#141c31] p-2.5 lg:block">
             <div className="relative aspect-[16/9] overflow-hidden">
               <Pic name="premium-evening-3" sizes="24vw" alt="" className="transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 grid place-items-center bg-[#1f2a44]/30 text-[15px] font-medium">
