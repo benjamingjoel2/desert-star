@@ -1,480 +1,449 @@
 import Link from "next/link";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Oswald, Cormorant_Garamond, Hanken_Grotesk, VT323 } from "next/font/google";
 import Pic from "@/components/Pic";
 import Split from "@/components/Split";
-import { getTour, price, type Tour } from "@/lib/tours";
-import { site, waLink, categories } from "@/data/site";
+import TripPanels from "@/components/TripPanels";
+import { FillWords } from "@/components/Bits";
+import { tours, getTour, price, type Tour } from "@/lib/tours";
+import { site, waLink } from "@/data/site";
 import { posts } from "@/data/journal";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
-  variable: "--q-serif",
-});
-const sans = Jost({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--q-sans" });
+const osw = Oswald({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--v1-osw" });
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500"], style: ["normal", "italic"], variable: "--v1-serif" });
+const sans = Hanken_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--v1-sans" });
+const mono = VT323({ subsets: ["latin"], weight: "400", variable: "--v1-mono" });
 
-export const metadata = { title: "Design 1 · Quiet luxury" };
+export const metadata = { title: "Variation 1 · Balanced · light" };
 
-/* Palette: ivory #f3efe8, paper #ebe5db, ink #3b342e, muted #7d7268, hairline #d8d0c4, sand #a68a6a */
-const S = "font-[family-name:var(--q-serif)]";
-const label = "text-[10.5px] uppercase tracking-[0.24em] text-[#7d7268]";
-const pad = "px-5 md:px-10";
+/* Palette: white #fff, off-white #f3f1ec, navy ink #1f2a44, deep navy #18213a, sand-orange #b9601f (tab + Enquire only) */
+const O = "font-[family-name:var(--v1-osw)]";
+const C = "font-[family-name:var(--v1-serif)]";
+const M = "font-[family-name:var(--v1-mono)] uppercase tracking-[0.04em]";
+const pad = "px-5 lg:px-10";
 
-/* Experiences for the rail, each with a hand-picked photo so nothing repeats on the page. */
-const railPicks: [string, string][] = [
+const wa = waLink("Hello Desert Stars, I would like to plan a desert evening.");
+const evening = getTour("premium-evening-desert-safari");
+const fromPrice = evening ? price(evening) : "Price on request";
+
+/* OUR EXPERIENCES: six tours, each with its own photo */
+const tripPicks: [string, string][] = [
   ["premium-evening-desert-safari", "premium-evening-1"],
   ["evening-desert-safari", "standard-sunset-4"],
   ["premium-morning-desert-safari", "premium-morning-1"],
-  ["self-drive-evening-desert-safari", "dunes-cruiser"],
+  ["self-drive-evening-desert-safari", "desert-sunset"],
   ["standard-sunset-desert-safari", "standard-sunset-3"],
-  ["sheikh-zayed-grand-mosque-tour", "mosque-1"],
-  ["dubai-city-tour", "dubai-skyline"],
-  ["al-ain-city-tour", "alain-1"],
-  ["sharjah-city-tour", "sharjah-blue-souk"],
-  ["dubai-marina-dhow-cruise", "dubai-night"],
+  ["grand-mosque-and-desert-safari", "mosque-bluehour"],
 ];
-const rail = railPicks
+const trips = tripPicks
   .map(([slug, img]) => ({ t: getTour(slug), img }))
-  .filter((x): x is { t: Tour; img: string } => Boolean(x.t));
+  .filter((x): x is { t: Tour; img: string } => Boolean(x.t))
+  .map(({ t, img }) => ({ href: `/experiences/${t.slug}`, title: t.title, price: price(t), meta: t.timing, text: t.short, img }));
 
-const signature = getTour("premium-evening-desert-safari");
+const chips = ["11,000+ guests hosted", "Pick-up from your door", "Free cancellation 24h", "Reply within 30 min"];
 
-function More({ href, children, light = false }: { href: string; children: React.ReactNode; light?: boolean }) {
+const evenings: { time: string; cap: string; img: string; alt: string }[] = [
+  { time: "15:00", cap: "Pick-up from your door", img: "dubai-skyline", alt: "Dubai skyline in the afternoon" },
+  { time: "16:30", cap: "Into the red dunes", img: "premium-evening-2", alt: "A 4x4 in the red dunes" },
+  { time: "18:00", cap: "Sunset with the camels", img: "camel-grazing", alt: "Camels resting on the sand at sunset" },
+  { time: "19:30", cap: "Dinner by lantern light", img: "premium-evening-4", alt: "Grilled dinner served at the camp" },
+  { time: "20:30", cap: "Tanoura under the stars", img: "combo-mosque-3", alt: "A Tanoura dancer spinning at night" },
+];
+
+const desert = tours.filter((t) => t.category === "desert");
+const other = tours.filter((t) => t.category !== "desert").slice(0, 6);
+
+function Star({ className = "" }: { className?: string }) {
   return (
-    <Link
-      href={href}
-      className={`group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] ${light ? "text-[#f3efe8]" : "text-[#3b342e]"}`}
-    >
-      <span className="relative pb-1.5">
-        {children}
-        <span className={`absolute bottom-0 left-0 h-px w-full origin-left transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-x-[0.35] ${light ? "bg-[#f3efe8]/70" : "bg-[#3b342e]/60"}`} />
-      </span>
-    </Link>
+    <svg viewBox="0 0 20 20" className={className} aria-hidden="true">
+      <path d="M10 0 L11.4 8.6 L20 10 L11.4 11.4 L10 20 L8.6 11.4 L0 10 L8.6 8.6 Z" fill="currentColor" />
+    </svg>
   );
 }
 
-const nav = [
-  { href: "/experiences", label: "Experiences" },
-  { href: "/journal", label: "Journal" },
-  { href: "/about", label: "About" },
-  { href: "/enquire", label: "Enquire" },
-];
-
-export default function QuietLuxury() {
-  const t = signature;
+/* Hand-drawn loop around a small italic label (White Desert) */
+function Loop({ className = "" }: { className?: string }) {
   return (
-    <div
-      className={`${serif.variable} ${sans.variable} min-h-screen overflow-x-clip bg-[#f3efe8] font-[family-name:var(--q-sans)] font-light text-[#3b342e] antialiased selection:bg-[#3b342e] selection:text-[#f3efe8]`}
-    >
+    <svg viewBox="0 0 260 90" className={className} fill="none" aria-hidden="true">
+      <path d="M4 84 C 70 80, 200 82, 244 64 C 270 52, 220 18, 120 10 C 40 4, 10 26, 70 46 C 110 60, 150 70, 176 86" stroke="currentColor" strokeWidth="1" className="draw-line" />
+    </svg>
+  );
+}
+
+function Swash({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 540 100" className={className} fill="none" aria-hidden="true">
+      <path d="M2 10 C 40 40, 80 60, 180 84 M 60 30 C 200 10, 360 20, 380 44 C 390 60, 250 50, 160 40 M 120 52 C 260 70, 420 84, 536 98" stroke="currentColor" strokeWidth="1" className="draw-line" />
+    </svg>
+  );
+}
+
+export default function Page() {
+  return (
+    <div className={`${osw.variable} ${serif.variable} ${sans.variable} ${mono.variable} v1 relative overflow-x-clip bg-white font-[family-name:var(--v1-sans)] text-[#1f2a44] antialiased`}>
       <style>{`
-        @keyframes qRail { from { transform: scaleX(.12) } to { transform: scaleX(1) } }
-        .q-rail-wrap { timeline-scope: --qrail; }
-        .q-rail { scroll-timeline: --qrail x; scrollbar-width: none; }
-        .q-rail::-webkit-scrollbar { display: none; }
-        .q-bar { transform: scaleX(.12); transform-origin: left; }
-        @supports (animation-timeline: scroll()) {
-          .q-bar { animation: qRail linear both; animation-timeline: --qrail; }
-        }
+        .v1 ::selection { background: #1f2a44; color: #fff; }
+        .v1-fog { background: linear-gradient(to top, #fff 0%, rgba(255,255,255,.92) 22%, rgba(255,255,255,.55) 48%, rgba(255,255,255,0) 100%);
+          opacity: calc(.8 + var(--p, 0) * .2); transform: translate3d(0, calc((1 - var(--p, 0)) * 14%), 0); }
+        .v1-wash { opacity: calc(var(--p, 0) * var(--p, 0)); }
+        .v1-route-word { opacity: calc(.85 - var(--p, 1) * .3); filter: blur(calc(var(--p, 1) * 2px)); transform: translate3d(0, calc(var(--p, 1) * -6vh), 0); }
+        .v1-step-l { transform: translate3d(calc((1 - min(1, var(--p, 1) * 2.4)) * -40%), 0, 0); }
+        .v1-step-r { transform: translate3d(calc((1 - min(1, var(--p, 1) * 2.4)) * 40%), 0, 0); }
+        .v1-route { stroke-dasharray: 900; stroke-dashoffset: calc((1 - min(1, var(--p, 1) * 1.8)) * 900px); }
+        .v1-pill { transition: background-color .4s, color .4s; }
+        .v1-tab { transition: width .5s cubic-bezier(.16,1,.3,1); }
+        .v1-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .6s cubic-bezier(.16,1,.3,1), color .3s; }
+        .v1-link:hover { background-size: 100% 1px; }
+        .v1 details > summary { list-style: none; } .v1 details > summary::-webkit-details-marker { display: none; }
       `}</style>
 
-      {/* Header */}
-      <header className={`${pad} sticky top-0 z-40 border-b border-[#d8d0c4]/70 bg-[#f3efe8]/90 backdrop-blur-md`}>
-        <div className="flex h-16 items-center justify-between md:h-20">
-          <Link href="/concepts/1" className={`${S} text-[22px] font-normal tracking-[0.01em] md:text-[24px]`}>
-            Desert Stars
-          </Link>
-          <nav className="hidden items-center gap-10 md:flex" aria-label="Primary">
-            {nav.slice(0, 3).map((n) => (
-              <Link key={n.href} href={n.href} className="text-[11px] uppercase tracking-[0.22em] text-[#5e554d] transition-colors hover:text-[#3b342e]">
-                {n.label}
-              </Link>
+      {/* W12: faint vertical grid lines */}
+      <div aria-hidden="true" className={`pointer-events-none fixed inset-0 z-[1] ${pad}`}>
+        <div className="grid h-full grid-cols-4 lg:grid-cols-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className={`border-l border-[#1f2a44]/[0.07] ${i >= 4 ? "hidden lg:block" : ""} ${i === 3 ? "lg:border-r-0 border-r" : ""} last:border-r`} />
+          ))}
+        </div>
+      </div>
+
+      {/* W12: fixed side tab */}
+      <Link href="/enquire" className="v1-tab fixed right-0 top-1/2 z-40 flex h-[140px] w-[40px] -translate-y-1/2 flex-col items-center justify-center gap-3 bg-[#b9601f] text-white hover:w-[48px] lg:h-[200px] lg:w-[60px] lg:hover:w-[70px]">
+        <Star className="h-3 w-3" />
+        <span className="rotate-180 text-[14px] font-medium [writing-mode:vertical-rl]">Enquire</span>
+      </Link>
+
+      {/* W1: header — pills left, centred logo, pills right */}
+      <header className={`absolute inset-x-0 top-0 z-30 ${pad} pt-4 lg:pt-6`}>
+        <div className="flex items-center justify-between gap-3 text-[14px] font-medium text-white">
+          <nav aria-label="Primary" className="hidden flex-1 gap-2 lg:flex">
+            {[["Experiences", "/experiences"], ["The evening", "#evening"], ["About", "/about"]].map(([l, h]) => (
+              <Link key={l} href={h} className="v1-pill rounded-[4px] bg-white/15 px-5 py-3 backdrop-blur-md hover:bg-white hover:text-[#1f2a44]">{l}</Link>
             ))}
           </nav>
-          <div className="flex items-center gap-5">
-            <a href={site.phoneHref} className="hidden text-[12px] tracking-[0.04em] text-[#7d7268] lg:inline">
-              {site.phone}
-            </a>
-            <Link
-              href="/enquire"
-              className="border border-[#3b342e] px-4 py-2.5 text-[10.5px] uppercase tracking-[0.24em] transition-colors duration-500 hover:bg-[#3b342e] hover:text-[#f3efe8] md:px-6"
-            >
-              Enquire
-            </Link>
+          <details className="relative lg:hidden">
+            <summary className="v1-pill cursor-pointer rounded-[4px] bg-white/15 px-5 py-3 backdrop-blur-md">Menu</summary>
+            <div className="absolute left-0 top-[calc(100%+8px)] w-[220px] rounded-[4px] bg-white p-2 text-[#1f2a44] shadow-xl">
+              {[["Experiences", "/experiences"], ["The evening", "#evening"], ["Rates", "#experiences"], ["Journal", "/journal"], ["About", "/about"]].map(([l, h]) => (
+                <Link key={l} href={h} className="block rounded-[3px] px-3 py-2.5 hover:bg-[#f3f1ec]">{l}</Link>
+              ))}
+            </div>
+          </details>
+          <Link href="/" className="flex flex-col items-center gap-1.5 text-white" aria-label="Desert Stars home">
+            <Star className="h-4 w-4 lg:h-5 lg:w-5" />
+            <span className={`${O} text-[15px] font-normal uppercase leading-none tracking-[0.28em] lg:text-[18px]`}>Desert Stars</span>
+          </Link>
+          <div className="flex flex-1 justify-end gap-2">
+            <Link href="#experiences" className="v1-pill hidden rounded-[4px] bg-white/15 px-5 py-3 backdrop-blur-md hover:bg-white hover:text-[#1f2a44] lg:block">Rates</Link>
+            <Link href="/enquire" className="v1-pill rounded-[4px] bg-[#b9601f] px-5 py-3 text-white hover:bg-[#a0521a]">Enquire</Link>
           </div>
         </div>
-        <nav className="-mx-5 flex gap-7 overflow-x-auto px-5 pb-3 md:hidden" aria-label="Primary mobile">
-          {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="shrink-0 text-[10.5px] uppercase tracking-[0.22em] text-[#5e554d]">
-              {n.label}
-            </Link>
-          ))}
-        </nav>
       </header>
 
       <main>
-        {/* Hero: full-bleed image, headline below on ivory */}
-        <section>
-          <div className="relative h-[72svh] min-h-[420px] w-full overflow-hidden md:h-[86svh]">
+        {/* W2: hero — giant LEHBAB that blurs into fog on scroll */}
+        <section data-scrub="sticky" className="relative h-[190svh]">
+          <div className="sticky top-0 h-[100svh] overflow-hidden">
             <div className="hero-zoom absolute inset-0">
-              <Pic name="camel-caravan" priority sizes="100vw" alt="A camel caravan crossing a dune ridge at golden hour in the Dubai desert" />
+              <Pic name="dunes-cruiser" priority sizes="100vw" alt="A 4x4 crossing the red dunes of Lehbab at golden hour" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#1f2a44]/55 via-[#1f2a44]/15 to-transparent" />
+
+            <p className={`hero-ui absolute inset-x-5 top-[44%] text-center ${C} text-[22px] italic leading-[1.15] text-white lg:left-10 lg:right-auto lg:top-[28%] lg:max-w-[260px] lg:text-left lg:text-[21px]`}>
+              Private evenings in the red dunes beyond Dubai
+            </p>
+            <Link href="#evening" className="hero-ui absolute inset-x-5 bottom-[calc(14%_+_26vw)] flex items-center justify-between border-y border-white/40 px-6 py-3.5 text-[14px] font-medium text-white transition-colors hover:bg-white/10 lg:inset-x-auto lg:bottom-auto lg:right-[100px] lg:top-[28%] lg:w-[190px] lg:px-8">
+              Our evenings <span aria-hidden="true" className="text-[11px]">▶</span>
+            </Link>
+
+            <h1 className="absolute inset-x-0 bottom-[14%] text-center lg:bottom-[13%]">
+              <span aria-hidden="true" className={`hero-mark block ${O} text-[27vw] font-medium uppercase leading-[0.78] tracking-[0.03em] text-white lg:text-[25vw]`}>Lehbab</span>
+              <span className="sr-only">Desert Stars — private desert evenings in Lehbab, from Dubai</span>
+            </h1>
+            <div className="v1-fog pointer-events-none absolute inset-x-0 bottom-0 h-[58%]" />
+            <div className="v1-wash pointer-events-none absolute inset-0 bg-white" />
+          </div>
+        </section>
+
+        {/* W3: statement — swoosh label + words filling */}
+        <section className={`relative bg-white ${pad} pb-[16vh] pt-[6vh] lg:pb-[22vh]`}>
+          <div className="lg:ml-[33.333%] lg:w-[50%]">
+            <p className="relative mb-8 inline-block">
+              <Loop className="absolute -left-[70px] -top-[34px] w-[230px] text-[#1f2a44]/35" />
+              <span className={`relative ${C} text-[22px] italic`}>The red desert</span>
+            </p>
+            <FillWords
+              className={`${C} text-[29px] uppercase leading-[0.98] [text-indent:22%] sm:text-[40px] lg:text-[3.2vw] lg:[text-indent:33.333%]`}
+              text="Beyond the last road out of Dubai the sand turns red and the city falls silent. An evening in Lehbab is slow, private and unhurried — ending with dinner by lantern light under a sky full of stars."
+            />
+          </div>
+          <div className="reveal mt-16 max-w-[300px] lg:ml-[16.666%] lg:mt-24 lg:w-[16.666%] lg:max-w-none lg:pr-6">
+            <h2 className={`${O} text-[20px] font-normal uppercase`}>The evening</h2>
+            <p className="mt-4 text-[15px] font-medium leading-[1.45] text-[#1f2a44]/85">
+              We collect you from your door at 15:00 and bring you home by 21:30, with up to six guests in each 4x4. {site.cancellation}
+            </p>
+          </div>
+        </section>
+
+        {/* M4: stepped navy band with mono chips */}
+        <section aria-label="Desert Stars in numbers" className="relative">
+          <div className="relative h-[70svh] overflow-hidden lg:h-[100svh]">
+            <div data-parallax="0.12" className="absolute inset-0">
+              <Pic name="camel-caravan" sizes="100vw" alt="A camel caravan crossing the dunes" />
             </div>
           </div>
-          <div className={`${pad} pt-10 pb-20 md:pt-16 md:pb-32`}>
-            <div className="flex items-center justify-between border-b border-[#d8d0c4] pb-4">
-              <p className={label}>Dubai · Lehbab red dunes</p>
-              <p className={`${label} hidden md:block`}>25.0° N, 55.6° E</p>
-            </div>
-            <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-10">
-              <h1 className={`${S} text-[34px] font-light leading-[1.12] tracking-[-0.005em] md:col-span-7 md:text-[52px]`}>
-                <Split>
-                  An evening in the red dunes, <em className="italic text-[#8a6f52]">arranged with quiet care</em> from your door in Dubai.
-                </Split>
-              </h1>
-              <div className="reveal md:col-span-4 md:col-start-9 md:pt-3">
-                <p className="text-[15px] leading-[1.8] text-[#5e554d]">
-                  Private desert safaris and Emirates journeys. We collect you, drive you out to the dunes of Lehbab, and bring
-                  you back under the stars after dinner in a lantern-lit Bedouin camp.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-                  <More href="/experiences">Discover experiences</More>
-                  <More href="/enquire">Plan an evening</More>
+          <div data-scrub="pass" className="relative -mt-[96px] text-white lg:-mt-[128px]">
+            {[0, 1].map((row) => (
+              <div key={row} className="flex h-12 justify-between lg:h-16">
+                <div className={`v1-step-l flex items-center justify-end bg-[#1f2a44] pr-5 ${row === 0 ? "w-[16%] lg:w-[30%]" : "w-[30%] lg:w-[40%]"}`}>
+                  <span className={`${M} hidden text-[19px] lg:inline`}>{chips[row * 2]}</span>
+                </div>
+                <div className={`v1-step-r flex items-center bg-[#1f2a44] pl-5 ${row === 0 ? "w-[16%] lg:w-[30%]" : "w-[30%] lg:w-[40%]"}`}>
+                  <span className={`${M} hidden text-[19px] lg:inline`}>{chips[row * 2 + 1]}</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats line */}
-        <section className={`${pad} pb-20 md:pb-32`}>
-          <dl className="grid grid-cols-2 border-t border-[#d8d0c4] md:grid-cols-4">
-            {site.stats.map((s, i) => (
-              <div
-                key={s.label}
-                className={`reveal border-b border-[#d8d0c4] py-7 md:border-b-0 md:py-9 ${i % 2 === 1 ? "pl-5 md:pl-8" : ""} ${i > 0 ? "md:border-l md:pl-8" : ""} ${i % 2 === 1 ? "border-l" : ""}`}
-              >
-                <dt className={label}>{s.label}</dt>
-                <dd className={`${S} mt-3 text-[30px] font-light leading-none md:text-[38px]`}>{s.value}</dd>
-              </div>
             ))}
-          </dl>
-        </section>
-
-        {/* Feature block 1: the evening */}
-        <section className={`${pad} pb-24 md:pb-40`}>
-          <div className="grid gap-12 md:grid-cols-12 md:gap-10">
-            <div className="md:col-span-7">
-              <div className="reveal-img relative aspect-[4/5] overflow-hidden md:aspect-[5/6]">
-                <Pic name="camp-lanterns" sizes="(min-width: 768px) 56vw, 100vw" alt="A Bedouin camp lit by lanterns at dusk" />
-              </div>
-              <p className={`${label} mt-4`}>The camp, an hour after sunset</p>
-            </div>
-            <div className="flex flex-col md:col-span-4 md:col-start-9">
-              <p className={`${label} reveal`}>01 — The signature evening</p>
-              <h2 className={`${S} reveal mt-6 text-[28px] font-light leading-[1.18] md:text-[36px]`}>
-                Dune drive at golden hour, then dinner by lantern light
-              </h2>
-              <p className="reveal mt-6 text-[15px] leading-[1.85] text-[#5e554d]">
-                {t?.short ??
-                  "A 4x4 crossing of the red dunes, camel rides at dusk and a slow BBQ dinner in a lantern-lit camp."}
-              </p>
-              <ul className="reveal mt-8 border-t border-[#d8d0c4] text-[13.5px]">
-                {[
-                  "Pick-up from your door in Dubai",
-                  "Camel rides and a falcon to meet",
-                  "BBQ dinner in a Bedouin camp",
-                  "Tanoura and fire shows after dark",
-                ].map((h) => (
-                  <li key={h} className="flex items-baseline gap-4 border-b border-[#d8d0c4] py-3.5 text-[#4a423b]">
-                    <span className="h-px w-3 shrink-0 translate-y-[-3px] bg-[#a68a6a]" />
-                    {h}
-                  </li>
+            <div className={`bg-[#1f2a44] ${pad} pb-4 pt-8 lg:hidden`}>
+              <ul className="flex flex-wrap gap-2">
+                {chips.map((c) => (
+                  <li key={c} className={`${M} border border-white/35 px-2 py-0.5 text-[18px]`}>{c}</li>
                 ))}
               </ul>
-              {t && (
-                <div className="reveal mt-8 flex items-end justify-between gap-6">
-                  <div>
-                    <p className={label}>{t.timing}</p>
-                    <p className={`${S} mt-2 text-[22px]`}>{price(t)}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* M5: split headline around a centre photo */}
+        <section className="relative bg-[#1f2a44] pb-[14vh] pt-[10vh] text-[#eef1f8] lg:pt-[14vh]">
+          <h2 className="sr-only">Raised by the dunes</h2>
+          <div className={`relative ${pad} lg:h-[62vw] lg:px-0`}>
+            <div aria-hidden="true" className={`relative z-10 ${O} text-[21vw] font-normal uppercase leading-[0.8] lg:absolute lg:left-[18%] lg:top-0 lg:text-[11vw]`}>
+              <Split>Raised</Split><br /><Split delay={120}>By</Split>
+            </div>
+            <div className="reveal-img relative mx-auto -mt-[4vw] aspect-[4/5] w-[72%] overflow-hidden rounded-[4px] lg:absolute lg:left-1/2 lg:top-[7.5vw] lg:mt-0 lg:aspect-auto lg:h-[50vw] lg:w-[31.4vw] lg:-translate-x-1/2">
+              <Pic name="camel-ride" sizes="(min-width:1024px) 32vw, 72vw" alt="Guests riding camels along a dune ridge" />
+            </div>
+            <div aria-hidden="true" className={`relative z-10 -mt-[12vw] text-right ${O} text-[21vw] font-normal uppercase leading-[0.8] lg:absolute lg:right-[18%] lg:top-[8.8vw] lg:mt-0 lg:text-[11vw]`}>
+              <Split delay={200}>The</Split><br /><Split delay={300}>Dunes</Split>
+            </div>
+          </div>
+          <div className={`${pad} mt-[12vh] lg:mt-0`}>
+            <p className={`reveal max-w-[980px] ${C} text-[28px] leading-[1.08] lg:text-[44px]`}>
+              Our drivers and hosts know these dunes by heart — where the sand is softest, where the light falls last, and where the quiet is deepest.
+            </p>
+            <div className="reveal mt-10 gap-10 text-[14px] leading-[1.6] text-white/70 lg:ml-[25%] lg:columns-2">
+              <p>{site.description}</p>
+              <p className="mt-4 lg:mt-0">Every evening is planned around you: pick-up from your door, an air-conditioned 4x4, and a camp set up for a slow dinner after dark. {site.response}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* W5: OUR EXPERIENCES accordion */}
+        <section id="experiences" className="relative bg-white pb-[14vh] pt-[14vh]">
+          <div className={`relative ${pad} text-center`}>
+            <h2 className={`${C} text-[44px] uppercase leading-none lg:text-[64px]`}><Split>Our experiences</Split></h2>
+            <Swash className="mx-auto -mt-2 w-[300px] text-[#1f2a44]/40 lg:w-[520px]" />
+          </div>
+          <div className="mt-10 px-3 lg:mt-14">
+            <TripPanels trips={trips} />
+          </div>
+          <div className={`${pad} mt-10 flex flex-col items-center gap-3 text-center`}>
+            <p className={`${C} text-[20px] italic`}>Sixteen experiences across the Emirates</p>
+            <Link href="/experiences" className="text-[14px] font-medium tracking-wide hover:text-[#b9601f]">[ View all experiences ]</Link>
+          </div>
+        </section>
+
+        {/* M7: sticky centre column — The evening */}
+        <section id="evening" aria-labelledby="v1-evening" className="relative bg-[#1f2a44] py-[12vh] text-white lg:py-[22vh]">
+          <div className={`mb-10 flex items-baseline justify-between ${pad} lg:hidden`}>
+            <h2 className="text-[28px] font-normal">The evening <sup className="text-[10px]">™ (05)</sup></h2>
+            <Link href="/experiences" className={`${M} text-[19px]`}>Discover</Link>
+          </div>
+          <div className="lg:grid lg:grid-cols-[1fr_31.4vw_1fr]">
+            <div className="hidden lg:block">
+              <div className="sticky top-[50svh] -translate-y-1/2 pl-10">
+                <h2 id="v1-evening" className="text-[30px] font-normal leading-none">The evening <sup className="text-[10px] font-medium">™ (05)</sup></h2>
+                <p className={`mt-3 ${C} max-w-[220px] text-[17px] italic text-white/70`}>From your door at 15:00 to the last light of the fire.</p>
+              </div>
+            </div>
+            <ol className={`${pad} space-y-3 lg:space-y-0 lg:px-0`}>
+              {evenings.map((e, i) => (
+                <li key={e.time} className="relative aspect-[4/5] overflow-hidden lg:aspect-[452/560]">
+                  <div className="reveal-img zoom absolute inset-0">
+                    <Pic name={e.img} sizes="(min-width:1024px) 32vw, 100vw" alt={e.alt} />
                   </div>
-                  <More href={`/experiences/${t.slug}`}>Discover more</More>
-                </div>
-              )}
-              <div className="reveal-img relative mt-12 hidden aspect-[4/3] w-3/4 self-end overflow-hidden md:mt-auto md:block">
-                <Pic name="premium-evening-4" sizes="24vw" alt="BBQ dinner served at the desert camp" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Feature block 2: reversed */}
-        <section className={`${pad} border-t border-[#d8d0c4] pt-24 pb-24 md:pt-40 md:pb-40`}>
-          <div className="grid gap-12 md:grid-cols-12 md:gap-10">
-            <div className="order-2 flex flex-col md:order-1 md:col-span-4">
-              <p className={`${label} reveal`}>02 — Desert traditions</p>
-              <h2 className={`${S} reveal mt-6 text-[28px] font-light leading-[1.18] md:text-[36px]`}>
-                A falcon on the glove, a Tanoura dancer under the lights
-              </h2>
-              <p className="reveal mt-6 text-[15px] leading-[1.85] text-[#5e554d]">
-                The old customs of the desert, kept close and unhurried. Meet a trained falcon at the camp, take a slow camel ride
-                along the ridge, and stay for the Tanoura and fire shows once the sky has gone dark.
-              </p>
-              <div className="reveal mt-10">
-                <More href="/experiences#desert">Discover desert safaris</More>
-              </div>
-              <div className="reveal-img relative mt-14 aspect-[3/4] w-2/3 overflow-hidden md:mt-auto">
-                <Pic name="combo-mosque-3" sizes="(min-width: 768px) 22vw, 66vw" alt="A Tanoura dancer turning beneath string lights" />
-              </div>
-            </div>
-            <div className="order-1 md:order-2 md:col-span-7 md:col-start-6">
-              <div className="reveal-img relative aspect-[4/5] overflow-hidden">
-                <Pic name="combo-3in1-3" sizes="(min-width: 768px) 56vw, 100vw" alt="A guest holding a falcon in the desert" />
-              </div>
-              <p className={`${label} mt-4`}>Falconry at the camp</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Experience rail */}
-        <section className="q-rail-wrap border-t border-[#d8d0c4] bg-[#ebe5db] pt-20 pb-20 md:pt-32 md:pb-28">
-          <div className={`${pad} flex flex-col gap-6 md:flex-row md:items-end md:justify-between`}>
-            <div>
-              <p className={`${label} reveal`}>Experiences</p>
-              <h2 className={`${S} reveal mt-5 max-w-[22ch] text-[28px] font-light leading-[1.18] md:text-[40px]`}>
-                Sixteen ways to spend a day in the Emirates
-              </h2>
-            </div>
-            <div className="reveal">
-              <More href="/experiences">View all experiences</More>
-            </div>
-          </div>
-          <ul
-            className="q-rail mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-5 px-5 md:mt-16 md:gap-8 md:scroll-px-10 md:px-10"
-            aria-label="Experiences"
-          >
-            {rail.map(({ t: r, img }, i) => (
-              <li key={r.slug} className="w-[78vw] shrink-0 snap-start sm:w-[46vw] md:w-[30vw] lg:w-[23vw]">
-                <Link href={`/experiences/${r.slug}`} className="group block">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <div className="absolute inset-0 transition-transform duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.04]">
-                      <Pic name={img} sizes="(min-width: 1024px) 23vw, (min-width: 768px) 30vw, 78vw" alt={r.title} />
-                    </div>
-                  </div>
-                  <div className="mt-5 flex items-baseline justify-between gap-4 border-b border-[#d0c7b9] pb-3">
-                    <p className={label}>
-                      {String(i + 1).padStart(2, "0")} · {categories.find((c) => c.slug === r.category)?.name}
-                    </p>
-                    <p className="shrink-0 text-[11px] tracking-[0.06em] text-[#7d7268]">{r.timing}</p>
-                  </div>
-                  <h3 className={`${S} mt-4 text-[21px] font-normal leading-[1.25] md:text-[22px]`}>{r.title}</h3>
-                  <p className="mt-2 text-[13px] tracking-[0.02em] text-[#5e554d]">{price(r)}</p>
-                </Link>
-              </li>
-            ))}
-            <li aria-hidden className="w-px shrink-0" />
-          </ul>
-          <div className={`${pad} mt-12 flex items-center gap-6`}>
-            <div className="relative h-px flex-1 bg-[#d0c7b9]">
-              <div className="q-bar absolute inset-0 bg-[#3b342e]" />
-            </div>
-            <p className={label}>Scroll</p>
-          </div>
-        </section>
-
-        {/* Quiet image band */}
-        <section className="relative h-[70svh] min-h-[420px] overflow-hidden md:h-[92svh]">
-          <div data-parallax="0.15" className="absolute inset-x-0 -top-[12%] h-[124%]">
-            <Pic name="night-sky" sizes="100vw" alt="The night sky full of stars over the desert" />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1d1814]/55 via-transparent to-transparent" />
-          <div className={`${pad} absolute inset-x-0 bottom-0 pb-10 md:pb-16`}>
-            <div className="grid gap-6 md:grid-cols-12 md:items-end">
-              <p className={`${S} reveal text-[26px] font-light italic leading-[1.25] text-[#f3efe8] md:col-span-6 md:text-[34px]`}>
-                Far from the city lights, the stars come out one by one.
-              </p>
-              <div className="reveal md:col-span-3 md:col-start-10 md:text-right">
-                <More href="/experiences#desert" light>
-                  The overnight desert
-                </More>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Collections */}
-        <section className={`${pad} py-24 md:py-40`}>
-          <div className="grid gap-12 md:grid-cols-12 md:gap-10">
-            <div className="md:col-span-4">
-              <p className={`${label} reveal`}>Collections</p>
-              <h2 className={`${S} reveal mt-6 text-[28px] font-light leading-[1.18] md:text-[36px]`}>
-                Beyond the dunes
-              </h2>
-              <p className="reveal mt-6 max-w-[38ch] text-[15px] leading-[1.85] text-[#5e554d]">
-                Guided days across Dubai, Abu Dhabi, Al Ain and Sharjah, dinner on the water, and the city&rsquo;s signature
-                tickets, arranged by the same small team.
-              </p>
-            </div>
-            <ul className="border-t border-[#d8d0c4] md:col-span-7 md:col-start-6">
-              {categories.map((c, i) => (
-                <li key={c.slug} className="reveal border-b border-[#d8d0c4]">
-                  <Link href={`/experiences#${c.slug}`} className="group grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-4 py-7 md:grid-cols-[3rem_1fr_1fr_auto] md:py-9">
-                    <span className="text-[11px] tracking-[0.2em] text-[#a68a6a]">{String(i + 1).padStart(2, "0")}</span>
-                    <span className={`${S} text-[24px] font-light leading-tight transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:translate-x-2 md:text-[30px]`}>
-                      {c.name}
-                    </span>
-                    <span className="col-span-3 col-start-2 row-start-2 text-[13.5px] leading-[1.7] text-[#7d7268] md:col-span-1 md:col-start-3 md:row-start-1">
-                      {c.blurb}
-                    </span>
-                    <span className="col-start-3 row-start-1 text-[18px] text-[#7d7268] transition-colors group-hover:text-[#3b342e] md:col-start-4" aria-hidden>
-                      &rarr;
-                    </span>
-                  </Link>
+                  <p className={`absolute bottom-4 left-4 ${M} flex items-center gap-2 text-[19px]`}>
+                    <span className="bg-white px-1.5 text-[#1f2a44]">{e.time}</span>
+                    <span className="border border-white/70 bg-[#1f2a44]/40 px-1.5 backdrop-blur-sm">{e.cap}</span>
+                  </p>
+                  <span className={`absolute right-4 top-4 ${M} text-[17px] text-white/85`} aria-hidden="true">0{i + 1}/05</span>
                 </li>
               ))}
-            </ul>
+            </ol>
+            <div className="hidden lg:block">
+              <div className="sticky top-[50svh] -translate-y-1/2 pr-[100px] text-right">
+                <Link href="/experiences" className={`${M} v1-link text-[20px]`}>Discover</Link>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Journal */}
-        <section className={`${pad} border-t border-[#d8d0c4] py-24 md:py-36`}>
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <p className={`${label} reveal`}>Journal</p>
-              <h2 className={`${S} reveal mt-5 text-[28px] font-light leading-[1.18] md:text-[36px]`}>Notes from the Emirates</h2>
-            </div>
-            <div className="reveal hidden md:block">
-              <More href="/journal">Read the journal</More>
-            </div>
+        {/* M8: NO PLACE / LIKE THE DESERT */}
+        <section aria-label="No place like the desert" className="relative h-[100svh] overflow-hidden text-white">
+          <div data-parallax="0.14" className="absolute inset-0">
+            <Pic name="night-sky" sizes="100vw" alt="The Milky Way over the desert camp" />
           </div>
-          <div className="mt-12 grid gap-14 md:mt-16 md:grid-cols-3 md:gap-8">
-            {posts.slice(0, 3).map((p) => (
-              <article key={p.slug} className="reveal">
-                <Link href={`/journal/${p.slug}`} className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <div className="absolute inset-0 transition-transform duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.04]">
-                      <Pic name={p.image} sizes="(min-width: 768px) 31vw, 100vw" alt={p.title} />
-                    </div>
-                  </div>
-                  <p className={`${label} mt-5`}>
-                    {p.category} ·{" "}
-                    {new Date(p.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
-                  </p>
-                  <h3 className={`${S} mt-3 text-[21px] font-normal leading-[1.28] md:text-[23px]`}>{p.title}</h3>
-                  <p className="mt-3 line-clamp-2 text-[13.5px] leading-[1.75] text-[#5e554d]">{p.excerpt}</p>
-                  <span className="mt-5 inline-block border-b border-[#3b342e]/50 pb-1 text-[11px] uppercase tracking-[0.22em]">
-                    Read
-                  </span>
-                </Link>
-              </article>
-            ))}
-          </div>
-          <div className="mt-12 md:hidden">
-            <More href="/journal">Read the journal</More>
-          </div>
+          <div className="absolute inset-0 bg-[#1f2a44]/25" />
+          <p aria-hidden="true" className={`absolute left-5 top-[9%] ${O} text-[20vw] font-normal uppercase leading-[0.8] lg:left-10 lg:text-[11vw]`}>
+            <Split>No place</Split>
+          </p>
+          <p aria-hidden="true" className={`absolute bottom-[9%] right-5 text-right ${O} text-[20vw] font-normal uppercase leading-[0.8] lg:right-[100px] lg:text-[11vw]`}>
+            <Split delay={150}>Like the</Split><br className="lg:hidden" /> <Split delay={260}>desert</Split>
+          </p>
+          <span className={`absolute left-5 top-1/2 ${M} border border-white/60 px-1.5 text-[18px] lg:left-10`}>Lehbab desert, UAE</span>
+          <span className={`absolute right-5 top-1/2 ${M} border border-white/60 px-1.5 text-[18px] lg:right-[100px]`}>Dubai 25°12′N 55°16′E</span>
         </section>
 
-        {/* Enquiry */}
-        <section className={`${pad} bg-[#e6dfd3] py-24 md:py-36`}>
-          <div className="grid gap-14 md:grid-cols-12 md:gap-10">
-            <div className="md:col-span-5">
-              <p className={`${label} reveal`}>Enquire</p>
-              <h2 className={`${S} reveal mt-6 text-[30px] font-light leading-[1.15] md:text-[44px]`}>
-                Tell us the evening you have in mind
-              </h2>
-              <p className="reveal mt-6 max-w-[42ch] text-[15px] leading-[1.85] text-[#5e554d]">
-                {site.response} {site.cancellation}
+        {/* W9: route — DUBAI – LEHBAB into fog, four-corner band, navy map */}
+        <section aria-labelledby="v1-route" className="relative bg-white">
+          <div data-scrub="pass" className="relative h-[70svh] overflow-hidden lg:h-[100svh]">
+            <div className="absolute inset-0"><Pic name="camp-lanterns" sizes="100vw" alt="Lanterns glowing across the desert camp at dusk" /></div>
+            <div className="absolute inset-0 bg-white/30" />
+            <p aria-hidden="true" className={`v1-route-word absolute inset-x-0 top-[14%] text-center ${O} text-[24vw] font-light uppercase leading-[0.85] text-white lg:text-[15vw]`}>
+              <span className="block lg:inline">Dubai –</span> <span>Lehbab</span>
+            </p>
+            <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-white via-white/80 to-transparent" />
+          </div>
+          <div className="relative border-t border-dashed border-[#1f2a44]/50 mx-3 pb-20 pt-4 lg:pb-28">
+            <div className={`flex justify-between ${O} text-[13px] font-light leading-[1.35] text-[#1f2a44]/70 lg:absolute lg:inset-x-0 lg:top-4`}>
+              <p>25°12′N 55°16′E<br />Dubai</p>
+              <p className="text-right">Red dunes, inland<br />Lehbab desert</p>
+            </div>
+            <div className="mx-auto mt-10 max-w-[480px] px-2 text-center lg:mt-2">
+              <h2 id="v1-route" className={`${C} text-[36px] uppercase leading-[0.95] lg:text-[54px]`}><Split>Into the red dunes</Split></h2>
+              <p className="reveal mt-6 text-[15px] leading-[1.45] text-[#1f2a44]/70">
+                We collect you from your hotel or home in Dubai and drive inland to the red sand of Lehbab, where the city lights give way to open dunes and a quiet camp.
               </p>
-              <div className="reveal mt-10 flex flex-wrap items-center gap-5">
-                <Link
-                  href="/enquire"
-                  className="bg-[#3b342e] px-7 py-4 text-[10.5px] uppercase tracking-[0.24em] text-[#f3efe8] transition-colors duration-500 hover:bg-[#2a241f]"
-                >
-                  Make an enquiry
-                </Link>
-                <More href={waLink("Hello Desert Stars, I'd like to plan a desert evening.")}>WhatsApp us</More>
-              </div>
-              <div className="reveal-img relative mt-14 aspect-[16/10] overflow-hidden">
-                <Pic name="camel-grazing" sizes="(min-width: 768px) 40vw, 100vw" alt="A camel resting among the dunes" />
-              </div>
             </div>
-            <dl className="self-start border-t border-[#cfc6b8] md:col-span-6 md:col-start-7">
-              {[
-                { k: "Telephone", v: site.phone, href: site.phoneHref },
-                { k: "WhatsApp", v: site.phone, href: waLink("Hello Desert Stars") },
-                { k: "Email", v: site.email, href: `mailto:${site.email}` },
-                { k: "Hours", v: site.hours },
-                { k: "Office", v: site.address },
-              ].map((r) => (
-                <div key={r.k} className="reveal grid grid-cols-[6.5rem_1fr] gap-4 border-b border-[#cfc6b8] py-6 md:grid-cols-[10rem_1fr] md:py-7">
-                  <dt className={`${label} pt-1`}>{r.k}</dt>
-                  <dd className={`${S} break-words text-[19px] leading-[1.4] md:text-[22px]`}>
-                    {r.href ? (
-                      <a href={r.href} className="transition-colors hover:text-[#8a6f52]">
-                        {r.v}
-                      </a>
-                    ) : (
-                      r.v
-                    )}
-                  </dd>
+          </div>
+
+          <div data-scrub="pass" className="relative bg-[#18213a] text-white lg:h-[100svh]">
+            <div className="relative h-[520px] overflow-hidden lg:absolute lg:inset-0 lg:h-auto">
+              <svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden="true">
+                <defs>
+                  <pattern id="v1-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1.3" fill="#c9b79a" opacity="0.22" />
+                  </pattern>
+                  <radialGradient id="v1-glow" cx="0.62" cy="0.66" r="0.5">
+                    <stop offset="0" stopColor="#b9601f" stopOpacity="0.22" />
+                    <stop offset="1" stopColor="#b9601f" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+                <path d="M0 560 C 220 520, 420 400, 560 300 S 900 140, 1100 90 S 1340 30, 1440 0 L 1440 800 L 0 800 Z" fill="#212c48" />
+                <path d="M0 560 C 220 520, 420 400, 560 300 S 900 140, 1100 90 S 1340 30, 1440 0 L 1440 800 L 0 800 Z" fill="url(#v1-dots)" />
+                <rect width="1440" height="800" fill="url(#v1-glow)" />
+                <path d="M0 560 C 220 520, 420 400, 560 300 S 900 140, 1100 90 S 1340 30, 1440 0" stroke="#8d9ab8" strokeOpacity="0.5" strokeWidth="1" fill="none" />
+                <text x="300" y="250" fill="#8d9ab8" fontSize="15" letterSpacing="3" style={{ fontFamily: "var(--v1-osw)" }}>ARABIAN GULF</text>
+                <path d="M560 300 C 660 330, 820 400, 880 560" stroke="#e9b98c" strokeWidth="1.5" fill="none" pathLength={900} className="v1-route" />
+                <circle cx="560" cy="300" r="9" fill="#e9b98c" opacity="0.25" />
+                <circle cx="560" cy="300" r="4.5" fill="#e9b98c" />
+                <circle cx="880" cy="560" r="12" fill="#e9b98c" opacity="0.25" />
+                <circle cx="880" cy="560" r="6" fill="#e9b98c" />
+                <text x="560" y="250" textAnchor="middle" fill="#c9cfdd" fontSize="22" fontStyle="italic" style={{ fontFamily: "var(--v1-serif)" }}>Starting point</text>
+                <text x="560" y="276" textAnchor="middle" fill="#fff" fontSize="17" letterSpacing="1" style={{ fontFamily: "var(--v1-osw)" }}>DUBAI, YOUR DOOR</text>
+                <text x="880" y="612" textAnchor="middle" fill="#c9cfdd" fontSize="22" fontStyle="italic" style={{ fontFamily: "var(--v1-serif)" }}>Destination</text>
+                <text x="880" y="638" textAnchor="middle" fill="#fff" fontSize="17" letterSpacing="1" style={{ fontFamily: "var(--v1-osw)" }}>LEHBAB DESERT</text>
+              </svg>
+            </div>
+            <dl className={`relative mx-5 -mt-10 mb-0 rounded-[4px] border border-white/10 bg-[#121a2e]/95 px-6 py-2 backdrop-blur lg:absolute lg:left-10 lg:top-10 lg:mx-0 lg:mt-0 lg:w-[440px] lg:px-8`}>
+              {[["Pick-up", "15:00"], ["Drop-off", "21:30"], ["Guests per 4x4", "Up to 6"], ["Premium evening", fromPrice]].map(([k, v], i) => (
+                <div key={k} className={`py-6 ${i > 0 ? "border-t border-dotted border-white/25" : ""}`}>
+                  <dt className={`${C} text-[18px] italic text-white/75`}>{k}</dt>
+                  <dd className="mt-1 text-[34px] font-medium leading-none tracking-tight lg:text-[42px]">{v}</dd>
                 </div>
               ))}
-              <div className="reveal pt-8 text-[13px] leading-[1.8] text-[#7d7268]">
-                Every safari includes pick-up from your door in Dubai. Free cancellation up to 24 hours before you travel.
-              </div>
             </dl>
+            <div className="h-12 lg:hidden" />
+          </div>
+        </section>
+
+        {/* W10: START PLANNING YOUR EVENING */}
+        <section className="relative flex h-[90svh] min-h-[560px] items-center justify-center overflow-hidden text-center text-white">
+          <div data-parallax="0.12" className="absolute inset-0">
+            <Pic name="premium-evening-3" sizes="100vw" alt="Guests at the desert camp after sunset" />
+          </div>
+          <div className="absolute inset-0 bg-[#1f2a44]/40" />
+          <div className={`relative ${pad}`}>
+            <h2 className={`${C} text-[40px] uppercase leading-[0.95] lg:text-[68px]`}>
+              <Split>Start planning</Split><br /><Split delay={160}>your evening</Split>
+            </h2>
+            <p className={`reveal mt-5 ${C} text-[20px] italic text-white/90`}>{site.response}</p>
+            <div className="reveal mt-8 flex flex-wrap justify-center gap-3 text-[14px] font-medium">
+              <Link href="/enquire" className="rounded-[4px] bg-[#b9601f] px-7 py-3.5 transition-colors hover:bg-[#a0521a]">Enquire</Link>
+              <a href={wa} className="rounded-[4px] border border-white/60 px-7 py-3.5 transition-colors hover:bg-white hover:text-[#1f2a44]">WhatsApp us</a>
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className={`${pad} bg-[#f3efe8] pt-20 pb-10 md:pt-28`}>
-        <div className="grid gap-12 border-b border-[#d8d0c4] pb-16 md:grid-cols-12 md:gap-10">
-          <div className="md:col-span-4">
-            <p className={`${S} text-[28px] font-light`}>Desert Stars</p>
-            <p className="mt-4 max-w-[34ch] text-[13.5px] leading-[1.8] text-[#7d7268]">{site.tagline}. More than 11,000 guests hosted.</p>
+      {/* W11: footer */}
+      <footer className="relative bg-[#f3f1ec] text-[#1f2a44]">
+        <div className={`${pad} grid grid-cols-2 gap-x-6 gap-y-10 pb-16 pt-16 lg:grid-cols-6 lg:gap-x-0 lg:pt-12`}>
+          <div className="col-span-2 lg:col-span-1">
+            <Link href="/" className="inline-flex flex-col items-start gap-2" aria-label="Desert Stars home">
+              <Star className="h-6 w-6" />
+              <span className={`${O} text-[16px] uppercase tracking-[0.28em]`}>Desert Stars</span>
+            </Link>
           </div>
-          <div className="grid grid-cols-2 gap-10 md:col-span-7 md:col-start-6 md:grid-cols-3">
-            <div>
-              <p className={label}>Experiences</p>
-              <ul className="mt-5 space-y-3 text-[13.5px]">
-                {categories.map((c) => (
-                  <li key={c.slug}>
-                    <Link href={`/experiences#${c.slug}`} className="text-[#4a423b] hover:text-[#8a6f52]">
-                      {c.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className={label}>Desert Stars</p>
-              <ul className="mt-5 space-y-3 text-[13.5px]">
-                {nav.map((n) => (
-                  <li key={n.href}>
-                    <Link href={n.href} className="text-[#4a423b] hover:text-[#8a6f52]">
-                      {n.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <p className={label}>Contact</p>
-              <ul className="mt-5 space-y-3 text-[13.5px] text-[#4a423b]">
-                <li>
-                  <a href={site.phoneHref} className="hover:text-[#8a6f52]">{site.phone}</a>
-                </li>
-                <li>
-                  <a href={`mailto:${site.email}`} className="break-words hover:text-[#8a6f52]">{site.email}</a>
-                </li>
-                <li className="text-[#7d7268]">{site.hours}</li>
-              </ul>
-            </div>
+          <div className="col-span-2 lg:col-span-1 lg:pl-3">
+            <h3 className={`${C} text-[22px] italic`}>Enquiries</h3>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-[#1f2a44]/65">
+              <li><a className="hover:text-[#1f2a44]" href={`mailto:${site.email}`}>{site.email}</a></li>
+              <li><a className="hover:text-[#1f2a44]" href={site.phoneHref}>{site.phone}</a></li>
+              <li><a className="hover:text-[#1f2a44]" href={wa}>WhatsApp</a></li>
+              <li>{site.hours}</li>
+            </ul>
+            <h3 className={`mt-6 ${C} text-[22px] italic`}>Visit</h3>
+            <p className="mt-3 text-[14px] leading-[1.5] text-[#1f2a44]/65">{site.address}</p>
+          </div>
+          <div className="lg:pl-3">
+            <h3 className={`${C} text-[22px] italic`}>Desert</h3>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-[#1f2a44]/65">
+              {desert.map((t) => <li key={t.slug}><Link className="hover:text-[#1f2a44]" href={`/experiences/${t.slug}`}>{t.title}</Link></li>)}
+              <li><Link className="hover:text-[#1f2a44]" href="/experiences#desert">View all</Link></li>
+            </ul>
+          </div>
+          <div className="lg:pl-3">
+            <h3 className={`${C} text-[22px] italic`}>Emirates</h3>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-[#1f2a44]/65">
+              {other.map((t) => <li key={t.slug}><Link className="hover:text-[#1f2a44]" href={`/experiences/${t.slug}`}>{t.title}</Link></li>)}
+              <li><Link className="hover:text-[#1f2a44]" href="/experiences">View all</Link></li>
+            </ul>
+            <h3 className={`mt-6 ${C} text-[22px] italic`}>Journal</h3>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-[#1f2a44]/65">
+              {posts.slice(0, 2).map((p) => <li key={p.slug}><Link className="hover:text-[#1f2a44]" href={`/journal/${p.slug}`}>{p.title}</Link></li>)}
+              <li><Link className="hover:text-[#1f2a44]" href="/about">About us</Link></li>
+            </ul>
+          </div>
+          <div className="col-span-2 grid grid-cols-2 gap-2 lg:pl-2">
+            <Link href="#evening" className="group relative col-span-2 flex h-[110px] items-center justify-center overflow-hidden rounded-[2px] text-[14px] font-medium text-white">
+              <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"><Pic name="premium-morning-4" sizes="(min-width:1024px) 33vw, 100vw" /></div>
+              <div className="absolute inset-0 bg-[#1f2a44]/35" />
+              <span className="relative flex items-center gap-8">Our evenings <span aria-hidden="true" className="text-[11px]">▶</span></span>
+            </Link>
+            <Link href="/experiences" className="flex h-[110px] items-center justify-center rounded-[2px] bg-white/70 text-[14px] font-medium transition-colors hover:bg-white">Dates &amp; Rates</Link>
+            <Link href="/enquire" className="flex h-[110px] items-center justify-center rounded-[2px] bg-[#b9601f] text-[14px] font-medium text-white transition-colors hover:bg-[#a0521a]">Enquire now</Link>
+            <a href={site.phoneHref} className="flex h-[110px] items-center justify-center rounded-[2px] bg-white/70 text-[14px] font-medium transition-colors hover:bg-white">Call us</a>
+            <a href={wa} className="flex h-[110px] items-center justify-center rounded-[2px] bg-white/70 text-[14px] font-medium transition-colors hover:bg-white">WhatsApp</a>
           </div>
         </div>
-        <div className="flex flex-col gap-3 pt-8 text-[11px] tracking-[0.08em] text-[#7d7268] md:flex-row md:justify-between">
-          <p>© {new Date().getFullYear()} Desert Stars. Dubai, United Arab Emirates.</p>
-          <p>{site.address}</p>
+        <div className={`${pad} flex flex-col items-center gap-5 border-t border-[#1f2a44]/15 py-6 text-center lg:flex-row lg:justify-between lg:text-left`}>
+          <Star className="hidden h-3.5 w-3.5 lg:block" />
+          <p className="lg:pl-[8%]">
+            <span className={`${C} block text-[22px] italic`}>“Every evening ends under the same stars.”</span>
+            <span className={`${O} mt-1 block text-[11px] uppercase tracking-[0.18em] text-[#1f2a44]/60`}>— The Desert Stars team</span>
+          </p>
+          <p className="text-[12px] text-[#1f2a44]/60">
+            <Link href="/about" className="hover:text-[#1f2a44]">About</Link> · <Link href="/enquire" className="hover:text-[#1f2a44]">Enquire</Link> · © 2026 Desert Stars
+          </p>
         </div>
       </footer>
     </div>
