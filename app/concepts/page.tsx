@@ -2,19 +2,19 @@ import Link from "next/link";
 import Pic from "@/components/Pic";
 
 const c = [
-  ["1", "Quiet luxury", "Aman / Six Senses: ivory, small elegant serif, vast calm space.", "mosque-bluehour"],
-  ["2", "Nightfall", "Dark cinematic: black and gold, full-screen film, slow fades.", "camp-lanterns"],
-  ["3", "The magazine", "Editorial: masthead, cover lines, captions, asymmetric grid.", "camel-ride"],
-  ["4", "Swiss bold", "Black and white grotesk grid, one sand accent, sharp and modern.", "dunes-cruiser"],
-  ["5", "Terracotta", "Warm earth colour blocks, soft shapes, friendly boutique serif.", "desert-sunset"],
-  ["6", "Gallery", "Photo-first: horizontal galleries, minimal words.", "camel-caravan"],
-  ["7", "Expedition", "Route maps, coordinates and contour lines, outfitter style.", "camel-grazing"],
+  ["1", "Balanced · light", "White Desert's light world with Mathieu Crepel's split headlines, chips and photo column.", "dunes-cruiser"],
+  ["2", "Balanced · night", "Mathieu Crepel's dark world: growing hero card, giant links, with White Desert's trips and camps.", "camp-lanterns"],
+  ["3", "Day to night", "Starts in White Desert daylight, steps down into Mathieu Crepel's night.", "desert-sunset"],
+  ["4", "Crepel-first", "Mathieu Crepel's page section by section, recoloured for the desert.", "camel-caravan"],
+  ["5", "White Desert-first", "White Desert's page section by section, with Crepel's labels and one split headline.", "camel-grazing"],
+  ["6", "Monumental type", "Both sites' giant type leading every section.", "camel-ride"],
+  ["7", "Cinematic", "Both sites' full-screen photo moments, minimal words.", "mosque-bluehour"],
 ];
 
 export default function Concepts() {
   return (
     <main className="min-h-svh bg-[#111] px-5 pb-20 pt-14 text-white lg:px-10">
-      <p className="text-[12px] uppercase tracking-[0.2em] text-white/60">Desert Stars · 7 design directions</p>
+      <p className="text-[12px] uppercase tracking-[0.2em] text-white/60">Desert Stars · 7 variations of mathieu-crepel.com × white-desert.com</p>
       <h1 className="mt-4 text-[44px] leading-none lg:text-[72px]">Pick one.</h1>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {c.map(([n, name, note, img]) => (
