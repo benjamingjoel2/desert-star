@@ -4,7 +4,7 @@ import meta from "@/data/images.json";
 type Meta = Record<string, { w: number; h: number; widths: number[] }>;
 
 /** Bump when image files are replaced: /img is cached for a year, so a new URL makes browsers fetch the new file. */
-export const V = "?v=3";
+export const V = "?v=4";
 
 export default function Pic({
   name,
