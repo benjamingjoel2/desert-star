@@ -199,11 +199,11 @@ export default function AboutPage() {
               <span className="block text-right">City</span>
             </h2>
             <div className="v4-np-cap v4-m absolute inset-x-0 flex justify-between gap-4 px-4 text-[14px] md:px-5 md:text-[17px]">
-              <span>Lehbab · Dubai · Abu Dhabi · Al Ain · Sharjah</span>
+              <span><span className="md:hidden">Lehbab · Dubai</span><span className="hidden md:inline">Lehbab · Dubai · Abu Dhabi · Al Ain · Sharjah</span></span>
               <span className="shrink-0 text-right">Dubai 25°12′N 55°16′E</span>
             </div>
           </div>
-          <Steps tone="sand" chips={["Office 4, One Central", "Open daily 08:00–22:00", `${tours.length} experiences`, "4 ways to travel"]} />
+          <Steps tone="sand" chips={["Office 4, One Central", "Open daily 08:00–22:00", `${tours.length} experiences`, "Pick-up from your door"]} />
         </section>
 
         {/* ───────── What we do: bordered tile grid (MC "Supported by") ───────── */}
