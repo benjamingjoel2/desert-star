@@ -28,10 +28,10 @@ export default function Experiences() {
       {categories.map((c) => (
         <section key={c.slug} id={c.slug} className="px-page scroll-mt-32 border-b border-line py-20 lg:py-28">
           <div className="mb-12 grid gap-4 lg:grid-cols-[1fr_2fr]">
-            <h2 className="title text-[34px] lg:text-[44px]"><Split>{c.name}</Split></h2>
-            <p className="max-w-xl text-muted lg:pt-3">{c.blurb}</p>
+            <h2 className="display text-[40px] lg:text-[64px]"><Split>{c.name}</Split></h2>
+            <p className="title max-w-xl text-[24px] text-muted lg:pt-4">{c.blurb}</p>
           </div>
-          <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {byCategory(c.slug).map((t) => <TourCard key={t.slug} t={t} />)}
           </div>
         </section>

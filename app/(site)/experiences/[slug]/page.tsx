@@ -22,7 +22,7 @@ function List({ items, mark = "—" }: { items: string[]; mark?: string }) {
   return (
     <ul className="divide-y divide-line border-y border-line">
       {items.map((x) => (
-        <li key={x} className="flex gap-4 py-3.5 text-[15px]"><span aria-hidden="true" className="text-muted">{mark}</span>{x}</li>
+        <li key={x} className="flex gap-4 py-4 text-[16px]"><span aria-hidden="true" className="text-muted">{mark}</span>{x}</li>
       ))}
     </ul>
   );
@@ -32,7 +32,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
   const t = getTour((await params).slug);
   if (!t) notFound();
   const cat = categories.find((c) => c.slug === t.category)!;
-  const related = tours.filter((x) => x.category === t.category && x.slug !== t.slug).slice(0, 4);
+  const related = tours.filter((x) => x.category === t.category && x.slug !== t.slug).slice(0, 3);
   const msg = `Hello Desert Stars, I'd like to book: ${t.title}. Date: ___ Guests: ___`;
   const facts = [
     ["Price", price(t) + (t.adult ? " per adult" : "")],
@@ -57,14 +57,14 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
 
       <div className="px-page grid gap-16 py-16 lg:grid-cols-[1fr_380px] lg:gap-20 lg:py-24">
         <div className="min-w-0">
-          <p className="display text-[26px] lg:text-[34px]"><Split>{t.short}</Split></p>
-          {t.overview && <p className="reveal mt-8 max-w-2xl text-[16px] text-muted">{t.overview}</p>}
+          <p className="title text-[30px] leading-[1.2] lg:text-[40px]"><Split>{t.short}</Split></p>
+          {t.overview && <p className="reveal mt-8 max-w-2xl text-[17px] leading-relaxed text-muted">{t.overview}</p>}
 
           {t.images.filter((im) => im !== cover(t)).length > 0 && (
             <div className="no-scrollbar mt-14 flex snap-x gap-3 overflow-x-auto">
               {t.images.filter((im) => im !== cover(t)).map((im) => (
-                <div key={im} className="reveal-img aspect-[4/3] w-[80%] shrink-0 snap-start overflow-hidden bg-dune sm:w-[46%]">
-                  <Pic name={im} sizes="(min-width:1024px) 30vw, 80vw" />
+                <div key={im} className="reveal-img aspect-[4/5] w-[85%] shrink-0 snap-start overflow-hidden bg-dune sm:w-[48%]">
+                  <Pic name={im} sizes="(min-width:1024px) 32vw, 85vw" />
                 </div>
               ))}
             </div>
@@ -85,7 +85,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
                   <li key={s} className="reveal relative pb-7 pl-8 last:pb-0" style={{ ["--d" as string]: `${i * 70}ms` }}>
                     <span className="absolute -left-[5px] top-2 h-[9px] w-[9px] rounded-full border border-ink bg-sand" aria-hidden="true" />
                     <span className="eyebrow text-muted">{String(i + 1).padStart(2, "0")}</span>
-                    <p className="title mt-1 text-[19px]">{s}</p>
+                    <p className="title mt-1 text-[24px] leading-snug">{s}</p>
                   </li>
                 ))}
               </ol>
@@ -123,7 +123,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
               <div className="border-t border-line">
                 {t.faq.map((f) => (
                   <details key={f.q} className="group border-b border-line">
-                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-4 title text-[19px] [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 title text-[23px] [&::-webkit-details-marker]:hidden">
                       {f.q}
                       <span aria-hidden="true" className="text-[22px] font-light transition-transform duration-300 group-open:rotate-45">+</span>
                     </summary>
@@ -138,7 +138,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="fade-in border border-line bg-white/40 p-7">
             <p className="eyebrow text-muted">Reserve</p>
-            <p className="display mt-3 text-[36px]">{price(t)}</p>
+            <p className="display mt-3 text-[40px]">{price(t)}</p>
             <dl className="mt-6 divide-y divide-line border-y border-line text-[14px]">
               {facts.slice(1).map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4 py-3"><dt className="text-muted">{k}</dt><dd className="text-right">{v}</dd></div>
@@ -156,10 +156,10 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
       {related.length > 0 && (
         <section className="px-page border-t border-line py-20 lg:py-28">
           <div className="mb-12 flex items-end justify-between gap-6">
-            <h2 className="title text-[32px] lg:text-[40px]">More {cat.name.toLowerCase()}</h2>
+            <h2 className="display text-[36px] lg:text-[56px]">More {cat.name.toLowerCase()}</h2>
             <Link href={`/experiences#${cat.slug}`} className="u-link mb-2">View all</Link>
           </div>
-          <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => <TourCard key={r.slug} t={r} />)}
           </div>
         </section>

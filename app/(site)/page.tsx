@@ -2,34 +2,12 @@ import Link from "next/link";
 import Pic from "@/components/Pic";
 import Split from "@/components/Split";
 import TripPanels from "@/components/TripPanels";
+import { FillWords, Swoosh } from "@/components/Bits";
 import { site, waLink } from "@/data/site";
 import { posts } from "@/data/journal";
 import { cover, getTour, price, tours } from "@/lib/tours";
 
-function Swoosh({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 420 60" className={className} fill="none" aria-hidden="true">
-      <path d="M2 38 C 90 6, 250 8, 418 30 M40 52 C 150 30, 300 34, 400 44" stroke="currentColor" strokeWidth="1" className="draw-line" />
-    </svg>
-  );
-}
 
-/** Words that fill from pale to ink as the section scrolls past (White Desert). */
-function FillWords({ text, before = "", inlineImg }: { text: string; before?: string; inlineImg?: string }) {
-  const words = text.split(" ");
-  const n = words.length;
-  return (
-    <p className="fill-words display text-[30px] sm:text-[44px] lg:text-[62px]" data-scrub="pass" aria-label={`${before} ${text}`.trim()}>
-      {before && <span aria-hidden="true">{before} </span>}
-      {inlineImg && (
-        <span aria-hidden="true" className="mx-2 inline-block h-[0.8em] w-[1.3em] overflow-hidden rounded-[3px] align-[-0.05em]"><Pic name={inlineImg} sizes="120px" /></span>
-      )}
-      {words.map((w, i) => (
-        <span key={i} aria-hidden="true" className="fw" style={{ ["--i" as string]: i, ["--n" as string]: n }}>{w} </span>
-      ))}
-    </p>
-  );
-}
 
 const evening = [
   { time: "15:00", title: "Pick-up at your door", img: "premium-morning-1" },
@@ -61,40 +39,26 @@ export default function Home() {
 
   return (
     <>
-      {/* 1 · Hero: the card grows to full screen while the wordmark blurs away (Mathieu Crepel + White Desert) */}
-      <section className="relative h-[240svh] bg-ink" data-scrub="sticky" aria-label="Desert Stars">
+      {/* 1 · Hero: one photo, giant wordmark that blurs away as you scroll (White Desert) */}
+      <section className="relative h-[150svh] bg-dune" data-scrub="sticky" aria-label="Desert Stars">
         <div className="sticky top-0 h-[100svh] overflow-hidden">
           <div className="hero-zoom absolute inset-0"><Pic name="dunes-cruiser" priority alt="A 4x4 crossing pale dunes in the Dubai desert" /></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-sand/55 via-transparent to-black/30" />
-          <h1 className="hero-mark px-page wordmark absolute inset-x-0 top-[13vh] text-[21vw] text-ink lg:top-[11vh] lg:text-[17.4vw]">
+          <div className="absolute inset-0 bg-gradient-to-b from-sand/55 via-transparent to-black/45" />
+          <h1 className="hero-mark px-page wordmark absolute inset-x-0 top-[15vh] text-[21vw] text-ink lg:top-[13vh] lg:text-[17.4vw]">
             <Split delay={150}>Desert Stars</Split>
           </h1>
-          <div className="hero-card absolute inset-0">
-            <Pic name="camp-lanterns" sizes="100vw" low alt="A desert camp lit by lanterns at dusk" />
-            <div className="absolute inset-0 bg-black/25" />
-          </div>
-          <nav aria-label="Sections" className="hero-ui px-page absolute inset-x-0 top-1/2 hidden -translate-y-1/2 justify-between text-white md:flex">
-            {[["/experiences", "Experiences"], ["/experiences#desert", "Desert"], ["/experiences#city", "Cities"]].map(([h, l]) => (
-              <Link key={h} href={h} className="mono hover:underline">{l}</Link>
-            ))}
-            <span className="w-[250px]" aria-hidden="true" />
-            {[["/journal", "Journal"], ["/about", "About"], ["/enquire", "Enquire"]].map(([h, l]) => (
-              <Link key={h} href={h} className="mono hover:underline">{l}</Link>
-            ))}
-          </nav>
-          <div className="hero-ui px-page absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 pb-8 text-white">
-            <p className="title fade-in max-w-[20ch] text-[28px] lg:text-[38px]" style={{ ["--d" as string]: "900ms" }}>Private evenings in the Arabian desert</p>
-            <p className="mono fade-in text-right" style={{ ["--d" as string]: "1100ms" }}>Dubai, United Arab Emirates<br />Scroll ↓</p>
-          </div>
-          <div className="px-page absolute inset-x-0 bottom-0 pb-12 text-white" style={{ opacity: "calc((var(--p, 1) - 0.72) * 4)" }}>
-            <p className="mono mb-4">19:00 · Lehbab desert</p>
-            <p className="display max-w-[16ch] text-[40px] lg:text-[80px]">Nightfall at the camp</p>
+          <div className="px-page absolute inset-x-0 bottom-0 grid gap-6 pb-10 text-white lg:grid-cols-[1.4fr_1fr] lg:items-end lg:pb-14">
+            <p className="title fade-in max-w-[18ch] text-[34px] leading-[1.1] lg:text-[52px]" style={{ ["--d" as string]: "900ms" }}>Private evenings in the Arabian desert</p>
+            <div className="fade-in lg:justify-self-end" style={{ ["--d" as string]: "1100ms" }}>
+              <p className="max-w-sm text-[16px] text-white/90">Desert safaris, dhow dinners and guided days across the Emirates, collected from your door in Dubai.</p>
+              <Link href="/experiences" className="btn mt-6 bg-white text-ink hover:bg-sand">Discover the experiences</Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 2 · Statement: inline photo, words fill as you scroll */}
-      <section id="intro" className="grid-lines px-page py-32 lg:py-48">
+      <section id="intro" className="px-page py-32 lg:py-48">
         <div className="lg:pl-[16.66%]">
           <div className="reveal mb-10 flex items-center gap-4">
             <Swoosh className="h-8 w-40 opacity-60" />
@@ -113,12 +77,15 @@ export default function Home() {
       </section>
 
       {/* 3 · Mono credentials + split headline around a photo (Mathieu Crepel) */}
-      <section className="steps-top relative bg-ink text-sand">
-        <div className="px-page flex flex-wrap justify-between gap-3 pt-10 lg:pt-14">
+      <section className="relative bg-ink text-sand">
+        <dl className="px-page grid grid-cols-2 gap-y-10 border-b border-white/15 py-14 lg:grid-cols-4">
           {site.stats.map((s) => (
-            <span key={s.label} className="mono mono-box border-sand/40">{s.value} {s.label}</span>
+            <div key={s.label} className="flex flex-col-reverse">
+              <dt className="mono mt-3 text-sand/70">{s.label}</dt>
+              <dd className="wordmark text-[56px] lg:text-[88px]" data-count={/\d/.test(s.value) && !s.value.includes("/") ? s.value : undefined}>{s.value}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
         <div className="px-page relative py-24 lg:py-36">
           <h2 className="wordmark relative z-10 text-[19vw] lg:text-[13vw]">
             <span className="block"><Split>Where the dunes</Split></span>
@@ -131,7 +98,7 @@ export default function Home() {
       </section>
 
       {/* 4 · Experiences (White Desert panels) */}
-      <section id="experiences" className="grid-lines px-page py-32 lg:py-44">
+      <section id="experiences" className="px-page py-32 lg:py-44">
         <div className="relative mb-14 flex flex-wrap items-end justify-between gap-6">
           <h2 className="display text-[46px] leading-none lg:text-[88px]"><Split>Our experiences</Split></h2>
           <Swoosh className="absolute -bottom-8 left-[8%] h-12 w-[min(70vw,520px)] opacity-50" />
@@ -141,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* 5 · The evening: centre column scrolls past fixed side labels (Mathieu Crepel) */}
-      <section className="steps-top relative bg-ink text-sand" aria-label="The evening, hour by hour">
+      <section className="relative bg-ink text-sand" aria-label="The evening, hour by hour">
         <div className="px-page relative grid grid-cols-1 justify-items-center gap-10 py-24 md:grid-cols-[1fr_auto_1fr] md:justify-items-stretch md:gap-4 lg:py-32">
           <div className="flex w-full justify-between md:hidden">
             <p className="mono">The evening ™</p>
@@ -200,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* 8 · Route line (White Desert "CPT – WFR") */}
-      <section className="grid-lines px-page py-28 lg:py-40">
+      <section className="px-page py-28 lg:py-40">
         <p className="mono mb-6 text-muted">Your route · evening desert safari</p>
         <h2 className="wordmark text-[17vw] lg:text-[14vw]"><Split>Dubai – Lehbab</Split></h2>
         <ol className="mt-12 grid grid-cols-2 gap-y-8 border-t border-line pt-8 lg:grid-cols-4">
