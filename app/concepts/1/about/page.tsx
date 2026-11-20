@@ -351,20 +351,20 @@ export default function AboutPage() {
               <p className={`${M} text-[18px] text-[#1f2a44]/55`}>Founder ™</p>
               <h2 id="v1-founders" className={`mt-3 ${C} text-[44px] uppercase leading-[0.95] lg:text-[60px]`}><Split>The founder</Split></h2>
               <p className={`reveal mt-6 max-w-[360px] ${C} text-[24px] italic leading-[1.2] lg:text-[26px]`}>
-                Benjamin founded Desert Stars to share the desert the way he knows it: door to door, unhurried, and ending under the stars.
+                Mohammed Namil founded Desert Stars to share the desert the way he knows it: door to door, unhurried, and ending under the stars.
               </p>
             </div>
             <figure className="lg:col-span-4 lg:pr-[100px]">
               <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
                 <div className="reveal-img relative aspect-[4/5] overflow-hidden rounded-[4px] bg-[#0b0b0d] [&_img]:object-[78%_center]">
-                  <Pic name="founder" sizes="(min-width:1024px) 34vw, (min-width:640px) 50vw, 100vw" alt="Portrait of Benjamin, founder of Desert Stars" />
+                  <Pic name="founder" sizes="(min-width:1024px) 34vw, (min-width:640px) 50vw, 100vw" alt="Portrait of Mohammed Namil, founder of Desert Stars" />
                   <span className={`absolute left-3 top-3 ${M} bg-white px-1.5 text-[17px] text-[#1f2a44]`}>Founder</span>
                 </div>
                 <figcaption className="flex flex-col justify-between rounded-[4px] bg-[#1f2a44] p-5 text-white lg:p-7">
                   <span className={`${M} text-[17px] text-white/55`}>01 / Desert Stars</span>
                   <div className="mt-12">
                     <Star className="h-4 w-4 text-[#e9b98c]" />
-                    <p className={`mt-4 ${C} text-[40px] uppercase leading-[0.95] lg:text-[52px]`}>Benjamin</p>
+                    <p className={`mt-4 ${C} text-[40px] uppercase leading-[0.95] lg:text-[52px]`}>Mohammed Namil</p>
                     <p className={`mt-1 ${O} text-[13px] uppercase tracking-[0.2em] text-white/70`}>Founder</p>
                     <p className={`mt-6 border-t border-white/20 pt-4 ${C} text-[18px] italic text-white/65`}>Full profile coming soon.</p>
                   </div>
