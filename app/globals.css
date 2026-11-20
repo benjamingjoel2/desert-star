@@ -11,11 +11,11 @@
   --color-night: #1d2333;
   --color-night-2: #262d40;
   --color-ember: #8f5e34;
-  --font-serif: var(--font-cormorant), "Times New Roman", Georgia, serif;
-  --font-script: var(--font-cormorant), "Times New Roman", Georgia, serif;
-  --font-mark: var(--font-mark), "Arial Narrow", sans-serif;
-  --font-sans: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--v4-serif), "Times New Roman", Georgia, serif;
+  --font-script: var(--v4-serif), "Times New Roman", Georgia, serif;
+  --font-mark: var(--v4-sans), "Arial Narrow", sans-serif;
+  --font-sans: var(--v4-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--v4-sans), "Helvetica Neue", Arial, sans-serif;
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -24,7 +24,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: var(--color-sand);
+  background: #0c0a08;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
