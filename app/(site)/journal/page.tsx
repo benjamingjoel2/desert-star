@@ -30,8 +30,8 @@ export default function Journal() {
           {posts.map((p, i) => (
             <li key={p.slug} className="border-b border-[#efe6d6]/20">
               <Link href={`/journal/${p.slug}`} className="group grid gap-6 py-8 md:grid-cols-12 md:gap-10 md:py-12">
-                <div className={`reveal-img relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#1a1510] md:col-span-7 ${i % 2 ? "md:order-2 md:col-start-6" : ""}`}>
-                  <div className="absolute inset-0" data-parallax="0.06">
+                <div className={`reveal-img relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#1a1510] md:col-span-7 md:aspect-[3/2] ${i % 2 ? "md:order-2 md:col-start-6" : ""}`}>
+                  <div className="absolute inset-x-0 -inset-y-[6%]" data-parallax="0.06">
                     <div className="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.04]">
                       <Pic name={p.image} alt="" sizes="(min-width:768px) 58vw, 100vw" priority={i === 0} />
                     </div>

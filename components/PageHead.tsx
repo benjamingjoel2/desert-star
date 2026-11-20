@@ -29,7 +29,7 @@ export default function PageHead({ eyebrow, title, intro, label, image, imageAlt
         <span className="v4-box">{`{${eyebrow}}`}</span>
         <span className="text-[#efe6d6]/70">Desert Stars · Dubai</span>
       </div>
-      <h1 className="v4-g mt-[8svh] break-words [&_em]:block [&_em]:not-italic md:mt-[10svh]">
+      <h1 className="v4-g mt-[8svh] break-words [&_em]:block [&_em]:not-italic md:[&_em]:text-right md:mt-[10svh]">
         {typeof title === "string" ? (
           <>
             <span className="block"><Split delay={80}>{a}</Split></span>
@@ -41,7 +41,7 @@ export default function PageHead({ eyebrow, title, intro, label, image, imageAlt
       </h1>
       {image && (
         <div className="reveal-img relative mt-[8svh] aspect-[4/5] overflow-hidden rounded-[4px] bg-[#1a1510] md:mx-auto md:aspect-[16/9] md:w-[62.8vw]">
-          <div className="absolute inset-0" data-parallax="0.08"><Pic name={image} alt={imageAlt} sizes="(min-width:768px) 63vw, 100vw" priority /></div>
+          <div className="absolute inset-x-0 -inset-y-[6%]" data-parallax="0.08"><Pic name={image} alt={imageAlt} sizes="(min-width:768px) 63vw, 100vw" priority /></div>
         </div>
       )}
       {(intro || label) && (
