@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const t = getTour((await params).slug);
   if (!t) return {};
-  return { title: t.title, description: t.short, openGraph: { images: [`/img/${cover(t)}-1080.webp`] } };
+  return { title: t.title, description: t.short, openGraph: { images: [`/img/${cover(t)}-1080.webp?v=2`] } };
 }
 
 const two = (n: number) => String(n).padStart(2, "0");
