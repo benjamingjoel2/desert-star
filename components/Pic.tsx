@@ -1,3 +1,4 @@
+import { preload } from "react-dom";
 import meta from "@/data/images.json";
 
 type Meta = Record<string, { w: number; h: number; widths: number[] }>;
@@ -22,6 +23,8 @@ export default function Pic({
   if (!m) return null;
   const set = (ext: string) => m.widths.map((w) => `/img/${name}-${w}.${ext} ${w}w`).join(", ");
   const fallback = `/img/${name}-${m.widths[Math.min(1, m.widths.length - 1)]}.webp`;
+  // Start downloading the main image from the <head>, before the page body is parsed.
+  if (priority) preload(`/img/${name}-${m.widths[Math.min(1, m.widths.length - 1)]}.avif`, { as: "image", type: "image/avif", imageSrcSet: set("avif"), imageSizes: sizes, fetchPriority: "high" });
   return (
     <picture>
       <source type="image/avif" srcSet={set("avif")} sizes={sizes} />

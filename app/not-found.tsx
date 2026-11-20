@@ -9,7 +9,7 @@ export default function NotFound() {
       <Header />
       <main id="main">
         <section className="relative flex min-h-svh flex-col overflow-hidden px-5 pb-[calc(72px+10svh)] pt-[104px] md:px-10 md:pb-[calc(130px+10svh)] md:pt-[132px]" aria-labelledby="nf-title">
-          <div className="absolute inset-0 opacity-35" aria-hidden="true"><Pic name="desert-sunset" alt="" sizes="100vw" priority /></div>
+          <div className="absolute inset-0 opacity-35" aria-hidden="true"><Pic name="desert-sunset" alt="" sizes="100vw" /></div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0c0a08]/70 via-[#0c0a08]/40 to-[#0c0a08]/80" aria-hidden="true" />
           <div className="v4-m relative flex flex-wrap justify-between gap-3 text-[15px] md:text-[17px]">
             <span className="v4-box">{"{404 · Page not found}"}</span>
