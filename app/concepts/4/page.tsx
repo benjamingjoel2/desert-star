@@ -273,7 +273,7 @@ export default function Page() {
             <p className="hidden max-w-[16ch] pb-2 text-right md:block"><span className="v4-i block text-[28px] leading-[1.05]">five ways into the red sands</span></p>
           </div>
           <div className="v4-m mb-4 flex justify-between border-t border-[#efe6d6]/20 pt-3 text-[15px] text-[#efe6d6]/70">
-            <span>{"{Desert safaris}"}</span><span>0{trips.length} / Hover to open</span>
+            <span>{"{Desert safaris}"}</span><span>0{trips.length} / Choose your evening</span>
           </div>
           <div className="v4-trips"><TripPanels trips={trips} /></div>
         </section>
