@@ -130,7 +130,7 @@ export default function Page() {
         {/* M5: split headline around a centre photo */}
         <section className="relative bg-[#1f2a44] pb-[14vh] pt-[10vh] text-[#eef1f8] lg:pt-[14vh]">
           <h2 className="sr-only">Raised by the dunes</h2>
-          <div className={`relative ${pad} lg:h-[62vw] lg:px-0`}>
+          <div className={"relative px-5 lg:h-[62vw] lg:px-0"}>
             <div aria-hidden="true" className={`relative z-10 ${O} text-[21vw] font-normal uppercase leading-[0.8] lg:absolute lg:left-[18%] lg:top-0 lg:text-[11vw]`}>
               <Split>Raised</Split><br /><Split delay={120}>By</Split>
             </div>
@@ -180,7 +180,7 @@ export default function Page() {
                 <p className={`mt-3 ${C} max-w-[220px] text-[17px] italic text-white/70`}>From your door at 15:00 to the last light of the fire.</p>
               </div>
             </div>
-            <ol className={`${pad} space-y-3 lg:space-y-0 lg:px-0`}>
+            <ol className={"px-5 space-y-3 lg:space-y-0 lg:px-0"}>
               {evenings.map((e, i) => (
                 <li key={e.time} className="relative aspect-[4/5] overflow-hidden lg:aspect-[452/560]">
                   <div className="reveal-img zoom absolute inset-0">
