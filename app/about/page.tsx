@@ -3,7 +3,7 @@ import Pic from "@/components/Pic";
 import Split from "@/components/Split";
 import { byCategory, tours } from "@/lib/tours";
 import { site, categories } from "@/data/site";
-import { shell, pad, wa, V4Style, Header, Footer, Steps, StepChips, GiantLinks } from "@/components/concepts/v4/Chrome";
+import { shell, pad, V4Style, Header, Footer, Steps, StepChips, GiantLinks } from "@/components/concepts/v4/Chrome";
 
 export const metadata = { title: "About", description: "Desert Stars is a Dubai tour house for desert safaris, dhow cruises and guided days across the Emirates, founded by Mohammed Namil." };
 
@@ -154,7 +154,7 @@ export default function AboutPage() {
               </div>
               <div className="space-y-5">
                 <p>Full profile coming soon. In the meantime, every message is answered by the concierge team at our One Central office, daily from 08:00 to 22:00 UAE time.</p>
-                <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{Write to us}"}</a>
+                <a href="/enquire" className="v4-m v4-box hover:opacity-80">{"{Write to us}"}</a>
               </div>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default function AboutPage() {
             </div>
             <div>
               <dt className="v4-m mb-2 text-[15px] text-[#1c140d]/60">{"{Reach us}"}</dt>
-              <dd><a href={site.phoneHref} className="v4-link">{site.phone}</a> · phone & WhatsApp</dd>
+              <dd><a href={site.phoneHref} className="v4-link">{site.phone}</a></dd>
               <dd className="mt-1"><a href={`mailto:${site.email}`} className="v4-link break-all">{site.email}</a></dd>
             </div>
           </dl>

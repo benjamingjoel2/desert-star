@@ -9,7 +9,7 @@ const btn = "v4-m inline-flex h-[52px] items-center px-5 text-[19px] transition-
 
 export default function EnquiryForm() {
   const [exp, setExp] = useState("");
-  const [sent, setSent] = useState<"" | "wa" | "mail">("");
+  const [sent, setSent] = useState(false);
   const ref = useRef<HTMLFormElement>(null);
   useEffect(() => {
     const s = new URLSearchParams(window.location.search).get("experience");
@@ -30,19 +30,16 @@ export default function EnquiryForm() {
     ].filter(Boolean).join("\n");
   }
 
-  function send(via: "wa" | "mail") {
+  function send() {
     const form = ref.current;
     if (!form || !form.reportValidity()) return;
     const body = compose(form);
-    const url = via === "wa"
-      ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(body)}`
-      : `mailto:${site.email}?subject=${encodeURIComponent("Desert Stars enquiry")}&body=${encodeURIComponent(body)}`;
-    setSent(via);
-    window.open(url, via === "wa" ? "_blank" : "_self");
+    setSent(true);
+    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent("Desert Stars enquiry")}&body=${encodeURIComponent(body)}`;
   }
 
   return (
-    <form ref={ref} onSubmit={(e) => { e.preventDefault(); send("wa"); }} className="grid gap-x-8 gap-y-9 sm:grid-cols-2">
+    <form ref={ref} onSubmit={(e) => { e.preventDefault(); send(); }} className="grid gap-x-8 gap-y-9 sm:grid-cols-2">
       <label className="sm:col-span-2"><span className={lab}>Experience</span>
         <select name="experience" value={exp} onChange={(e) => setExp(e.target.value)} className={field}>
           <option value="">Not sure yet, please advise</option>
@@ -60,12 +57,11 @@ export default function EnquiryForm() {
         <textarea name="notes" rows={3} className={field} placeholder="Pick-up area, dietary needs, celebrations" />
       </label>
       <div className="flex flex-wrap gap-2 pt-2 sm:col-span-2">
-        <button type="submit" className={`${btn} bg-[#efe6d6] text-[#0c0a08] hover:bg-[#efe6d6]/85`}>{"{Send on WhatsApp}"}</button>
-        <button type="button" className={`${btn} border border-[#efe6d6]/60 text-[#efe6d6] hover:bg-[#efe6d6] hover:text-[#0c0a08]`} onClick={() => send("mail")}>{"{Send by email}"}</button>
+        <button type="submit" className={`${btn} bg-[#efe6d6] text-[#0c0a08] hover:bg-[#efe6d6]/85`}>{"{Send enquiry}"}</button>
+        <a href={site.phoneHref} className={`${btn} border border-[#efe6d6]/60 text-[#efe6d6] hover:bg-[#efe6d6] hover:text-[#0c0a08]`}>{"{Or call us}"}</a>
       </div>
       <p role="status" aria-live="polite" className="min-h-[1.5em] text-[14px] leading-[1.5] text-[#efe6d6]/80 sm:col-span-2">
-        {sent === "wa" && "WhatsApp is opening with your enquiry. Press send there and we'll reply within 30 minutes."}
-        {sent === "mail" && "Your email app is opening with your enquiry ready to send."}
+        {sent && "Your email app is opening with your enquiry ready to send."}
       </p>
     </form>
   );

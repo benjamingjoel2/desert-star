@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHead from "@/components/PageHead";
 import EnquiryForm from "@/components/EnquiryForm";
-import { Steps, GiantLinks, wa } from "@/components/concepts/v4/Chrome";
+import { Steps, GiantLinks } from "@/components/concepts/v4/Chrome";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = { title: "Enquire", description: "Plan a desert safari, dhow cruise or city journey with Desert Stars." };
@@ -9,7 +9,6 @@ export const metadata: Metadata = { title: "Enquire", description: "Plan a deser
 type Fact = { k: string; v: string; href?: string; ext?: boolean; sub?: React.ReactNode };
 const facts: Fact[] = [
   { k: "Call", v: site.phone, href: site.phoneHref },
-  { k: "WhatsApp", v: site.phone, href: wa, ext: true },
   { k: "Email", v: site.email, href: `mailto:${site.email}` },
   { k: "Office", v: site.address, sub: <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="v4-m v4-link text-[15px]">Open in Google Maps ↗</a> },
   { k: "Hours", v: site.hours },
@@ -51,7 +50,7 @@ export default function Enquire() {
           <div>
             <p className="text-[34px] uppercase leading-[0.9] tracking-[-0.04em] md:text-[clamp(40px,4.4vw,64px)]">Tell us<br />your date</p>
             <p className="v4-i mt-4 text-[24px] leading-[1.1] text-[#efe6d6]/85 md:text-[28px]">and we will plan the rest.</p>
-            <p className="mt-6 max-w-[38ch] text-[15px] leading-[1.6] text-[#efe6d6]/75">Your message opens ready to send in WhatsApp or your email app. {site.cancellation}</p>
+            <p className="mt-6 max-w-[38ch] text-[15px] leading-[1.6] text-[#efe6d6]/75">Your message opens ready to send in your email app. {site.cancellation}</p>
           </div>
           <EnquiryForm />
         </div>

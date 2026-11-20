@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Pic from "@/components/Pic";
 import TourCard from "@/components/TourCard";
 import Split from "@/components/Split";
-import { categories, site, waLink } from "@/data/site";
+import { categories, site } from "@/data/site";
 import { cover, getTour, price, tours } from "@/lib/tours";
 import { pad, Steps } from "@/components/concepts/v4/Chrome";
 
@@ -39,7 +39,6 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
   const cat = categories.find((c) => c.slug === t.category)!;
   const related = tours.filter((x) => x.category === t.category && x.slug !== t.slug).slice(0, 3);
   const gallery = t.images.filter((im) => im !== cover(t));
-  const msg = `Hello Desert Stars, I'd like to book: ${t.title}. Date: ___ Guests: ___`;
   const facts: [string, string][] = [
     ...(t.child ? [["Children 5 to 11", `AED ${t.child.toLocaleString("en")}`] as [string, string]] : []),
     ["Duration", t.timing],
@@ -156,12 +155,12 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
                 ))}
               </dl>
               <div className="mt-6 grid gap-2">
-                <a href={waLink(msg)} target="_blank" rel="noopener noreferrer" className="v4-m flex h-[56px] items-center justify-center rounded-[4px] bg-[#1c140d] px-4 text-[17px] text-[#efe6d6] transition-opacity hover:opacity-85">
-                  Reserve on WhatsApp
-                </a>
-                <Link href={`/enquire?experience=${t.slug}`} className="v4-m flex h-[56px] items-center justify-center rounded-[4px] border border-[#1c140d] px-4 text-[17px] transition-colors hover:bg-[#1c140d] hover:text-[#efe6d6]">
-                  Send an enquiry
+                <Link href={`/enquire?experience=${t.slug}`} className="v4-m flex h-[56px] items-center justify-center rounded-[4px] bg-[#1c140d] px-4 text-[17px] text-[#efe6d6] transition-opacity hover:opacity-85">
+                  Reserve this experience
                 </Link>
+                <a href={site.phoneHref} className="v4-m flex h-[56px] items-center justify-center rounded-[4px] border border-[#1c140d] px-4 text-[17px] transition-colors hover:bg-[#1c140d] hover:text-[#efe6d6]">
+                  Call {site.phone}
+                </a>
               </div>
               <p className="mt-5 text-[13px] leading-[1.5] text-[#1c140d]/75">{site.cancellation} {site.response}</p>
             </div>

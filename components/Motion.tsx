@@ -14,6 +14,12 @@ import Lenis from "lenis";
  */
 let lenis: Lenis | null = null;
 
+/** Pause / resume smooth scrolling (used while the full-screen menu is open). */
+export function setScrollLock(on: boolean) {
+  if (on) lenis?.stop(); else lenis?.start();
+  document.documentElement.style.overflow = on ? "hidden" : "";
+}
+
 export default function Motion() {
   const path = usePathname();
 

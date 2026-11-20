@@ -1,11 +1,12 @@
 import Pic from "@/components/Pic";
+import HeroWords from "@/components/concepts/v4/HeroWords";
 import Split from "@/components/Split";
 import TripPanels from "@/components/TripPanels";
 import { tours, getTour, price } from "@/lib/tours";
 import { site } from "@/data/site";
 import { shell, pad, V4Style, Header, Footer, Steps, StepChips, Column, GiantLinks } from "@/components/concepts/v4/Chrome";
 
-export const metadata = { title: { absolute: "Desert Stars | Luxury Desert Safaris & Emirates Journeys" } };
+export const metadata = { title: { absolute: "Desert Stars | Boutique Desert Tour Operator in Dubai" } };
 
 /* ── Data ─────────────────────────────────────────────── */
 function pick(slug: string, img: string, label?: string) {
@@ -69,10 +70,7 @@ export default function Page() {
           <div className="sticky top-0 h-svh overflow-hidden">
             <div className="kenburns absolute inset-0"><Pic name="dunes-starry-night" alt="Red dunes lit at night under a sky full of stars" sizes="100vw" /></div>
             <div className="absolute inset-0 bg-gradient-to-b from-[#0c0a08]/55 via-[#0c0a08]/15 to-[#0c0a08]/35" />
-            <h1 className="v4-fade v4-g absolute inset-x-0 top-[64px] text-center md:top-[26px]">
-              <span className="block"><Split>Born in</Split></span>
-              <span className="block"><Split delay={140}>the dunes</Split></span>
-            </h1>
+            <HeroWords className="v4-fade v4-g absolute inset-x-0 top-[78px] text-center md:top-[26px]" />
             <div className="v4-card shadow-[0_30px_80px_-30px_rgba(0,0,0,.6)]">
               <div className="h-full w-full"><Pic name="camp-lanterns" alt="A lantern-lit Bedouin camp at dusk" sizes="100vw" priority /></div>
               <div className="v4-tint absolute inset-0 bg-[#0c0a08]/50" />

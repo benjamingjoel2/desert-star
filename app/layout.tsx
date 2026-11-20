@@ -6,9 +6,9 @@ import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "Desert Stars | Luxury Desert Safaris & Emirates Journeys", template: "%s | Desert Stars" },
+  title: { default: "Desert Stars | Boutique Desert Tour Operator in Dubai", template: "%s | Desert Stars" },
   description: site.description,
-  openGraph: { siteName: site.name, type: "website", images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Desert Stars: red dunes under a starry sky" }] },
+  openGraph: { siteName: site.name, type: "website", images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Desert Stars, boutique desert tour operator in Dubai" }] },
   twitter: { card: "summary_large_image", images: ["/og.jpg"] },
   icons: { icon: "/icon.svg" },
 };

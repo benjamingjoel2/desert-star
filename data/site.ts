@@ -1,12 +1,11 @@
 export const site = {
   name: "Desert Stars",
-  tagline: "Private desert safaris and Emirates journeys",
+  tagline: "Boutique desert tour operator in Dubai",
   description:
-    "Desert Stars is a Dubai tour house for desert safaris, dhow cruises and guided days across the Emirates: Dubai, Abu Dhabi, Al Ain and Sharjah.",
+    "Desert Stars is a local boutique desert tour operator in Dubai: private desert evenings, dhow cruises and guided days across the Emirates.",
   url: "https://desertstars.tourground.com",
   phone: "+971 52 829 1432",
   phoneHref: "tel:+971528291432",
-  whatsapp: "971528291432",
   email: "desertstars@tourground.com",
   address: "Office 4, One Central, Trade Centre, Dubai, United Arab Emirates",
   mapUrl:
@@ -18,13 +17,10 @@ export const site = {
     { value: "11,000+", label: "Guests hosted" },
     { value: "3,000+", label: "Journeys completed" },
     { value: "16", label: "Signature experiences" },
-    { value: "24/7", label: "WhatsApp concierge" },
+    { value: "24/7", label: "Concierge" },
   ],
 };
 
-export function waLink(message: string) {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
-}
 
 export const categories = [
   {

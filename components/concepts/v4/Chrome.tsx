@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Host_Grotesk, VT323, Cormorant_Garamond } from "next/font/google";
 import Pic from "@/components/Pic";
-import { site, waLink } from "@/data/site";
+import Menu from "./Menu";
+import { site } from "@/data/site";
 
 /* Shared chrome for Variation 4 (homepage + about): fonts, stylesheet, header with MENU overlay,
    staircase steps, sticky centre column, giant contact links and footer. */
@@ -13,7 +14,6 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500"], s
 export const fontVars = `${sans.variable} ${mono.variable} ${serif.variable}`;
 export const shell = `${fontVars} v4 min-h-screen overflow-x-clip bg-[#0c0a08] font-[family-name:var(--v4-sans)] text-[#efe6d6] antialiased selection:bg-[#efe6d6] selection:text-[#0c0a08]`;
 export const pad = "px-5 md:px-10";
-export const wa = waLink("Hello Desert Stars, I'd like to plan an evening in the desert.");
 
 export function V4Style() {
   return (
@@ -28,7 +28,7 @@ export function V4Style() {
         .v4 .v4-link { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .5s cubic-bezier(.16,1,.3,1); }
         .v4 .v4-link:hover, .v4 .v4-link:focus-visible { background-size: 100% 1px; }
         .v4 .v4-head { mix-blend-mode: difference; }
-        .v4 .v4-head:has(details[open]) { mix-blend-mode: normal; }
+        .menu-open .v4 .v4-head, .v4 .v4-head:has([aria-expanded="true"]) { mix-blend-mode: normal; }
         .v4 details > summary { list-style: none; }
         .v4 details > summary::-webkit-details-marker { display: none; }
         .v4 details[open] .v4-closed, .v4 details:not([open]) .v4-opened { display: none; }
@@ -65,38 +65,13 @@ export function V4Style() {
   );
 }
 
-const menu: [string, string][] = [
-  ["Home", "/"],
-  ["Experiences", "/experiences"],
-  ["Desert safaris", "/experiences#desert"],
-  ["Journal", "/journal"],
-  ["About", "/about"],
-  ["Enquire", "/enquire"],
-];
 
 /* ── M1 Header + full-screen MENU ─────────────────────── */
 export function Header() {
   return (
     <header className="v4-head fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 pt-5 md:px-[27px] md:pt-[26px]">
-      <Link href="/" className="flex items-center gap-3 text-[#efe6d6] transition-opacity hover:opacity-80 md:gap-4" aria-label="Desert Stars, home"><svg viewBox="0 0 37 43" className="h-[34px] w-auto shrink-0 md:h-[44px]" fill="currentColor" aria-hidden="true"><path d="M10 0L12.3 7.7L20 10L12.3 12.3L10 20L7.7 12.3L0 10L7.7 7.7ZM10 23L12.3 30.7L20 33L12.3 35.3L10 43L7.7 35.3L0 33L7.7 30.7ZM26 11.5L28.3 19.2L36 21.5L28.3 23.8L26 31.5L23.7 23.8L16 21.5L23.7 19.2Z" /></svg><span aria-hidden="true" className="h-[26px] w-px bg-[#efe6d6]/60 md:h-[32px]" /><span className="whitespace-nowrap font-[family-name:var(--v4-sans)] text-[12px] font-medium uppercase leading-none tracking-[0.32em] md:text-[15px] md:tracking-[0.36em]">Desert Stars</span></Link>
-      <div className="flex items-start gap-2">
-        <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{WhatsApp}"}</a>
-        <details>
-          <summary className="v4-m v4-box relative z-10 cursor-pointer"><span className="v4-closed">Menu</span><span className="v4-opened">Close</span></summary>
-          <div className="fixed inset-0 flex flex-col justify-between overflow-y-auto bg-[#0c0a08] px-5 pb-8 pt-24 text-[#efe6d6] md:px-10">
-            <nav aria-label="Menu" className="flex flex-col">
-              {menu.map(([l, h]) => (
-                <Link key={h} href={h} className="v4-g text-[#efe6d6]/45 transition-colors hover:text-[#efe6d6]">{l}</Link>
-              ))}
-            </nav>
-            <div className="v4-m mt-10 flex flex-wrap justify-between gap-4 text-[15px]">
-              <a href={site.phoneHref} className="v4-link">{site.phone}</a>
-              <a href={`mailto:${site.email}`} className="v4-link">{site.email}</a>
-              <span>{site.hours}</span>
-            </div>
-          </div>
-        </details>
-      </div>
+      <Link href="/" className="relative z-[60] flex items-center gap-3 text-[#efe6d6] transition-opacity hover:opacity-80 md:gap-4" aria-label="Desert Stars, home"><svg viewBox="0 0 37 43" className="h-[34px] w-auto shrink-0 md:h-[44px]" fill="currentColor" aria-hidden="true"><path d="M10 0L12.3 7.7L20 10L12.3 12.3L10 20L7.7 12.3L0 10L7.7 7.7ZM10 23L12.3 30.7L20 33L12.3 35.3L10 43L7.7 35.3L0 33L7.7 30.7ZM26 11.5L28.3 19.2L36 21.5L28.3 23.8L26 31.5L23.7 23.8L16 21.5L23.7 19.2Z" /></svg><span aria-hidden="true" className="h-[26px] w-px bg-[#efe6d6]/60 md:h-[32px]" /><span className="whitespace-nowrap font-[family-name:var(--v4-sans)] text-[12px] font-medium uppercase leading-none tracking-[0.32em] md:text-[15px] md:tracking-[0.36em]">Desert Stars</span></Link>
+      <Menu />
     </header>
   );
 }
@@ -175,7 +150,6 @@ export function Column({ id, label, count, items, discover = "/experiences", dis
 
 /* ── M11 Giant stacked contact links ──────────────────── */
 const giant = [
-  { label: "WhatsApp", href: wa, note: "Reply within 30 min", ext: true },
   { label: "Call", href: site.phoneHref, note: site.phone, ext: false },
   { label: "Email", href: `mailto:${site.email}`, note: site.email, ext: false },
   { label: "Enquire", href: "/enquire", note: "Plan your date", ext: false },
