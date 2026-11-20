@@ -9,6 +9,7 @@ import Lenis from "lenis";
  * - .reveal / .reveal-img / .split: animate in once when they enter the viewport
  * - [data-parallax="0.15"]: translateY relative to the viewport centre
  * - [data-count]: numbers count up
+ * - [data-scrub]: sets --p (0 → 1) from scroll position for scroll-linked effects
  * Everything is skipped when the visitor prefers reduced motion.
  */
 let lenis: Lenis | null = null;
@@ -32,6 +33,15 @@ export default function Motion() {
         const speed = parseFloat(el.dataset.parallax || "0.12");
         const offset = (r.top + r.height / 2 - vh / 2) * -speed;
         el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0) scale(${1 + speed * 0.9})`;
+      });
+      // Scroll-scrubbed progress: --p goes 0 → 1.
+      // data-scrub="sticky": across a tall section whose child is sticky (0 when its top hits the viewport top, 1 at its end).
+      // data-scrub="pass": while the element travels from the bottom of the viewport to the top.
+      document.querySelectorAll<HTMLElement>("[data-scrub]").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -50 || r.top > vh + 50) return;
+        const p = el.dataset.scrub === "sticky" ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height * 0.6);
+        el.style.setProperty("--p", Math.min(1, Math.max(0, p)).toFixed(4));
       });
       raf = requestAnimationFrame(loop);
     };

@@ -15,6 +15,7 @@
   --font-script: var(--font-script), "Times New Roman", Georgia, serif;
   --font-mark: var(--font-mark), "Arial Narrow", sans-serif;
   --font-sans: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-dmmono), ui-monospace, Menlo, monospace;
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -200,3 +201,29 @@ html.lenis, html.lenis body { height: auto; }
 .chapter { position: sticky; top: 0; height: 100svh; overflow: hidden; }
 .draw-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw-line 2.6s var(--ease-out) 0.4s forwards; }
 @keyframes draw-line { to { stroke-dashoffset: 0; } }
+
+/* ---------- Scroll-linked effects (Mathieu Crepel / White Desert) ----------
+   --p defaults to 1 (final state) so everything reads correctly without JS or with reduced motion. */
+.mono { font-family: var(--font-mono); font-size: 11px; line-height: 1.3; letter-spacing: 0.04em; text-transform: uppercase; }
+.mono-box { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 12px; border: 1px solid currentColor; }
+
+/* Faint vertical grid behind the page */
+.grid-lines { background-image: linear-gradient(to right, rgba(29,35,51,0.06) 1px, transparent 1px); background-size: calc((100% - 40px) / 6) 100%; background-position: 20px 0; }
+@media (min-width: 1024px) { .grid-lines { background-size: calc((100% - 80px) / 6) 100%; background-position: 40px 0; } }
+
+/* Words fill from pale to ink as you scroll */
+.fill-words .fw { opacity: clamp(0.14, calc(var(--p, 1) * var(--n) * 1.5 - var(--i) + 0.2), 1); transition: opacity 0.2s linear; }
+
+/* Hero: card grows to full screen, wordmark blurs away */
+.hero-card { clip-path: inset(calc((1 - var(--p, 1)) * (50% - 170px)) calc((1 - var(--p, 1)) * (50% - 125px)) round calc((1 - var(--p, 1)) * 4px)); }
+.hero-mark { filter: blur(calc(var(--p, 0) * 14px)); opacity: calc(1 - var(--p, 0) * 1.1); transform: translate3d(0, calc(var(--p, 0) * -6vh), 0) scale(calc(1 + var(--p, 0) * 0.08)); }
+.hero-ui { opacity: calc(1 - var(--p, 0) * 3); }
+
+/* Stepped "staircase" top edge on dark sections */
+.steps-top { clip-path: polygon(0 48px, 16.66% 48px, 16.66% 24px, 33.33% 24px, 33.33% 0, 66.66% 0, 66.66% 24px, 83.33% 24px, 83.33% 48px, 100% 48px, 100% 100%, 0 100%); margin-top: -48px; padding-top: 48px; }
+
+/* Vertical strips that wipe across an image */
+.strip { transform: translate3d(0, calc((1 - var(--p, 1)) * var(--s) * 100%), 0); }
+
+/* Fixed side tab */
+.side-tab { writing-mode: vertical-rl; }
