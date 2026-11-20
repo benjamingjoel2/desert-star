@@ -132,7 +132,7 @@ export default function Page() {
 
           <p
             aria-hidden
-            className="relative z-10 -mt-[1.1em] text-right text-[clamp(3.4rem,13.4vw,15.5rem)] font-black uppercase leading-[0.82] tracking-[-0.055em] text-white mix-blend-difference max-md:mt-6 md:-mt-[0.42em]"
+            className="relative z-10 mt-6 text-right text-[clamp(3.4rem,13.4vw,15.5rem)] font-black uppercase leading-[0.82] tracking-[-0.055em] text-white mix-blend-difference md:-mt-[0.42em]"
           >
             <Split delay={250}>Meet the stars</Split>
           </p>
@@ -451,7 +451,7 @@ export default function Page() {
           </div>
         </div>
 
-        <p aria-hidden className={`${pad} mt-10 select-none whitespace-nowrap pb-2 text-[17.2vw] font-black uppercase leading-[0.78] tracking-[-0.065em] md:mt-16`}>
+        <p aria-hidden className={`${pad} mt-10 select-none overflow-hidden whitespace-nowrap pb-2 text-[12.4vw] font-black uppercase leading-[0.78] tracking-[-0.065em] md:mt-16`}>
           Desert<span className="text-[#d39b5a]">*</span>Stars
         </p>
         <div className={`${pad} ${label} flex flex-wrap justify-between gap-2 border-t border-[#f2f2ef]/15 py-4 text-[#f2f2ef]/45`}>
