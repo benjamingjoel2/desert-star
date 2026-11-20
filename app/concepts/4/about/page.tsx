@@ -3,7 +3,7 @@ import Pic from "@/components/Pic";
 import Split from "@/components/Split";
 import { byCategory, tours } from "@/lib/tours";
 import { site, categories } from "@/data/site";
-import { shell, pad, wa, V4Style, Header, Footer, Steps, StepChips, Column, GiantLinks } from "@/components/concepts/v4/Chrome";
+import { shell, pad, wa, V4Style, Header, Footer, Steps, StepChips, GiantLinks } from "@/components/concepts/v4/Chrome";
 
 export const metadata = { title: "About · Variation 4" };
 
@@ -18,24 +18,7 @@ const practice = [
   { t: "Every diet catered", d: "Vegetarian, vegan and halal options at camp, and dietary needs noted when you book." },
 ];
 
-const evening = [
-  { img: "premium-evening-1", cap: "01 · Pick-up", alt: "A white 4x4 crossing the red dunes", body: "Collected from your hotel or residence within Dubai city limits in an air-conditioned SUV, up to six guests per vehicle, or privately on request." },
-  { img: "premium-morning-3", cap: "02 · Dune bashing", alt: "A 4x4 throwing up red sand on a dune", body: "30 to 40 minutes of dune driving in the high red dunes of Lehbab, with an English-speaking desert safari guide." },
-  { img: "premium-morning-4", cap: "03 · Sandboarding", alt: "Tyre tracks curving across the dunes from above", body: "Time on the crest for sandboarding and photo stops before the drive into camp." },
-  { img: "standard-sunset-4", cap: "04 · Camels & falcon", alt: "Two guests on a camel at camp", body: "A short camel ride and a falcon photo opportunity at camp." },
-  { img: "premium-evening-4", cap: "05 · Dinner at camp", alt: "Salads laid out on the camp buffet", body: "Live buffet BBQ with vegetarian, vegan and halal options and unlimited soft drinks. Henna for ladies, shisha in the common area." },
-  { img: "standard-sunset-2", cap: "06 · Tanoura & belly dance", alt: "Two Tanoura dancers spinning under string lights", body: "Live entertainment through dinner: Tanoura and belly dance on the camp stage." },
-  { img: "combo-mosque-4", cap: "07 · Fire show", alt: "A fire performer spinning sparks in the dark", body: "The fire show closes the evening at camp." },
-  { img: "dubai-night", cap: "08 · Home", alt: "Dubai's towers lit up at night", body: "Driven back to your door. Free cancellation up to 24 hours before." },
-];
 
-const teams = [
-  { img: "burj-palms", cap: "The Concierge", alt: "The Burj Khalifa above palm trees", body: "The reservations team at our One Central office. They answer every message within 30 minutes, plan your pick-up and stay with you until drop-off." },
-  { img: "premium-evening-2", cap: "Desert guides & drivers", alt: "A 4x4 cresting a dune in a spray of sand", body: "English-speaking guides who drive the high red dunes of Lehbab, and lead sandboarding and photo stops." },
-  { img: "camp-lanterns", cap: "Camp hosts", alt: "A lantern-lit desert camp at dusk", body: "Coffee and dates on arrival, henna, shisha and the BBQ buffet, with dietary needs looked after." },
-  { img: "combo-mosque-3", cap: "Performers & falconer", alt: "A Tanoura dancer's skirt spinning on stage", body: "Tanoura, belly dance and the fire show after dinner, and the falcon for your photograph." },
-  { img: "mosque-bluehour", cap: "City guides", alt: "Sheikh Zayed Grand Mosque at blue hour", body: "Days at the Sheikh Zayed Grand Mosque, in Al Ain and Jebel Hafeet, Sharjah and along Dubai Creek." },
-];
 
 const offer: Record<string, string> = {
   desert: "Evening · Premium evening & BBQ · Morning · Sunset · Self-drive",
@@ -74,11 +57,10 @@ export default function AboutPage() {
               <div className="h-full w-full"><Pic name="camel-caravan" alt="A camel caravan crossing the dunes at golden hour" sizes="100vw" /></div>
               <div className="v4-tint absolute inset-0 bg-[#0c0a08]/50" />
             </div>
-            <nav aria-label="Sections" className="v4-navrow absolute inset-x-0 z-10 grid -translate-y-1/2 grid-cols-5 px-2 text-center md:px-[10vw]">
+            <nav aria-label="Sections" className="v4-navrow absolute inset-x-0 z-10 grid -translate-y-1/2 grid-cols-4 px-2 text-center md:px-[10vw]">
               {[
                 ["Our story", "#story"],
-                ["The evening", "#evening"],
-                ["The team", "#team"],
+                ["The founder", "#founder"],
                 ["What we do", "#what"],
                 ["Contact", "#contact"],
               ].map(([l, h]) => (
@@ -151,18 +133,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ───────── Sticky centre columns ───────── */}
-        <Column
-          id="evening"
-          label="The evening"
-          count={evening.length}
-          discover="/experiences/premium-evening-desert-safari"
-          items={evening.map((e) => ({ ...e, href: "/experiences/premium-evening-desert-safari" }))}
-        />
-        <Column id="team" label="The team" count={teams.length} discover="/enquire" discoverLabel="Say hello" items={teams} />
-
         {/* ───────── The founder (name and bio to come) ───────── */}
-        <section className={`${pad} bg-[#0c0a08] pb-[16svh] pt-[4svh]`} aria-labelledby="v4-founders">
+        <section id="founder" className={`${pad} bg-[#0c0a08] pb-[16svh] pt-[16svh]`} aria-labelledby="v4-founders">
           <div className="grid gap-6 rounded-[4px] border border-[#efe6d6]/25 p-5 md:grid-cols-3 md:gap-5 md:p-8">
             <div className="flex items-start justify-between md:flex-col">
               <h2 id="v4-founders" className="text-[24px] leading-none tracking-[-0.02em] md:text-[30px]">
