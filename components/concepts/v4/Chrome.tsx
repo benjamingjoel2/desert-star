@@ -226,6 +226,12 @@ export function Footer() {
         <span className="v4-i text-[20px] text-[#1c140d]">Where the dunes meet the stars.</span>
         <span>© {new Date().getFullYear()} Desert Stars</span>
       </div>
+      <nav aria-label="Legal" className="v4-m mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-[#1c140d]/70">
+        <Link href="/privacy" className="v4-link">Privacy Policy</Link>
+        <Link href="/booking-terms" className="v4-link">Booking Terms</Link>
+        <Link href="/cookies" className="v4-link">Cookie Policy</Link>
+        <Link href="/credits" className="v4-link">Photo credits</Link>
+      </nav>
     </footer>
   );
 }

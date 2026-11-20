@@ -54,7 +54,7 @@ export default function AboutPage() {
               <span className="block"><Split delay={140}>in discovery</Split></span>
             </h1>
             <div className="v4-card shadow-[0_30px_80px_-30px_rgba(0,0,0,.6)]">
-              <div className="h-full w-full"><Pic name="camel-caravan" alt="A camel caravan crossing the dunes at golden hour" sizes="100vw" /></div>
+              <div className="h-full w-full"><Pic name="camel-caravan" alt="A camel caravan crossing the dunes at golden hour" sizes="100vw" low /></div>
               <div className="v4-tint absolute inset-0 bg-[#0c0a08]/50" />
             </div>
             <nav aria-label="Sections" className="v4-navrow absolute inset-x-0 z-10 grid -translate-y-1/2 grid-cols-4 px-2 text-center md:px-[10vw]">
