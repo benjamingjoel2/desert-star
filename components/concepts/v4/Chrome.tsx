@@ -204,7 +204,7 @@ export function Footer() {
         <Link href="/privacy" className="v4-link">Privacy Policy</Link>
         <Link href="/booking-terms" className="v4-link">Booking Terms</Link>
         <Link href="/cookies" className="v4-link">Cookie Policy</Link>
-        <Link href="/credits" className="v4-link">Photo credits</Link>
+        <Link href="/credits" className="v4-link">Image credits</Link>
       </nav>
     </footer>
   );
