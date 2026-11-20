@@ -74,7 +74,7 @@ const css = `
 
 /* Route: the giant word dissolves into fog as it passes */
 .v6-fogword { filter: blur(calc(max(0, var(--p, 0.4) - 0.45) * 34px)); opacity: calc(1 - max(0, var(--p, 0.4) - 0.5) * 2.2); }
-.v6-drift { transform: translate3d(calc((var(--p, 0.5) - 0.5) * -12%), 0, 0); }
+.v6-drift { transform: translate3d(calc((var(--p, 0.5) - 0.5) * -6%), 0, 0); }
 
 /* Contact links: pale until hovered */
 .v6-link { color: #857c6c; transition: color .5s var(--ease-out), transform .7s var(--ease-out); }
@@ -144,8 +144,8 @@ export default function Page() {
 
             {/* Centre card */}
             <div className="v6-card absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-              <Pic name="night-sky" sizes="100vw" alt="Stars over the desert camp" />
-              <div className="absolute inset-0 bg-[#15130f]/25" />
+              <Pic name="camp-lanterns" sizes="100vw" alt="Lanterns lit at the desert camp after dark" />
+              <div className="absolute inset-0 bg-[#15130f]/30" />
               <div className={`v6-late absolute inset-0 flex flex-col justify-between py-[16svh] ${pad}`}>
                 <p className={`${big} text-[16vw] lg:text-[11vw]`}>Where<br />the dunes</p>
                 <p className={`${big} self-end text-right text-[16vw] lg:text-[11vw]`}>Meet<br />the stars</p>
@@ -153,7 +153,7 @@ export default function Page() {
             </div>
 
             {/* Nav row across the middle (MC) */}
-            <nav aria-label="Sections" className={`v6-ui absolute inset-x-0 top-1/2 z-[2] hidden -translate-y-1/2 items-center justify-between ${pad} ${mo} text-[18px] md:flex`}>
+            <nav aria-label="Sections" className={`v6-ui absolute inset-x-0 top-1/2 z-[2] hidden -translate-y-1/2 items-center justify-between ${pad} ${mo} text-[18px] md:flex lg:pr-[84px]`}>
               <div className="flex w-[calc(50%-12vw-24px)] justify-between xl:w-[calc(50%-150px-24px)]">
                 <a href="#experiences" className="hover:opacity-60">Experiences</a>
                 <a href="#evening" className="hover:opacity-60">The evening</a>
@@ -167,7 +167,7 @@ export default function Page() {
             {/* The giant word */}
             <h1 className="v6-mark pointer-events-none absolute inset-x-0 bottom-[7svh] z-[2] text-center">
               <span className="sr-only">Desert Stars, private desert safaris in Lehbab, Dubai</span>
-              <span aria-hidden="true" className={`${big} fade-in block text-[29.5vw] leading-[0.78] tracking-[0.005em] text-[#f4efe6]`}>Lehbab</span>
+              <span aria-hidden="true" className={`${big} fade-in block text-[31vw] leading-[0.78] tracking-[0.005em] text-[#f4efe6]`}>Lehbab</span>
             </h1>
 
             <div className={`v6-ui absolute inset-x-0 bottom-4 z-[2] flex justify-between ${pad} ${mo} text-[15px] text-[#f4efe6]/80`}>
@@ -228,7 +228,7 @@ export default function Page() {
               <p className={`${it} text-[22px] lg:text-[28px]`}>Our evenings</p>
               <span className={`${mo} text-[17px] text-[#15130f]/70`}>({String(trips.length).padStart(2, "0")})</span>
             </div>
-            <h2 className={`${big} mt-3 text-[16.2vw] lg:text-[16.4vw]`}><Split>Experiences</Split></h2>
+            <h2 className={`${big} mt-3 text-[16.2vw] lg:text-[17.4vw]`}><Split>Experiences</Split></h2>
             <Swoosh className="ml-auto -mt-[2vw] h-[40px] w-[60%] text-[#15130f]/40 lg:h-[70px] lg:w-[40%]" />
           </div>
           <div className="mt-10 px-3 lg:mt-14 lg:px-3">
@@ -249,20 +249,20 @@ export default function Page() {
           <div className="absolute inset-0" data-parallax="0.12"><Pic name="desert-sunset" sizes="100vw" alt="Sunset over the red dunes" /></div>
           <div className="absolute inset-0 bg-[#15130f]/35" />
           <div className="relative flex h-full flex-col justify-between px-4 pb-10 pt-20 lg:px-5 lg:pb-12 lg:pt-24">
-            <h2 className={`${big} text-[25vw] lg:text-[15vw]`}><span className="sr-only">No place like the desert</span><span aria-hidden="true"><Split>No place</Split></span></h2>
+            <h2 className={`${big} text-[25vw] leading-[0.86] lg:text-[12.5vw]`}><span className="sr-only">No place like the desert</span><span aria-hidden="true"><Split>No</Split><br /><Split delay={80}>place</Split></span></h2>
             <div className={`flex justify-between ${mo} text-[15px] lg:text-[18px]`}>
               <span>From the city to the red dunes</span>
               <span className="text-right">Dubai 25°12′N 55°16′E</span>
             </div>
-            <p aria-hidden="true" className={`${big} self-end text-right text-[25vw] lg:text-[15vw]`}><Split delay={200}>Like the desert</Split></p>
+            <p aria-hidden="true" className={`${big} self-end text-right text-[25vw] leading-[0.86] lg:text-[12.5vw]`}><Split delay={200}>Like the</Split><br /><Split delay={320}>desert</Split></p>
           </div>
         </section>
 
         {/* ───────── W9 · DUBAI – LEHBAB, fog, route map, stats card ───────── */}
         <section id="route" data-scrub="pass" className="relative h-[110svh] min-h-[640px] overflow-hidden">
           <div className="absolute inset-0"><Pic name="camel-caravan" sizes="100vw" alt="A camel caravan crossing the dunes" /></div>
-          <div className="absolute inset-0 bg-[#15130f]/20" />
-          <h2 className={`v6-fogword absolute inset-x-0 top-[14svh] text-center ${big} text-[17vw] text-[#f4efe6] lg:text-[17.5vw]`}>
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(21,19,15,.45)_0%,rgba(21,19,15,.12)_45%,transparent_70%)]" />
+          <h2 className={`v6-fogword absolute inset-x-0 top-[14svh] text-center ${big} text-[13vw] text-[#f4efe6] lg:text-[14.5vw]`}>
             <span className="v6-drift inline-block whitespace-nowrap">Dubai – Lehbab</span>
           </h2>
           {/* fog */}
@@ -303,11 +303,11 @@ export default function Page() {
               <circle cx="649" cy="430" r="16" fill="none" stroke="#e7b07a" strokeOpacity=".5" />
               <circle cx="649" cy="430" r="28" fill="none" stroke="#e7b07a" strokeOpacity=".25" />
             </svg>
-            <div className="absolute left-1/2 top-[19%] -translate-x-1/2 text-center">
+            <div className="absolute left-[54%] top-[12%] lg:left-[52%]">
               <p className={`${it} text-[20px] text-[#f4efe6]/70`}>Starting point</p>
               <p className={`${big} mt-1 text-[20px] leading-none tracking-[0.04em]`}>Dubai, your door</p>
             </div>
-            <div className="absolute left-[56%] top-[83%] -translate-x-1/2 text-center lg:left-[54%]">
+            <div className="absolute left-[64%] top-[76%] lg:left-[56%]">
               <p className={`${it} text-[20px] text-[#f4efe6]/70`}>The camp</p>
               <p className={`${big} mt-1 text-[20px] leading-none tracking-[0.04em]`}>Lehbab</p>
             </div>
@@ -331,7 +331,7 @@ export default function Page() {
         </section>
 
         {/* ───────── M7 · Sticky centre column "The evening ™" ───────── */}
-        <section id="evening" className="relative bg-[#15130f] pb-24 text-[#f4efe6] lg:pb-0">
+        <section id="evening" className="relative bg-[#15130f] pb-24 text-[#f4efe6] lg:pb-0 lg:pt-32">
           {/* mobile: labels ride along at the top */}
           <div className={`sticky top-0 z-10 flex items-center justify-between bg-[#15130f]/90 ${pad} pb-3 pt-16 backdrop-blur lg:hidden`}>
             <p className="text-[24px] tracking-[-0.01em]">The evening <sup className={`${mo} text-[13px]`}>™</sup></p>
@@ -355,7 +355,7 @@ export default function Page() {
               ))}
             </ol>
             <div className="hidden lg:block">
-              <div className="sticky top-1/2 flex -translate-y-1/2 justify-end">
+              <div className="sticky top-1/2 flex -translate-y-1/2 justify-end lg:pr-[64px]">
                 <Link href="/experiences" className={`${mo} text-[19px] hover:opacity-60`}>Discover →</Link>
               </div>
             </div>
@@ -395,7 +395,7 @@ export default function Page() {
       <footer className="v6-grid border-t border-[#15130f]/15 bg-[#ebe4d7]">
         <div className={`grid gap-12 ${pad} pb-14 pt-16 lg:grid-cols-12 lg:pt-20`}>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">
-            <div>
+            <div className="col-span-2 sm:col-span-1">
               <p className={`${it} text-[22px]`}>Talk to us</p>
               <ul className="mt-3 space-y-1.5 text-[14px] text-[#15130f]/70">
                 <li><a href={WA} className="hover:text-[#15130f]">WhatsApp</a></li>
