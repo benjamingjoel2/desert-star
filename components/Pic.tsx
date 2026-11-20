@@ -7,12 +7,15 @@ export default function Pic({
   alt = "",
   sizes = "100vw",
   priority = false,
+  low = false,
   className = "",
 }: {
   name: string;
   alt?: string;
   sizes?: string;
   priority?: boolean;
+  /** Visible at load but not important: let the main image win the bandwidth. */
+  low?: boolean;
   className?: string;
 }) {
   const m = (meta as Meta)[name];
@@ -30,7 +33,7 @@ export default function Pic({
         width={m.w}
         height={m.h}
         loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : undefined}
+        fetchPriority={priority ? "high" : low ? "low" : undefined}
         decoding={priority ? "sync" : "async"}
         className={`h-full w-full object-cover ${className}`}
       />

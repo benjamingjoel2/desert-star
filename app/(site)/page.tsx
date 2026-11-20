@@ -70,7 +70,7 @@ export default function Home() {
             <Split delay={150}>Desert Stars</Split>
           </h1>
           <div className="hero-card absolute inset-0">
-            <Pic name="camp-lanterns" sizes="100vw" alt="A desert camp lit by lanterns at dusk" />
+            <Pic name="camp-lanterns" sizes="100vw" low alt="A desert camp lit by lanterns at dusk" />
             <div className="absolute inset-0 bg-black/25" />
           </div>
           <nav aria-label="Sections" className="hero-ui px-page absolute inset-x-0 top-1/2 hidden -translate-y-1/2 justify-between text-white md:flex">

@@ -24,10 +24,20 @@ export default function Motion() {
     if (reduce) return;
     lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), smoothWheel: true, touchMultiplier: 1.4 });
     let raf = 0;
+    // Look the animated elements up once, and again only when the page content changes.
+    let parallax: HTMLElement[] = [];
+    let scrub: HTMLElement[] = [];
+    const collect = () => {
+      parallax = [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
+      scrub = [...document.querySelectorAll<HTMLElement>("[data-scrub]")];
+    };
+    collect();
+    const mo = new MutationObserver(collect);
+    mo.observe(document.body, { childList: true, subtree: true });
     const loop = (time: number) => {
       lenis?.raf(time);
       const vh = window.innerHeight;
-      document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
+      parallax.forEach((el) => {
         const r = el.parentElement!.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) return;
         const speed = parseFloat(el.dataset.parallax || "0.12");
@@ -37,7 +47,7 @@ export default function Motion() {
       // Scroll-scrubbed progress: --p goes 0 → 1.
       // data-scrub="sticky": across a tall section whose child is sticky (0 when its top hits the viewport top, 1 at its end).
       // data-scrub="pass": while the element travels from the bottom of the viewport to the top.
-      document.querySelectorAll<HTMLElement>("[data-scrub]").forEach((el) => {
+      scrub.forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.bottom < -50 || r.top > vh + 50) return;
         const p = el.dataset.scrub === "sticky" ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height * 0.6);
@@ -54,7 +64,7 @@ export default function Motion() {
       if (t) { e.preventDefault(); lenis?.scrollTo(t as HTMLElement, { offset: -120 }); history.replaceState(null, "", a.hash); }
     };
     document.addEventListener("click", onClick);
-    return () => { cancelAnimationFrame(raf); document.removeEventListener("click", onClick); lenis?.destroy(); lenis = null; };
+    return () => { cancelAnimationFrame(raf); mo.disconnect(); document.removeEventListener("click", onClick); lenis?.destroy(); lenis = null; };
   }, []);
 
   // Per page: reset scroll, observe new elements
