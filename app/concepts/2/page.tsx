@@ -167,9 +167,9 @@ export default function Page() {
             <div className="absolute inset-0 bg-[#020715]/35" />
             <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#020715]/60 to-transparent" />
 
-            <h1 className={`${H} v2-fade fade-in absolute inset-x-0 top-[76px] z-10 text-center text-[clamp(48px,11vw,158px)] md:top-[84px]`}>
-              <span className="block">Born in</span>
-              <span className="block">the dunes</span>
+            <h1 className={`${H} v2-fade absolute inset-x-0 top-[76px] z-10 text-center text-[clamp(48px,11vw,158px)] md:top-[84px]`}>
+              <span className="fade-in block">Born in</span>
+              <span className="fade-in block" style={{ ["--d" as string]: "120ms" }}>the dunes</span>
             </h1>
 
             <div className="v2-card z-20">
@@ -225,7 +225,7 @@ export default function Page() {
           <h2 aria-label="Where the dunes meet the stars" className={`${H} relative mx-auto max-w-[1360px] text-[clamp(46px,10vw,150px)]`}>
             <span className="relative z-10 block md:pl-[12%]"><Split>Where</Split></span>
             <span className="relative z-10 block md:pl-[12%]"><Split delay={120}>the dunes</Split></span>
-            <span className="absolute right-0 top-[1.05em] z-10 block text-right md:right-[12%]">
+            <span className="absolute right-0 top-[1.6em] z-10 block text-right md:right-[12%]">
               <span className="block"><Split delay={240}>Meet the</Split></span>
               <span className="block"><Split delay={360}>stars</Split></span>
             </span>

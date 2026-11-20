@@ -132,7 +132,7 @@ export default function Page() {
       </header>
 
       {/* W12 fixed side tab */}
-      <Link href="/enquire" className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 items-center gap-3 bg-[#ff7e15] px-3 py-8 text-[14px] font-medium text-[#1f2a44] transition-[padding] duration-300 [writing-mode:vertical-rl] hover:pr-5 md:flex">
+      <Link href="/enquire" className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 items-center gap-3 bg-[#ff7e15] px-3 py-8 text-[14px] font-medium text-[#1f2a44] transition-colors duration-300 [writing-mode:vertical-rl] hover:bg-[#ff9a45] md:flex">
         <Star className="h-2.5 w-2.5" /> Plan your evening
       </Link>
 
@@ -145,7 +145,7 @@ export default function Page() {
 
             <div className={`hero-ui absolute inset-x-0 top-[44%] ${PAD} md:top-[27%]`}>
               <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between">
-                <p className={`${S} max-w-[16em] text-center text-[22px] italic leading-[1.15] md:ml-[calc(16.66%-20px)] md:text-left md:text-[20px] lg:ml-0`}>
+                <p className={`${S} max-w-[16em] text-center text-[22px] italic leading-[1.15] md:text-left md:text-[20px]`}>
                   Luxury and adventure in the red dunes of Arabia
                 </p>
                 <a href="#evening" className="hidden w-[188px] items-center justify-between border-y border-white/30 px-8 py-3 text-[14px] font-medium transition-colors hover:bg-white/10 md:flex">
@@ -154,7 +154,7 @@ export default function Page() {
               </div>
             </div>
 
-            <h1 className={`hero-mark absolute inset-x-0 bottom-[13%] text-center ${O} text-[19.5vw] font-normal leading-[0.8] tracking-[0.05em] md:bottom-[20%] md:text-[16.5vw]`}>
+            <h1 className={`hero-mark absolute inset-x-0 bottom-[13%] text-center ${O} text-[17vw] font-normal leading-[0.8] tracking-[0.04em] md:bottom-[20%] md:text-[16vw]`}>
               The&nbsp;Desert
             </h1>
 
@@ -174,7 +174,7 @@ export default function Page() {
           {/* faint vertical grid lines */}
           <div aria-hidden="true" className={`pointer-events-none absolute inset-0 z-0 flex ${PAD}`}>
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className={`flex-1 border-l border-[#1f2a44]/[0.07] last:border-r ${i % 2 ? "" : ""} ${i > 1 && i < 4 ? "" : ""} ${i >= 2 ? "hidden md:block" : ""}`} />
+              <div key={i} className={`flex-1 border-l border-[#1f2a44]/[0.07] last:border-r ${i >= 2 ? "hidden md:block" : ""}`} />
             ))}
           </div>
 
@@ -288,23 +288,25 @@ export default function Page() {
 
           {/* =========================== M5 SPLIT HEADLINE =========================== */}
           <section className={`${PAD} pb-[90px] pt-[90px] md:pb-[160px] md:pt-[150px]`}>
-            <h2 className={`relative mx-auto max-w-[1100px] ${O} text-[15vw] font-light leading-[0.8] tracking-[-0.01em] md:text-[11vw] xl:text-[158px]`}>
-              <span className="relative z-10 block">
-                <Split>Where</Split>
-                <br />
-                <Split delay={120}>the dunes</Split>
-              </span>
-              <span className="relative z-0 mx-auto -mt-[0.18em] block w-[66%] md:w-[41%]">
-                <span className="reveal-img block aspect-[452/600] overflow-hidden rounded-[4px]">
-                  <Pic name="standard-sunset-4" sizes="(min-width:768px) 41vw, 66vw" alt="Two guests riding a camel at sunset" />
+            <div className="relative mx-auto max-w-[1100px]">
+              <h2 className={`relative z-10 ${O} text-[15vw] font-light leading-[0.8] tracking-[-0.01em] md:text-[11vw] xl:text-[158px]`}>
+                <span className="block">
+                  <Split>Where</Split>
+                  <br />
+                  <Split delay={120}>the dunes</Split>
                 </span>
-              </span>
-              <span className="absolute right-0 top-[1.05em] z-10 block text-right">
-                <Split delay={240}>Meet</Split>
-                <br />
-                <Split delay={320}>the stars</Split>
-              </span>
-            </h2>
+                <span className="absolute right-0 top-[1.05em] block text-right">
+                  <Split delay={240}>Meet</Split>
+                  <br />
+                  <Split delay={320}>the stars</Split>
+                </span>
+              </h2>
+              <div className="relative z-0 mx-auto -mt-[2.6vw] w-[66%] md:-mt-[2vw] md:w-[41%] xl:-mt-[28px]">
+                <div className="reveal-img aspect-[452/600] overflow-hidden rounded-[4px]">
+                  <Pic name="standard-sunset-4" sizes="(min-width:768px) 41vw, 66vw" alt="Two guests riding a camel at sunset" />
+                </div>
+              </div>
+            </div>
 
             <div className="mx-auto mt-[90px] max-w-[1360px] md:mt-[140px]">
               <p className="reveal text-[26px] leading-[1.12] tracking-[-0.01em] md:indent-[16%] md:text-[44px] lg:max-w-[75%]">
@@ -320,7 +322,7 @@ export default function Page() {
           {/* =========================== M7 STICKY CENTRE COLUMN =========================== */}
           <section id="evening" className={`${PAD} relative pb-[120px] md:pb-[200px]`} aria-labelledby="v3-evening">
             <div className="grid grid-cols-1 md:grid-cols-[1fr_31.4%_1fr]">
-              <div className="sticky top-0 z-10 -mx-5 flex items-center justify-between bg-[#020715] px-5 py-4 md:static md:mx-0 md:bg-transparent md:p-0">
+              <div className="sticky top-0 z-10 -mx-5 flex items-center justify-between bg-[#020715] px-5 py-4 md:static md:mx-0 md:block md:bg-transparent md:p-0">
                 <h2 id="v3-evening" className="text-[24px] leading-none md:sticky md:top-[calc(50svh-14px)] md:self-start md:text-[28px]">
                   The evening <sup className="align-super text-[10px]">™ (05)</sup>
                 </h2>
@@ -351,7 +353,7 @@ export default function Page() {
           {/* =========================== W9 ROUTE =========================== */}
           <section aria-labelledby="v3-route" className="relative">
             <div data-scrub="pass" className="v3-fade-down overflow-hidden pt-10">
-              <p id="v3-route" className={`v3-route-word whitespace-nowrap text-center ${O} text-[16.5vw] font-normal leading-[0.85] tracking-[0.02em] text-[#e8efff]`}>
+              <p id="v3-route" className={`v3-route-word whitespace-nowrap text-center ${O} text-[13.5vw] font-normal leading-[0.85] tracking-[0.02em] text-[#e8efff]`}>
                 Dubai – Lehbab
               </p>
             </div>
@@ -381,7 +383,7 @@ export default function Page() {
               <p className={`${M} absolute left-[8%] top-[10%] text-[16px] text-[#e8efff]/30`}>Arabian Gulf</p>
 
               <svg aria-hidden="true" className="v3-draw reveal absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
-                <path className="draw-line" pathLength={1} d="M52 16 C 38 34, 40 62, 62 80" stroke="#7fd3ff" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+                <path className="draw-line" pathLength={1} d="M52 16 C 38 34, 40 62, 62 80" stroke="#7fd3ff" strokeWidth="0.16" />
               </svg>
 
               {/* start */}
