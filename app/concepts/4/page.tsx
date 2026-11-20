@@ -119,7 +119,7 @@ export default function Page() {
       <style>{`
         .v4 .font-script { font-family: var(--v4-serif), Georgia, serif; }
         @layer components {
-        .v4 .v4-g { font-size: clamp(42px, 11vw, 158px); line-height: .8; letter-spacing: -0.055em; text-transform: uppercase; font-weight: 400; }
+        .v4 .v4-g { font-size: clamp(42px, 11vw, 158px); line-height: .8; letter-spacing: -0.05em; text-transform: uppercase; font-weight: 400; }
         .v4 .v4-s { font-size: clamp(23px, 3.2vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 400; }
         .v4 .v4-m { font-family: var(--v4-mono), ui-monospace, monospace; font-size: 17px; line-height: 1; text-transform: uppercase; letter-spacing: .03em; }
         .v4 .v4-box { background: #efe6d6; color: #0c0a08; padding: 2px 4px 1px; display: inline-block; }
@@ -332,7 +332,7 @@ export default function Page() {
             {giant.map((g) => (
               <li key={g.label} className="flex items-start gap-3">
                 <a href={g.href} {...(g.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="v4-g block text-[clamp(54px,11vw,158px)]">{g.label}</a>
-                <span className="v4-m mt-[0.4em] hidden text-[14px] text-[#1c140d]/70 md:inline">{g.note}</span>
+                <span className="v4-m mt-[0.4em] hidden shrink-0 text-[14px] text-[#1c140d]/70 xl:inline">{g.note}</span>
               </li>
             ))}
           </ul>
