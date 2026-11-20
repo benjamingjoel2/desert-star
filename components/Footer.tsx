@@ -38,10 +38,7 @@ export default function Footer() {
           </address>
         </div>
       </div>
-      <div className="px-page mt-16">
-        <p className="wordmark text-[20.5vw] lg:text-[17.4vw]" aria-hidden="true">Desert Stars</p>
-      </div>
-      <p className="px-page pb-6 pt-4 text-[12px] text-muted">© {new Date().getFullYear()} Desert Stars. All rights reserved.</p>
+      <p className="px-page mt-16 border-t border-line pb-6 pt-6 text-[12px] text-muted">© {new Date().getFullYear()} Desert Stars. All rights reserved.</p>
     </footer>
   );
 }
