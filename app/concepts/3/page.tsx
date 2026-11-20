@@ -1,181 +1,460 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { Fraunces, DM_Mono, Instrument_Sans } from "next/font/google";
+import { Fraunces, Newsreader, IBM_Plex_Mono } from "next/font/google";
+import { tours, getTour, price, type Tour } from "@/lib/tours";
+import { site, waLink, categories } from "@/data/site";
+import { posts } from "@/data/journal";
 import Pic from "@/components/Pic";
 import Split from "@/components/Split";
-import HoverList from "@/components/concepts/HoverList";
-import { site, waLink } from "@/data/site";
-import { posts } from "@/data/journal";
-import { getTour, price, tours } from "@/lib/tours";
 
-const display = Fraunces({ subsets: ["latin"], weight: "variable", style: ["normal", "italic"], axes: ["opsz", "SOFT"], variable: "--c-display", display: "swap" });
-const mono = DM_Mono({ subsets: ["latin"], weight: ["400"], variable: "--c-mono", display: "swap" });
-const sans = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500"], variable: "--c-sans", display: "swap" });
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--m3-display",
+  axes: ["opsz", "SOFT"],
+  style: ["normal", "italic"],
+});
+const text = Newsreader({
+  subsets: ["latin"],
+  variable: "--m3-text",
+  style: ["normal", "italic"],
+});
+const mono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--m3-mono", weight: ["400", "500"] });
 
-export const metadata: Metadata = { title: "Concept 03 · Editorial magazine" };
+export const metadata = { title: "Design 3 · The magazine" };
 
-const RED = "#8a2b1d";
-const Mono = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <span className={`font-[family-name:var(--c-mono)] text-[11px] uppercase tracking-[0.08em] ${className}`}>{children}</span>
-);
+const D = "[font-family:var(--m3-display)]";
+const M = "[font-family:var(--m3-mono)] uppercase tracking-[0.14em]";
+const PAD = "px-5 md:px-10";
 
-export default function Editorial() {
-  const cover = [
-    ["04", "The red dunes of Lehbab, at golden hour", "premium-evening-desert-safari"],
-    ["11", "Dawn before the city wakes", "premium-morning-desert-safari"],
-    ["18", "Marble and quiet at the Grand Mosque", "grand-mosque-and-desert-safari"],
-    ["26", "Dinner on the old Creek", "dubai-creek-dhow-cruise"],
-    ["32", "Al Ain: oases and a mountain road", "al-ain-city-tour"],
-  ];
-  const essay = [
-    { n: "premium-morning-4", c: "Tracks in the sand, seen from the ridge", cls: "col-span-12 md:col-span-7 aspect-[4/3]" },
-    { n: "standard-sunset-4", c: "The camel ride along the ridge", cls: "col-span-6 md:col-span-5 aspect-[4/5] md:mt-24" },
-    { n: "combo-mosque-3", c: "Tanoura under the string lights", cls: "col-span-6 md:col-span-4 aspect-[3/4]" },
-    { n: "premium-evening-4", c: "From the grill: the camp buffet", cls: "col-span-12 md:col-span-4 aspect-[4/3] md:mt-32" },
-    { n: "standard-sunset-3", c: "The fire show, 21:10", cls: "col-span-12 md:col-span-4 aspect-[3/4]" },
-  ];
-  const rows = tours.map((t) => ({ href: `/experiences/${t.slug}`, title: t.title, meta: `${t.location} · ${t.timing}`, price: price(t), img: t.images[0] }));
-  const evening = getTour("premium-evening-desert-safari")!;
+const pad2 = (n: number) => String(n).padStart(2, "0");
+const no = (t: Tour) => pad2(tours.indexOf(t) + 1);
+const pageOf = (t: Tour) => 8 + tours.indexOf(t) * 6;
 
+const coverLines = [
+  "premium-evening-desert-safari",
+  "premium-morning-desert-safari",
+  "grand-mosque-and-desert-safari",
+  "dubai-marina-dhow-cruise",
+  "sharjah-city-tour",
+]
+  .map((s) => getTour(s))
+  .filter((t): t is Tour => Boolean(t));
+
+const lead = getTour("premium-evening-desert-safari") ?? tours[0];
+
+const essay: { name: string; cap: string; box: string; aspect: string }[] = [
+  { name: "camel-caravan", cap: "A caravan crosses the Lehbab red dunes in the last hour of light.", box: "col-span-12 md:col-span-7", aspect: "aspect-[4/3]" },
+  { name: "combo-mosque-3", cap: "The Tanoura turns, and the skirt becomes a wheel of colour.", box: "col-span-7 md:col-span-4 md:col-start-9 md:mt-40", aspect: "aspect-[3/4]" },
+  { name: "combo-mosque-2", cap: "The falcon, hooded, waiting on the glove.", box: "col-span-5 mt-24 md:mt-0 md:col-span-3 md:col-start-2", aspect: "aspect-[4/5]" },
+  { name: "standard-sunset-3", cap: "Fire show after dark, at the centre of camp.", box: "col-span-12 md:col-span-6 md:col-start-6 md:-mt-24", aspect: "aspect-[16/10]" },
+  { name: "premium-evening-4", cap: "The BBQ, served under lanterns.", box: "col-span-6 md:col-span-4 md:col-start-1", aspect: "aspect-square" },
+  { name: "camel-grazing", cap: "Morning, and the camels have the desert to themselves.", box: "col-span-6 mt-16 md:mt-32 md:col-span-7 md:col-start-6", aspect: "aspect-[3/2]" },
+];
+
+const fmtDate = (d: string) =>
+  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+const nav = [
+  { href: "/experiences", label: "Experiences" },
+  { href: "/journal", label: "Journal" },
+  { href: "/about", label: "About" },
+  { href: "/enquire", label: "Enquire" },
+];
+
+export default function MagazineConcept() {
   return (
-    <div className={`${display.variable} ${mono.variable} ${sans.variable} bg-[#efe9df] text-[#151311] [font-family:var(--c-sans)]`}>
-      {/* Masthead */}
-      <header className="px-page pt-5">
-        <div className="flex items-center justify-between border-b border-[#151311] pb-3">
-          <Mono>Issue Nº 01 — Winter 2026 — Dubai, UAE</Mono>
-          <Link href="/enquire"><Mono className="underline underline-offset-4">Enquire</Mono></Link>
+    <div
+      className={`${display.variable} ${text.variable} ${mono.variable} min-h-screen overflow-x-clip bg-[#efe9df] text-[#141210] [font-family:var(--m3-text)] selection:bg-[#8a2b1d] selection:text-[#efe9df]`}
+    >
+      {/* ───────────── MASTHEAD ───────────── */}
+      <header className={`${PAD} pt-4`}>
+        <div className={`${M} flex items-center justify-between gap-4 text-[10px] md:text-[11px]`}>
+          <span className="hidden sm:inline">Issue Nº 01 — Winter 2026 — Dubai</span>
+          <span className="sm:hidden">Nº 01 — Winter 2026</span>
+          <div className="flex items-center gap-5">
+            <a href={site.phoneHref} className="hidden md:inline hover:text-[#8a2b1d]">{site.phone}</a>
+            <Link href="/enquire" className="border-b border-[#8a2b1d] pb-px text-[#8a2b1d] hover:border-[#141210] hover:text-[#141210]">
+              Enquire →
+            </Link>
+          </div>
         </div>
-        <Link href="/concepts/editorial" className="block py-2 font-[family-name:var(--c-display)] text-[17.8vw] font-[650] leading-[0.9] tracking-[-0.045em] [font-variation-settings:'opsz'_144,'SOFT'_50]">
-          <Split delay={100}>Desert <em className="font-[350]">Stars</em></Split>
-        </Link>
-        <nav aria-label="Sections" className="no-scrollbar flex gap-8 overflow-x-auto border-y border-[#151311] py-3">
-          {[["Desert", "/experiences#desert"], ["City", "/experiences#city"], ["Water", "/experiences#cruises"], ["Tickets", "/experiences#attractions"], ["Journal", "/journal"], ["About", "/about"]].map(([l, h]) => (
-            <Link key={l} href={h} className="shrink-0 hover:text-[#8a2b1d]"><Mono>{l}</Mono></Link>
-          ))}
+        <div className="mt-3 border-t-[3px] border-[#141210]" />
+        <div className="overflow-hidden">
+          <Link href="/concepts/3" aria-label="Desert Stars, home" className="block">
+            <h1
+              className={`${D} whitespace-nowrap pt-2 text-[clamp(3.2rem,14.6vw,15rem)] font-[600] leading-[0.86] tracking-[-0.055em] [font-variation-settings:'opsz'_144,'SOFT'_0]`}
+            >
+              <Split>
+                Desert <em className="font-[400] italic tracking-[-0.04em] text-[#8a2b1d]">Stars</em>
+              </Split>
+            </h1>
+          </Link>
+        </div>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-1 border-b border-[#141210] pb-2">
+          <p className="max-w-md text-[15px] italic leading-snug md:text-[17px]">
+            A journal of the dunes, the camps and the cities of the Emirates.
+          </p>
+          <p className={`${M} text-[10px]`}>{site.stats[0].value} guests · since the first dune</p>
+        </div>
+        <nav aria-label="Sections" className="border-b border-[#141210]/25">
+          <ul className={`${M} -mx-2 flex items-center gap-1 overflow-x-auto py-2.5 text-[11px] [scrollbar-width:none] md:justify-between`}>
+            {nav.map((n, i) => (
+              <li key={n.href} className="shrink-0">
+                <Link href={n.href} className="group inline-flex items-baseline gap-2 px-2 py-1 hover:text-[#8a2b1d]">
+                  <span className="text-[#8a2b1d]">§{i + 1}</span>
+                  <span className="border-b border-transparent group-hover:border-current">{n.label}</span>
+                </Link>
+              </li>
+            ))}
+            {categories.map((c) => (
+              <li key={c.slug} className="hidden shrink-0 lg:block">
+                <Link href={`/experiences#${c.slug}`} className="px-2 py-1 text-[#141210]/55 hover:text-[#8a2b1d]">
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
       </header>
 
-      {/* Cover */}
-      <section className="px-page grid grid-cols-12 gap-x-6 gap-y-10 py-10 lg:py-14">
-        <div className="col-span-12 flex flex-col justify-between lg:col-span-4">
-          <div>
-            <Mono className="text-[#8a2b1d]">In this issue</Mono>
-            <ol className="mt-6">
-              {cover.map(([p, title, slug], i) => (
-                <li key={slug} className="reveal border-t border-[#151311]/25" style={{ ["--d" as string]: `${300 + i * 90}ms` }}>
-                  <Link href={`/experiences/${slug}`} className="group grid grid-cols-[2.5rem_1fr] gap-3 py-4">
-                    <Mono className="pt-1.5">p.{p}</Mono>
-                    <span className="font-[family-name:var(--c-display)] text-[24px] leading-[1.1] transition-colors group-hover:text-[#8a2b1d]">{title}</span>
+      <main>
+        {/* ───────────── COVER SPREAD ───────────── */}
+        <section className={`${PAD} grid grid-cols-12 gap-x-5 gap-y-8 pt-6 md:gap-x-8 md:pt-10`}>
+          <figure className="col-span-12 lg:col-span-8">
+            <div className="hero-zoom relative aspect-[4/5] overflow-hidden bg-[#d9d0c2] sm:aspect-[3/2] lg:aspect-[16/11]">
+              <Pic
+                name="dunes-cruiser"
+                priority
+                sizes="(min-width:1024px) 66vw, 100vw"
+                alt="A 4x4 cresting a red dune outside Dubai"
+              />
+              <div className="absolute left-4 top-4 bg-[#efe9df] px-2.5 py-1.5 md:left-6 md:top-6">
+                <span className={`${M} text-[10px] text-[#8a2b1d]`}>Cover story · p. {pageOf(lead)}</span>
+              </div>
+            </div>
+            <figcaption className={`${M} mt-2.5 flex justify-between gap-4 text-[10px] text-[#141210]/65`}>
+              <span>Fig. 1 — Dune bashing, Lehbab, 4:52 pm</span>
+              <span className="hidden sm:inline">Photograph: Heba Hashem</span>
+            </figcaption>
+          </figure>
+
+          <aside className="col-span-12 flex flex-col lg:col-span-4">
+            <h2 className={`${D} reveal text-[clamp(2.4rem,5vw,4.4rem)] font-[400] leading-[0.95] tracking-[-0.035em]`}>
+              The red dunes, <em className="text-[#8a2b1d]">after the heat</em> has gone.
+            </h2>
+            <p className="reveal mt-5 max-w-md text-[17px] leading-[1.55] text-[#141210]/80">
+              Pick-up from your door in Dubai, an hour into the Lehbab sands, and an evening in a lantern-lit Bedouin
+              camp. This issue is about how to spend the desert well.
+            </p>
+
+            <div className="mt-8 border-t-[2px] border-[#141210] pt-3 lg:mt-auto">
+              <p className={`${M} mb-1 text-[10px] text-[#8a2b1d]`}>In this issue</p>
+              <ol>
+                {coverLines.map((t, i) => (
+                  <li key={t.slug} className="reveal border-b border-[#141210]/20" style={{ ["--d" as string]: `${i * 70}ms` }}>
+                    <Link href={`/experiences/${t.slug}`} className="group grid grid-cols-[2.2rem_1fr_auto] items-baseline gap-3 py-3">
+                      <span className={`${D} text-[22px] italic text-[#8a2b1d]`}>{i + 1}</span>
+                      <span className={`${D} text-[19px] leading-tight tracking-[-0.01em] group-hover:underline group-hover:decoration-[#8a2b1d] group-hover:decoration-1 group-hover:underline-offset-4`}>
+                        {t.title}
+                      </span>
+                      <span className={`${M} text-[10px] text-[#141210]/60`}>p. {pageOf(t)}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
+        </section>
+
+        {/* ───────────── FEATURE ───────────── */}
+        <article className={`${PAD} mt-24 md:mt-36`}>
+          <header className="grid grid-cols-12 gap-x-5 border-t border-[#141210] pt-4 md:gap-x-8">
+            <p className={`${M} col-span-12 text-[10px] text-[#8a2b1d] md:col-span-3`}>
+              Feature — p. {pageOf(lead)}
+            </p>
+            <div className="col-span-12 mt-6 md:col-span-9 md:mt-0">
+              <h2 className={`${D} text-[clamp(2.8rem,8vw,8.5rem)] font-[350] leading-[0.9] tracking-[-0.045em]`}>
+                <Split>
+                  An evening at <em className="text-[#8a2b1d]">the edge</em> of the Empty Quarter
+                </Split>
+              </h2>
+              <p className="reveal mt-6 max-w-2xl text-[20px] italic leading-snug text-[#141210]/75 md:text-[24px]">
+                Six hours, one dune sea, a falcon, a fire, and a sky that does the rest. A field report on the{" "}
+                {lead.title.toLowerCase()}.
+              </p>
+              <p className={`${M} mt-5 text-[10px] text-[#141210]/60`}>
+                Words: the Desert Stars desk · {lead.location} · {lead.timing}
+              </p>
+            </div>
+          </header>
+
+          <div className="mt-12 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-16 md:gap-x-8">
+            <figure className="col-span-12 md:col-span-5 md:row-span-2">
+              <div className="reveal-img relative aspect-[4/5] overflow-hidden bg-[#d9d0c2]">
+                <Pic name="camp-lanterns" sizes="(min-width:768px) 40vw, 100vw" alt="Lanterns lit across the Bedouin camp at dusk" />
+              </div>
+              <figcaption className={`${M} mt-2.5 text-[10px] text-[#141210]/65`}>
+                Fig. 2 — The lantern-lit Bedouin camp, an hour after sunset.
+              </figcaption>
+            </figure>
+
+            <div className="col-span-12 md:col-span-7">
+              <div className="gap-10 text-[17px] leading-[1.62] md:columns-2 [&>p+p]:mt-4 [&>p+p]:indent-6">
+                <p className={`first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:${D} first-letter:text-[5.4em] first-letter:font-[500] first-letter:leading-[0.8] first-letter:text-[#8a2b1d]`}>
+                  <span className="first-letter:[font-family:var(--m3-display)]">The car arrives at your door</span> in Dubai
+                  in the middle of the afternoon, and for the first half hour the city keeps you company: towers, then
+                  warehouses, then a road that seems to lose interest in where it is going. Then the colour of the sand
+                  changes. Lehbab is red, properly red, and by the time the tyres are let down you understand why people
+                  come back for it.
+                </p>
+                <p>
+                  The dune drive is the loud part of the evening, and it is over quickly. What follows is slower. A camel
+                  ride along the ridge, a falcon on a gloved hand, the light going from brass to rose to nothing at all.
+                  Nobody tells you to look at the sunset. You simply stop talking.
+                </p>
+                <p>
+                  Camp is a ring of low tents and carpets around an open floor, lit by lanterns. The BBQ is served as the
+                  dark settles; then the Tanoura dancer turns until the skirt becomes a wheel, and the fire performer
+                  makes the sand glow orange for a few minutes at a time.
+                </p>
+                <p>
+                  The drive home is quiet. Most guests sleep. If you plan it right, there is nothing to plan at all:
+                  booking comes with free cancellation up to 24 hours before, and every question gets an answer within
+                  30 minutes, at any hour.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-12 md:col-span-7 md:col-start-6">
+              <blockquote className="reveal border-y-[2px] border-[#141210] py-8 md:py-10">
+                <p className={`${D} text-[clamp(2rem,4.2vw,3.8rem)] font-[350] italic leading-[1.02] tracking-[-0.03em]`}>
+                  <span className="text-[#8a2b1d]">“</span>The desert does not do small talk. It goes quiet, and then
+                  the stars come out.<span className="text-[#8a2b1d]">”</span>
+                </p>
+                <footer className={`${M} mt-5 text-[10px] text-[#141210]/60`}>— From the field notes</footer>
+              </blockquote>
+              <div className="mt-8 grid grid-cols-[1fr_auto] items-end gap-5 sm:grid-cols-[7rem_1fr_auto]">
+                <div className="reveal-img relative hidden aspect-square overflow-hidden sm:block">
+                  <Pic name="combo-3in1-3" sizes="112px" alt="A woman holding a falcon in the desert" />
+                </div>
+                <div>
+                  <p className={`${M} text-[10px] text-[#141210]/60`}>The evening, booked</p>
+                  <p className={`${D} mt-1 text-[24px] leading-tight tracking-[-0.015em]`}>{lead.title}</p>
+                  <p className={`${M} mt-1 text-[11px] text-[#8a2b1d]`}>{price(lead)} · {lead.timing}</p>
+                </div>
+                <Link
+                  href={`/experiences/${lead.slug}`}
+                  className={`${M} inline-flex h-12 items-center bg-[#141210] px-5 text-[11px] text-[#efe9df] transition-colors hover:bg-[#8a2b1d]`}
+                >
+                  Read on →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        {/* ───────────── NUMBERS BAND ───────────── */}
+        <section className="relative mt-24 overflow-hidden bg-[#0e0d0c] text-[#efe9df] md:mt-36">
+          <div data-parallax="0.15" className="absolute inset-x-0 -top-[20%] h-[140%] opacity-[0.28]">
+            <Pic name="night-sky" sizes="100vw" alt="" />
+          </div>
+          <div className={`${PAD} relative py-16 md:py-24`}>
+            <div className="flex items-baseline justify-between border-b border-[#efe9df]/30 pb-3">
+              <p className={`${M} text-[10px] text-[#efe9df]/70`}>By the numbers</p>
+              <p className={`${M} text-[10px] text-[#c9624f]`}>p. 54</p>
+            </div>
+            <dl className="grid grid-cols-2 lg:grid-cols-4">
+              {site.stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`reveal border-[#efe9df]/30 pb-6 pt-8 md:pb-10 md:pt-12 ${i % 2 ? "border-l pl-4 md:pl-8" : "lg:pr-8"} ${i === 2 ? "lg:border-l lg:pl-8" : ""} ${i > 1 ? "border-t lg:border-t-0" : ""}`}
+                  style={{ ["--d" as string]: `${i * 90}ms` }}
+                >
+                  <dt className={`${M} order-2 text-[10px] text-[#efe9df]/65`}>
+                    <span className="text-[#c9624f]">{pad2(i + 1)} </span>
+                    {s.label}
+                  </dt>
+                  <dd className={`${D} mt-3 text-[clamp(3.4rem,9vw,8.5rem)] font-[300] leading-[0.85] tracking-[-0.06em]`}>
+                    {s.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-10 max-w-xl text-[18px] italic leading-snug text-[#efe9df]/80 md:mt-14 md:text-[21px]">
+              Sixteen experiences, one standard: collected from your door, looked after by people who know the sand.
+            </p>
+          </div>
+        </section>
+
+        {/* ───────────── PHOTO ESSAY ───────────── */}
+        <section className={`${PAD} mt-24 md:mt-36`}>
+          <div className="grid grid-cols-12 gap-x-5 border-t border-[#141210] pt-4 md:gap-x-8">
+            <p className={`${M} col-span-12 text-[10px] text-[#8a2b1d] md:col-span-3`}>Portfolio — p. 62</p>
+            <h2 className={`${D} col-span-12 mt-5 text-[clamp(2.6rem,7vw,7rem)] font-[350] leading-[0.92] tracking-[-0.045em] md:col-span-9 md:mt-0`}>
+              <Split>
+                Field notes, <em className="text-[#8a2b1d]">in pictures</em>
+              </Split>
+            </h2>
+          </div>
+          <div className="mt-12 grid grid-cols-12 gap-x-4 gap-y-10 md:mt-20 md:gap-x-8 md:gap-y-16">
+            {essay.map((e, i) => (
+              <figure key={e.name} className={e.box}>
+                <div className={`reveal-img zoom relative overflow-hidden bg-[#d9d0c2] ${e.aspect}`}>
+                  <Pic name={e.name} sizes="(min-width:768px) 55vw, 100vw" alt={e.cap} />
+                </div>
+                <figcaption className={`${M} mt-2.5 text-[10px] leading-relaxed text-[#141210]/65`}>
+                  <span className="text-[#8a2b1d]">Fig. {i + 3} —</span> {e.cap}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        {/* ───────────── INDEX ───────────── */}
+        <section id="index" className={`${PAD} mt-24 md:mt-40`}>
+          <div className="grid grid-cols-12 gap-x-5 border-t-[3px] border-[#141210] pt-4 md:gap-x-8">
+            <p className={`${M} col-span-12 text-[10px] text-[#8a2b1d] md:col-span-3`}>Index of experiences</p>
+            <div className="col-span-12 mt-5 md:col-span-9 md:mt-0">
+              <h2 className={`${D} text-[clamp(2.6rem,7vw,7rem)] font-[350] leading-[0.92] tracking-[-0.045em]`}>
+                Contents, <em className="text-[#8a2b1d]">all {tours.length}</em>
+              </h2>
+              <p className="mt-4 max-w-xl text-[17px] italic text-[#141210]/70">
+                Every journey we run, from the dunes to the creek. Prices per adult.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 md:mt-14">
+            <div className={`${M} hidden grid-cols-12 gap-x-8 border-b border-[#141210] pb-2 text-[10px] text-[#141210]/60 md:grid`}>
+              <span className="col-span-1">No.</span>
+              <span className="col-span-5">Title</span>
+              <span className="col-span-2">Place</span>
+              <span className="col-span-2">Duration</span>
+              <span className="col-span-2 text-right">Price</span>
+            </div>
+            <ol>
+              {tours.map((t) => (
+                <li key={t.slug} className="border-b border-[#141210]/20">
+                  <Link
+                    href={`/experiences/${t.slug}`}
+                    className="group grid grid-cols-[2.4rem_1fr] gap-x-3 py-4 transition-colors hover:bg-[#e6dfd2] md:grid-cols-12 md:items-baseline md:gap-x-8 md:py-5"
+                  >
+                    <span className={`${D} text-[18px] italic text-[#8a2b1d] md:col-span-1 md:text-[22px]`}>{no(t)}</span>
+                    <span className="md:col-span-5">
+                      <span className={`${D} block text-[20px] leading-tight tracking-[-0.015em] transition-transform duration-500 group-hover:translate-x-1.5 md:text-[26px]`}>
+                        {t.title}
+                      </span>
+                      <span className={`${M} mt-1.5 block text-[10px] text-[#141210]/60 md:hidden`}>
+                        {t.location} · {t.timing}
+                      </span>
+                      <span className={`${M} mt-1 block text-[10px] text-[#8a2b1d] md:hidden`}>{price(t)}</span>
+                    </span>
+                    <span className="hidden text-[15px] md:col-span-2 md:block">{t.location}</span>
+                    <span className="hidden text-[15px] italic text-[#141210]/75 md:col-span-2 md:block">{t.timing}</span>
+                    <span className={`${M} hidden text-right text-[11px] text-[#8a2b1d] md:col-span-2 md:block`}>
+                      {price(t)}
+                    </span>
                   </Link>
                 </li>
               ))}
             </ol>
-          </div>
-          <p className="reveal mt-10 max-w-sm text-[15px] leading-relaxed" style={{ ["--d" as string]: "800ms" }}>
-            A guide to the Arabian desert and the Emirates beyond it, from the people who drive you there. Evenings from AED {evening.adult}.
-          </p>
-        </div>
-        <figure className="col-span-12 lg:col-span-8">
-          <div className="hero-zoom aspect-[4/3] overflow-hidden lg:aspect-[16/11]"><Pic name="combo-3in1-3" priority sizes="(min-width:1024px) 66vw, 100vw" alt="A guest holding a saker falcon in the Lehbab desert" /></div>
-          <figcaption className="mt-3 flex justify-between gap-4"><Mono>Fig. 1 — A saker falcon at golden hour, Lehbab</Mono><Mono>Cover</Mono></figcaption>
-        </figure>
-      </section>
-
-      {/* Feature */}
-      <section className="px-page grid grid-cols-12 gap-x-6 gap-y-12 border-t border-[#151311] py-20 lg:py-32">
-        <div className="col-span-12 lg:col-span-7">
-          <Mono className="text-[#8a2b1d]">Feature — p.04</Mono>
-          <h2 className="mt-6 font-[family-name:var(--c-display)] text-[48px] font-[300] leading-[0.95] tracking-[-0.03em] [font-variation-settings:'opsz'_144] lg:text-[104px]">
-            <Split>The evening <em>issue</em></Split>
-          </h2>
-          <div className="reveal mt-12 gap-8 text-[16px] leading-[1.7] md:columns-2">
-            <p className="first-letter:float-left first-letter:mr-3 first-letter:font-[family-name:var(--c-display)] first-letter:text-[84px] first-letter:leading-[0.8] first-letter:text-[#8a2b1d]">
-              The road from Dubai runs straight until it doesn&apos;t. At Lehbab the tarmac gives way to sand the colour of paprika, and the drivers let a little air out of the tyres. What follows is forty minutes of the desert rising and falling under you, until the camp appears below a ridge, lit by lanterns.
-            </p>
-            <p className="mt-4">
-              There is Arabic coffee and dates, a falcon to hold, a camel to ride, henna for those who want it. The grill is lit as the Tanoura dancer begins to spin. And when the fire show ends, the lights go down, and you remember why people have looked up at this sky for thousands of years.
-            </p>
-          </div>
-        </div>
-        <aside className="col-span-12 flex flex-col gap-10 lg:col-span-5">
-          <div className="reveal-img aspect-[4/5] overflow-hidden"><Pic name="standard-sunset-2" sizes="(min-width:1024px) 40vw, 100vw" /></div>
-          <blockquote className="border-l-2 pl-6" style={{ borderColor: RED }}>
-            <p className="font-[family-name:var(--c-display)] text-[30px] italic leading-[1.15] lg:text-[38px]" style={{ color: RED }}>
-              <Split>“When the fire show ends, the lights go down. Then you look up.”</Split>
-            </p>
-          </blockquote>
-        </aside>
-      </section>
-
-      {/* Numbers */}
-      <section className="bg-[#151311] text-[#efe9df]">
-        <dl className="px-page grid grid-cols-2 lg:grid-cols-4">
-          {site.stats.map((s, i) => (
-            <div key={s.label} className={`flex flex-col-reverse border-white/20 py-12 lg:py-16 ${i ? "lg:border-l lg:pl-8" : ""} ${i % 2 ? "border-l pl-6 lg:pl-8" : ""}`}>
-              <dt className="mt-4"><Mono className="opacity-70">{s.label}</Mono></dt>
-              <dd className="font-[family-name:var(--c-display)] text-[60px] font-[300] leading-none tracking-[-0.04em] lg:text-[104px]" data-count={/\d/.test(s.value) && !s.value.includes("/") ? s.value : undefined}>{s.value}</dd>
+            <div className="mt-6 flex flex-wrap items-baseline justify-between gap-4">
+              <p className={`${M} text-[10px] text-[#141210]/60`}>
+                Free cancellation up to 24 hours before · Pick-up from your door in Dubai
+              </p>
+              <Link href="/experiences" className={`${M} border-b border-[#141210] pb-0.5 text-[11px] hover:border-[#8a2b1d] hover:text-[#8a2b1d]`}>
+                All experiences →
+              </Link>
             </div>
-          ))}
-        </dl>
-      </section>
+          </div>
+        </section>
 
-      {/* Photo essay */}
-      <section className="px-page py-20 lg:py-32">
-        <div className="mb-12 flex items-end justify-between gap-6 border-b border-[#151311] pb-4">
-          <h2 className="font-[family-name:var(--c-display)] text-[40px] font-[300] italic leading-none lg:text-[72px]"><Split>Photo essay</Split></h2>
-          <Mono>pp. 12–17</Mono>
-        </div>
-        <div className="grid grid-cols-12 gap-x-6 gap-y-10">
-          {essay.map((e, i) => (
-            <figure key={e.n} className={e.cls.split(" ").filter((c) => !c.startsWith("aspect")).join(" ")}>
-              <div className={`reveal-img overflow-hidden ${e.cls.split(" ").find((c) => c.startsWith("aspect"))}`}><Pic name={e.n} sizes="(min-width:768px) 50vw, 100vw" /></div>
-              <figcaption className="mt-3"><Mono>Fig. {i + 2} — {e.c}</Mono></figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+        {/* ───────────── ALSO IN THIS ISSUE ───────────── */}
+        <section className={`${PAD} mt-24 md:mt-36`}>
+          <div className="flex items-baseline justify-between border-t border-[#141210] pt-4">
+            <h2 className={`${D} text-[28px] italic tracking-[-0.02em] md:text-[40px]`}>Also in this issue</h2>
+            <Link href="/journal" className={`${M} text-[10px] hover:text-[#8a2b1d]`}>The Journal →</Link>
+          </div>
+          <div className="mt-8 grid gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-[#141210]/25">
+            {posts.slice(0, 3).map((p, i) => (
+              <Link key={p.slug} href={`/journal/${p.slug}`} className={`group reveal block ${i ? "md:pl-8" : ""} ${i < 2 ? "md:pr-8" : ""}`} style={{ ["--d" as string]: `${i * 90}ms` }}>
+                <div className="reveal-img zoom relative aspect-[3/2] overflow-hidden bg-[#d9d0c2]">
+                  <Pic name={p.image} sizes="(min-width:768px) 30vw, 100vw" alt={p.title} />
+                </div>
+                <p className={`${M} mt-4 flex justify-between text-[10px] text-[#141210]/60`}>
+                  <span className="text-[#8a2b1d]">{p.category}</span>
+                  <span>{fmtDate(p.date)}</span>
+                </p>
+                <h3 className={`${D} mt-2 text-[24px] leading-[1.08] tracking-[-0.02em] group-hover:text-[#8a2b1d]`}>{p.title}</h3>
+                <p className="mt-2 line-clamp-3 text-[16px] leading-[1.5] text-[#141210]/75">{p.excerpt}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      {/* Index */}
-      <section className="px-page border-t border-[#151311] py-20 lg:py-32">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_2fr]">
-          <Mono className="text-[#8a2b1d]">Index — all experiences</Mono>
-          <h2 className="font-[family-name:var(--c-display)] text-[44px] font-[300] leading-none tracking-[-0.03em] lg:text-[88px]"><Split>The <em>contents</em></Split></h2>
-        </div>
-        <HoverList rows={rows} tone="light" />
-      </section>
+        {/* ───────────── LETTERS / ENQUIRY ───────────── */}
+        <section className={`${PAD} mt-24 md:mt-36`}>
+          <div className="grid grid-cols-12 gap-x-5 border-y-[2px] border-[#141210] py-10 md:gap-x-8 md:py-16">
+            <p className={`${M} col-span-12 text-[10px] text-[#8a2b1d] md:col-span-3`}>Letters to the desk</p>
+            <div className="col-span-12 mt-5 md:col-span-9 md:mt-0">
+              <p className={`${D} text-[clamp(2.2rem,5.6vw,5.4rem)] font-[350] leading-[0.98] tracking-[-0.04em]`}>
+                Write to us, and we will plan the evening around you. <em className="text-[#8a2b1d]">We reply within 30 minutes.</em>
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="/enquire" className={`${M} inline-flex h-12 items-center bg-[#8a2b1d] px-6 text-[11px] text-[#efe9df] transition-colors hover:bg-[#141210]`}>
+                  Send an enquiry →
+                </Link>
+                <a
+                  href={waLink("Hello Desert Stars, I'd like to plan a desert safari.")}
+                  className={`${M} inline-flex h-12 items-center border border-[#141210] px-6 text-[11px] transition-colors hover:bg-[#141210] hover:text-[#efe9df]`}
+                >
+                  WhatsApp the desk
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-      {/* Also in this issue */}
-      <section className="px-page border-t border-[#151311] py-20">
-        <Mono className="text-[#8a2b1d]">Also in this issue</Mono>
-        <div className="mt-8 grid gap-10 md:grid-cols-3">
-          {posts.map((p, i) => (
-            <Link key={p.slug} href={`/journal/${p.slug}`} className="group">
-              <Mono>0{i + 1} — {p.category}</Mono>
-              <h3 className="mt-3 font-[family-name:var(--c-display)] text-[28px] leading-[1.1] group-hover:text-[#8a2b1d]">{p.title}</h3>
-              <p className="mt-3 text-[15px] opacity-75">{p.excerpt}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Back cover */}
-      <section className="grid lg:grid-cols-2">
-        <div className="relative min-h-[60svh] overflow-hidden"><div className="absolute inset-0" data-parallax="0.12"><Pic name="burj-palms" sizes="(min-width:1024px) 50vw, 100vw" /></div></div>
-        <div className="px-page flex flex-col justify-between gap-12 bg-[#8a2b1d] py-16 text-[#efe9df] lg:py-20">
-          <Mono>Reservations</Mono>
-          <h2 className="font-[family-name:var(--c-display)] text-[48px] font-[300] leading-[0.95] tracking-[-0.03em] lg:text-[84px]"><Split>Your evening, <em>reserved.</em></Split></h2>
-          <div className="flex flex-wrap gap-3">
-            <a href={waLink("Hello Desert Stars, I'd like to reserve an evening.")} className="bg-[#efe9df] px-6 py-4 text-[#151311]"><Mono>WhatsApp {site.phone}</Mono></a>
-            <Link href="/enquire" className="border border-[#efe9df] px-6 py-4"><Mono>Write to us</Mono></Link>
+      {/* ───────────── COLOPHON ───────────── */}
+      <footer className={`${PAD} mt-24 pb-10 md:mt-32`}>
+        <div className="border-t-[3px] border-[#141210] pt-6">
+          <p className={`${D} text-[clamp(2.6rem,9vw,8rem)] font-[600] leading-[0.85] tracking-[-0.055em]`}>
+            Desert <em className="font-[400] text-[#8a2b1d]">Stars</em>
+          </p>
+          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-8 text-[15px] leading-relaxed md:grid-cols-4 md:gap-x-8">
+            <div className="col-span-2 md:col-span-1">
+              <p className={`${M} mb-2 text-[10px] text-[#8a2b1d]`}>Colophon</p>
+              <p className="italic text-[#141210]/75">
+                Issue Nº 01, Winter 2026. Set in Fraunces, Newsreader and IBM Plex Mono. Printed on sand, read at dusk.
+              </p>
+            </div>
+            <div>
+              <p className={`${M} mb-2 text-[10px] text-[#8a2b1d]`}>Sections</p>
+              <ul>
+                {nav.map((n) => (
+                  <li key={n.href}><Link href={n.href} className="hover:text-[#8a2b1d]">{n.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className={`${M} mb-2 text-[10px] text-[#8a2b1d]`}>The desk</p>
+              <ul>
+                <li><a href={site.phoneHref} className="hover:text-[#8a2b1d]">{site.phone}</a></li>
+                <li><a href={`mailto:${site.email}`} className="break-all hover:text-[#8a2b1d]">{site.email}</a></li>
+                <li><a href={waLink("Hello Desert Stars")} className="hover:text-[#8a2b1d]">WhatsApp</a></li>
+              </ul>
+            </div>
+            <div className="col-span-2 md:col-span-1">
+              <p className={`${M} mb-2 text-[10px] text-[#8a2b1d]`}>Address</p>
+              <p>{site.address}</p>
+              <p className="mt-2 italic text-[#141210]/70">{site.hours}</p>
+            </div>
+          </div>
+          <div className={`${M} mt-12 flex flex-wrap justify-between gap-3 border-t border-[#141210]/25 pt-4 text-[10px] text-[#141210]/60`}>
+            <span>© {new Date().getFullYear()} Desert Stars · Dubai</span>
+            <span>{site.response}</span>
           </div>
         </div>
-      </section>
-
-      <footer className="px-page grid gap-6 py-10 md:grid-cols-4">
-        <Mono>Desert Stars — Colophon</Mono>
-        <Mono className="opacity-70">{site.address}</Mono>
-        <Mono className="opacity-70">{site.email}</Mono>
-        <span className="flex gap-4"><Link href="/privacy"><Mono>Privacy</Mono></Link><Link href="/booking-terms"><Mono>Terms</Mono></Link><Link href="/cookies"><Mono>Cookies</Mono></Link></span>
       </footer>
     </div>
   );
