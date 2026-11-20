@@ -199,8 +199,8 @@ export default function MagazineConcept() {
 
             <div className="col-span-12 md:col-span-7">
               <div className="gap-10 text-[17px] leading-[1.62] md:columns-2 [&>p+p]:mt-4 [&>p+p]:indent-6">
-                <p className={`first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:${D} first-letter:text-[5.4em] first-letter:font-[500] first-letter:leading-[0.8] first-letter:text-[#8a2b1d]`}>
-                  <span className="first-letter:[font-family:var(--m3-display)]">The car arrives at your door</span> in Dubai
+                <p className={`first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:[font-family:var(--m3-display)] first-letter:text-[5.4em] first-letter:font-[500] first-letter:leading-[0.8] first-letter:text-[#8a2b1d]`}>
+                  The car arrives at your door in Dubai
                   in the middle of the afternoon, and for the first half hour the city keeps you company: towers, then
                   warehouses, then a road that seems to lose interest in where it is going. Then the colour of the sand
                   changes. Lehbab is red, properly red, and by the time the tyres are let down you understand why people
@@ -269,7 +269,7 @@ export default function MagazineConcept() {
                   className={`reveal border-[#efe9df]/30 pb-6 pt-8 md:pb-10 md:pt-12 ${i % 2 ? "border-l pl-4 md:pl-8" : "lg:pr-8"} ${i === 2 ? "lg:border-l lg:pl-8" : ""} ${i > 1 ? "border-t lg:border-t-0" : ""}`}
                   style={{ ["--d" as string]: `${i * 90}ms` }}
                 >
-                  <dt className={`${M} order-2 text-[10px] text-[#efe9df]/65`}>
+                  <dt className={`${M} text-[10px] text-[#efe9df]/65`}>
                     <span className="text-[#c9624f]">{pad2(i + 1)} </span>
                     {s.label}
                   </dt>
