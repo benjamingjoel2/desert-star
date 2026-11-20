@@ -66,11 +66,11 @@ export function V4Style() {
 }
 
 const menu: [string, string][] = [
-  ["Home", "/concepts/4"],
+  ["Home", "/"],
   ["Experiences", "/experiences"],
   ["Desert safaris", "/experiences#desert"],
   ["Journal", "/journal"],
-  ["About", "/concepts/4/about"],
+  ["About", "/about"],
   ["Enquire", "/enquire"],
 ];
 
@@ -78,7 +78,7 @@ const menu: [string, string][] = [
 export function Header() {
   return (
     <header className="v4-head fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 pt-5 md:px-[27px] md:pt-[26px]">
-      <Link href="/concepts/4" className="v4-i text-[25px] leading-[0.8] text-[#efe6d6]" aria-label="Desert Stars, home">Desert Stars</Link>
+      <Link href="/" className="v4-i text-[25px] leading-[0.8] text-[#efe6d6]" aria-label="Desert Stars, home">Desert Stars</Link>
       <div className="flex items-start gap-2">
         <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{WhatsApp}"}</a>
         <details>
@@ -201,13 +201,13 @@ export function Footer() {
       <div className="grid gap-10 md:grid-cols-3 md:gap-5">
         <div className="grid grid-cols-2 gap-5 md:col-span-2">
           <ul className="v4-m space-y-[3px] text-[17px]">
-            <li><Link href="/concepts/4" className="v4-link">Home</Link></li>
+            <li><Link href="/" className="v4-link">Home</Link></li>
             <li><Link href="/experiences" className="v4-link">Experiences</Link></li>
             <li><Link href="/experiences#desert" className="v4-link">Desert safaris</Link></li>
           </ul>
           <ul className="v4-m space-y-[3px] text-[17px]">
             <li><Link href="/journal" className="v4-link">Journal</Link></li>
-            <li><Link href="/concepts/4/about" className="v4-link">About</Link></li>
+            <li><Link href="/about" className="v4-link">About</Link></li>
             <li><Link href="/enquire" className="v4-link">Enquire</Link></li>
           </ul>
         </div>

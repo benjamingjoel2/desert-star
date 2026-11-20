@@ -5,7 +5,7 @@ import { tours, getTour, price } from "@/lib/tours";
 import { site } from "@/data/site";
 import { shell, pad, V4Style, Header, Footer, Steps, StepChips, Column, GiantLinks } from "@/components/concepts/v4/Chrome";
 
-export const metadata = { title: "Variation 4 · Crepel-first" };
+export const metadata = { title: { absolute: "Desert Stars | Luxury Desert Safaris & Emirates Journeys" } };
 
 /* ── Data ─────────────────────────────────────────────── */
 function pick(slug: string, img: string, label?: string) {
