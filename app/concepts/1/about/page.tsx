@@ -171,7 +171,7 @@ export default function AboutPage() {
             <div className="reveal-img relative mx-auto mt-[4vw] aspect-[4/5] w-[72%] overflow-hidden rounded-[4px] lg:absolute lg:left-1/2 lg:top-[7.5vw] lg:mt-0 lg:aspect-auto lg:h-[50vw] lg:w-[31.4vw] lg:-translate-x-1/2">
               <Pic name="camel-ride" sizes="(min-width:1024px) 32vw, 72vw" alt="Guests riding camels along a dune ridge" />
             </div>
-            <div aria-hidden="true" className={`relative z-10 -mt-[9vw] text-right ${O} text-[17vw] font-normal uppercase leading-[0.8] lg:absolute lg:bottom-[2vw] lg:right-[10%] lg:mt-0 lg:text-[11vw]`}>
+            <div aria-hidden="true" className={`relative z-10 -mt-[9vw] text-right ${O} text-[15vw] font-normal uppercase leading-[0.8] lg:absolute lg:bottom-[2vw] lg:right-[10%] lg:mt-0 lg:text-[11vw]`}>
               <Split delay={150}>In</Split><br className="lg:hidden" /> <Split delay={250}>discovery</Split>
             </div>
           </div>
@@ -236,13 +236,13 @@ export default function AboutPage() {
                 <p className={`mt-3 ${C} max-w-[240px] text-[17px] italic text-white/70`}>Our premium evening safari, from your door and back.</p>
               </div>
             </div>
-            <ol className={`${pad} space-y-3 lg:space-y-0 lg:px-0`}>
+            <ol className="space-y-3 px-5 lg:space-y-0 lg:px-0">
               {steps.map((s, i) => (
                 <li key={s.cap} className="relative aspect-[4/5] overflow-hidden lg:aspect-[452/600]">
                   <div className="reveal-img zoom absolute inset-0">
                     <Pic name={s.img} sizes="(min-width:1024px) 32vw, 100vw" alt={s.alt} />
+                    <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#18213a]/85 to-transparent" />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#18213a]/85 to-transparent" />
                   <div className="absolute inset-x-4 bottom-4">
                     <p className={`${M} flex flex-wrap items-center gap-2 text-[19px]`}>
                       <span className="bg-white px-1.5 text-[#1f2a44]">{s.time}</span>
@@ -344,32 +344,29 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Founders slot — ready for names and portraits */}
+        {/* The founder — portrait + short, non-invented line (full bio to come) */}
         <section aria-labelledby="v1-founders" className={`relative bg-white ${pad} py-[14vh] lg:py-[18vh]`}>
           <div className="grid gap-10 lg:grid-cols-6 lg:gap-0">
             <div className="lg:col-span-2 lg:pr-10">
-              <p className={`${M} text-[18px] text-[#1f2a44]/55`}>Founders ™</p>
-              <h2 id="v1-founders" className={`mt-3 ${C} text-[44px] uppercase leading-[0.95] lg:text-[60px]`}>The founders</h2>
-              <p className={`mt-5 ${C} text-[22px] italic leading-[1.2]`}>Full profile coming soon.</p>
-              <p className="mt-4 max-w-[320px] text-[14px] font-medium leading-[1.5] text-[#1f2a44]/70">
-                The person who started Desert Stars will introduce himself here, in his own words.
+              <p className={`${M} text-[18px] text-[#1f2a44]/55`}>Founder ™</p>
+              <h2 id="v1-founders" className={`mt-3 ${C} text-[44px] uppercase leading-[0.95] lg:text-[60px]`}><Split>The founder</Split></h2>
+              <p className={`reveal mt-6 max-w-[360px] ${C} text-[24px] italic leading-[1.2] lg:text-[26px]`}>
+                Benjamin founded Desert Stars to share the desert the way he knows it: door to door, unhurried, and ending under the stars.
               </p>
             </div>
             <figure className="lg:col-span-4 lg:pr-[100px]">
               <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-                <div className="reveal-img relative aspect-[4/5] overflow-hidden rounded-[4px] [&_img]:object-[70%_center]">
-                  <Pic name="founder" sizes="(min-width:1024px) 34vw, (min-width:640px) 50vw, 100vw" alt="Portrait of the founder of Desert Stars" />
+                <div className="reveal-img relative aspect-[4/5] overflow-hidden rounded-[4px] bg-[#0b0b0d] [&_img]:object-[78%_center]">
+                  <Pic name="founder" sizes="(min-width:1024px) 34vw, (min-width:640px) 50vw, 100vw" alt="Portrait of Benjamin, founder of Desert Stars" />
                   <span className={`absolute left-3 top-3 ${M} bg-white px-1.5 text-[17px] text-[#1f2a44]`}>Founder</span>
                 </div>
-                <figcaption className="flex flex-col justify-between rounded-[4px] border border-[#1f2a44]/15 bg-[#f3f1ec]/70 p-5 lg:p-7">
-                  <span className={`${M} text-[17px] text-[#1f2a44]/50`}>01 / Founder</span>
-                  <div className="mt-10">
-                    <Star className="h-4 w-4 text-[#b9601f]" />
-                    <p className={`mt-4 ${C} text-[30px] uppercase leading-[0.95] lg:text-[38px]`}>Founder</p>
-                    <p className={`mt-2 ${C} text-[19px] italic text-[#1f2a44]/70`}>Full profile coming soon.</p>
-                    <p className="mt-4 border-t border-[#1f2a44]/15 pt-4 text-[14px] font-medium leading-[1.5] text-[#1f2a44]/70">
-                      Desert Stars, One Central, Dubai
-                    </p>
+                <figcaption className="flex flex-col justify-between rounded-[4px] bg-[#1f2a44] p-5 text-white lg:p-7">
+                  <span className={`${M} text-[17px] text-white/55`}>01 / Desert Stars</span>
+                  <div className="mt-12">
+                    <Star className="h-4 w-4 text-[#e9b98c]" />
+                    <p className={`mt-4 ${C} text-[40px] uppercase leading-[0.95] lg:text-[52px]`}>Benjamin</p>
+                    <p className={`mt-1 ${O} text-[13px] uppercase tracking-[0.2em] text-white/70`}>Founder</p>
+                    <p className={`mt-6 border-t border-white/20 pt-4 ${C} text-[18px] italic text-white/65`}>Full profile coming soon.</p>
                   </div>
                 </figcaption>
               </div>
@@ -400,7 +397,7 @@ export default function AboutPage() {
                 <div key={x.k} className="flex min-h-[200px] flex-col justify-between border-b border-r border-[#1f2a44]/15 p-5 lg:min-h-[240px] lg:p-6">
                   <div>
                     <dt className={`${C} text-[20px] italic text-[#1f2a44]/70`}>{x.k}</dt>
-                    <dd className="mt-2 break-words text-[18px] font-medium leading-[1.3] lg:text-[19px]">{x.v}</dd>
+                    <dd className={`mt-2 font-medium leading-[1.3] ${x.k === "Email" ? "text-[16px] [overflow-wrap:anywhere] xl:text-[17px]" : "text-[18px] lg:text-[19px]"}`}>{x.v}</dd>
                   </div>
                   <dd className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[14px] font-medium">
                     {x.href ? (

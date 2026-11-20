@@ -171,13 +171,17 @@ export default function AboutPage() {
               <span className="v4-m text-[15px] text-[#efe6d6]/60">{"{Desert Stars}"}</span>
             </div>
             <figure className="reveal-img relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[4px] bg-[#1a1510] [&_img]:object-[70%_center]">
-              <Pic name="founder" alt="Portrait of the founder of Desert Stars" sizes="(min-width:768px) 30vw, 90vw" />
-              <figcaption className="v4-m v4-box absolute bottom-3 left-3">Founder</figcaption>
+              <Pic name="founder" alt="Benjamin, founder of Desert Stars" sizes="(min-width:768px) 30vw, 90vw" />
+              <figcaption className="v4-m v4-box absolute bottom-3 left-3">Benjamin · Founder</figcaption>
             </figure>
             <div className="flex flex-col justify-between gap-6 text-[14px] leading-[1.6] text-[#efe6d6]/80">
-              <p className="v4-i text-[34px] leading-[1.02] text-[#efe6d6] md:text-[46px]">Full profile coming soon.</p>
+              <div>
+                <p className="text-[34px] leading-[0.95] tracking-[-0.03em] text-[#efe6d6] md:text-[46px]">Benjamin</p>
+                <p className="v4-m mt-2 text-[15px] text-[#efe6d6]/60">Founder</p>
+                <p className="v4-i mt-6 text-[24px] leading-[1.12] text-[#efe6d6] md:text-[30px]">Benjamin founded Desert Stars to share the desert the way he knows it: door to door, unhurried, and ending under the stars.</p>
+              </div>
               <div className="space-y-5">
-                <p>In the meantime, every message is answered by the concierge team at our One Central office, daily from 08:00 to 22:00 UAE time.</p>
+                <p>Full profile coming soon. In the meantime, every message is answered by the concierge team at our One Central office, daily from 08:00 to 22:00 UAE time.</p>
                 <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{Write to us}"}</a>
               </div>
             </div>
