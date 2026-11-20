@@ -67,7 +67,7 @@ export default function Page() {
         {/* ───────── M2 Hero ───────── */}
         <section className="v4-hero relative h-[240svh]" data-scrub="sticky" aria-label="Born in the dunes">
           <div className="sticky top-0 h-svh overflow-hidden">
-            <div className="kenburns absolute inset-0"><Pic name="camel-caravan" alt="A camel caravan crossing the dunes at golden hour" sizes="100vw" /></div>
+            <div className="kenburns absolute inset-0"><Pic name="dunes-starry-night" alt="Red dunes lit at night under a sky full of stars" sizes="100vw" /></div>
             <div className="absolute inset-0 bg-gradient-to-b from-[#0c0a08]/55 via-[#0c0a08]/15 to-[#0c0a08]/35" />
             <h1 className="v4-fade v4-g absolute inset-x-0 top-[64px] text-center md:top-[26px]">
               <span className="block"><Split>Born in</Split></span>
