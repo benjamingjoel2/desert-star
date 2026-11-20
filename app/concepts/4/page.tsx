@@ -1,19 +1,11 @@
-import Link from "next/link";
-import { Host_Grotesk, VT323, Cormorant_Garamond } from "next/font/google";
 import Pic from "@/components/Pic";
 import Split from "@/components/Split";
 import TripPanels from "@/components/TripPanels";
 import { tours, getTour, price } from "@/lib/tours";
-import { site, waLink } from "@/data/site";
-
-const sans = Host_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--v4-sans" });
-const mono = VT323({ subsets: ["latin"], weight: "400", variable: "--v4-mono" });
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500"], style: ["italic"], variable: "--v4-serif" });
+import { site } from "@/data/site";
+import { shell, pad, V4Style, Header, Footer, Steps, StepChips, Column, GiantLinks } from "@/components/concepts/v4/Chrome";
 
 export const metadata = { title: "Variation 4 · Crepel-first" };
-
-const pad = "px-5 md:px-10";
-const wa = waLink("Hello Desert Stars, I'd like to plan an evening in the desert.");
 
 /* ── Data ─────────────────────────────────────────────── */
 function pick(slug: string, img: string, label?: string) {
@@ -62,134 +54,14 @@ const included = [
   { t: "Henna", s: "s" },
 ];
 
-const giant = [
-  { label: "WhatsApp", href: wa, note: "Reply within 30 min", ext: true },
-  { label: "Call", href: site.phoneHref, note: site.phone, ext: false },
-  { label: "Email", href: `mailto:${site.email}`, note: site.email, ext: false },
-  { label: "Enquire", href: "/enquire", note: "Plan your date", ext: false },
-];
-
-/* ── Pieces ───────────────────────────────────────────── */
-function Steps({ tone, chips }: { tone: "night" | "sand"; chips?: [string, string, string, string] }) {
-  const bg = tone === "night" ? "bg-[#0c0a08] text-[#efe6d6]" : "bg-[#efe6d6] text-[#1c140d]";
-  const chip = "v4-m hidden md:block";
-  return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[72px] md:h-[130px]">
-      <div className={`${bg} absolute left-0 top-0 flex h-[calc(50%+1px)] w-[30%] items-center justify-end pr-5`}><span className={chip}>{chips?.[0]}</span></div>
-      <div className={`${bg} absolute right-0 top-0 flex h-[calc(50%+1px)] w-[30%] items-center pl-5`}><span className={chip}>{chips?.[1]}</span></div>
-      <div className={`${bg} absolute bottom-0 left-0 flex h-1/2 w-[40%] items-center justify-end pr-5`}><span className={chip}>{chips?.[2]}</span></div>
-      <div className={`${bg} absolute bottom-0 right-0 flex h-1/2 w-[40%] items-center pl-5`}><span className={chip}>{chips?.[3]}</span></div>
-    </div>
-  );
-}
-
-function Column({ id, label, count, items }: { id: string; label: string; count: number; items: { href: string; img: string; cap: string; alt: string }[] }) {
-  return (
-    <section id={id} className="relative bg-[#0c0a08] py-[12svh]" aria-label={label}>
-      <ul className="relative mx-auto w-[69vw] md:w-[31.4vw]">
-        {items.map((it, i) => (
-          <li key={it.img + i}>
-            <Link href={it.href} className={`group relative block aspect-[2/3] overflow-hidden bg-[#1a1510] md:aspect-[7/8] ${i === 0 ? "rounded-t-[4px]" : ""} ${i === items.length - 1 ? "rounded-b-[4px]" : ""}`}>
-              <div className="absolute inset-0" data-parallax="0.06">
-                <div className="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.04]">
-                  <Pic name={it.img} alt={it.alt} sizes="(min-width:768px) 32vw, 70vw" />
-                </div>
-              </div>
-              <span className="v4-m v4-box absolute bottom-3 left-3 max-w-[calc(100%-24px)] transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100">{it.cap}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="pointer-events-none absolute inset-0">
-        <div className={`sticky top-0 flex h-svh items-center justify-between ${pad}`}>
-          <h2 className="text-[24px] leading-none tracking-[-0.02em] [text-shadow:0_1px_12px_rgba(0,0,0,.45)] md:text-[30px]">
-            {label}<sup className="ml-1 align-super font-[family-name:var(--v4-mono)] text-[13px] tracking-normal">™ ({String(count).padStart(2, "0")})</sup>
-          </h2>
-          <Link href="/experiences" className="v4-m v4-link pointer-events-auto [text-shadow:0_1px_12px_rgba(0,0,0,.45)]">Discover</Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ── Page ─────────────────────────────────────────────── */
 export default function Page() {
   return (
-    <div className={`${sans.variable} ${mono.variable} ${serif.variable} v4 min-h-screen overflow-x-clip bg-[#0c0a08] font-[family-name:var(--v4-sans)] text-[#efe6d6] antialiased selection:bg-[#efe6d6] selection:text-[#0c0a08]`}>
-      <style>{`
-        .v4 .font-script { font-family: var(--v4-serif), Georgia, serif; }
-        @layer components {
-        .v4 .v4-g { font-size: clamp(42px, 11vw, 158px); line-height: .8; letter-spacing: -0.05em; text-transform: uppercase; font-weight: 400; }
-        .v4 .v4-s { font-size: clamp(23px, 3.2vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 400; }
-        .v4 .v4-m { font-family: var(--v4-mono), ui-monospace, monospace; font-size: 17px; line-height: 1; text-transform: uppercase; letter-spacing: .03em; }
-        .v4 .v4-box { background: #efe6d6; color: #0c0a08; padding: 2px 4px 1px; display: inline-block; }
-        .v4 .v4-i { font-family: var(--v4-serif), Georgia, serif; font-style: italic; letter-spacing: -0.01em; }
-        .v4 .v4-link { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .5s cubic-bezier(.16,1,.3,1); }
-        .v4 .v4-link:hover, .v4 .v4-link:focus-visible { background-size: 100% 1px; }
-        .v4 .v4-head { mix-blend-mode: difference; }
-        .v4 .v4-head:has(details[open]) { mix-blend-mode: normal; }
-        .v4 details > summary { list-style: none; }
-        .v4 details > summary::-webkit-details-marker { display: none; }
-        .v4 details[open] .v4-closed, .v4 details:not([open]) .v4-opened { display: none; }
-        .v4 :focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
-
-        /* Hero: the centre card grows into the full screen */
-        .v4 .v4-hero { --cw: 45vw; --ch: 36.5svh; --cy: 41%; }
-        @media (min-width: 768px) { .v4 .v4-hero { --cw: 15vw; --ch: 43svh; --cy: 58.6%; } }
-        .v4 .v4-card { position: absolute; left: 50%; top: calc(var(--cy) + (50% - var(--cy)) * var(--p, 0));
-          width: calc(var(--cw) + (100% - var(--cw)) * var(--p, 0)); height: calc(var(--ch) + (100% - var(--ch)) * var(--p, 0));
-          transform: translate(-50%, -50%); border-radius: calc(4px * (1 - var(--p, 0))); overflow: hidden; }
-        .v4 .v4-tint { opacity: calc(var(--p, 0) * 1); }
-        .v4 .v4-fade { opacity: calc(1 - var(--p, 0) * 2.4); transform: translate3d(0, calc(var(--p, 0) * -8svh), 0); }
-        .v4 .v4-navrow { top: var(--cy); opacity: calc(1 - var(--p, 0) * 3); }
-
-        /* Raised by the dunes */
-        .v4 .v4-raise { --F: clamp(42px, 11vw, 158px); --pw: 66vw; --pl: 17vw; position: relative; height: calc(var(--F) * .68 + var(--pw) * 1.3333); }
-        @media (min-width: 768px) { .v4 .v4-raise { --pw: 31.4vw; --pl: 34.3vw; } }
-        .v4 .v4-raise .v4-ph { position: absolute; left: var(--pl); width: var(--pw); top: calc(var(--F) * .68); aspect-ratio: 3 / 4; }
-        .v4 .v4-raise .v4-l { position: absolute; top: 0; left: 20px; }
-        .v4 .v4-raise .v4-r { position: absolute; top: calc(var(--F) * .8); right: 20px; text-align: right; }
-        @media (min-width: 768px) { .v4 .v4-raise .v4-l { left: 18.4vw; } .v4 .v4-raise .v4-r { right: 18vw; } }
-
-        /* No place like the desert */
-        .v4 .v4-np-veil { opacity: calc(.55 - var(--p, 0) * .45); }
-        .v4 .v4-np-head { opacity: calc(1 - var(--p, 0) * 1.7); transform: translate3d(0, calc(var(--p, 0) * -30svh), 0); }
-        .v4 .v4-np-cap { top: calc(62% - var(--p, 0) * 52%); }
-
-        .v4 .v4-giant a { color: #8a7a63; transition: color .45s cubic-bezier(.16,1,.3,1); }
-        .v4 .v4-giant a:hover, .v4 .v4-giant a:focus-visible { color: #1c140d; }
-        .v4 .v4-field::placeholder { color: #8a7a63; }
-        }
-      `}</style>
+    <div className={shell}>
+      <V4Style />
 
       {/* ───────── M1 Header ───────── */}
-      <header className="v4-head fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 pt-5 md:px-[27px] md:pt-[26px]">
-        <Link href="/concepts/4" className="v4-i text-[25px] leading-[0.8] text-[#efe6d6]" aria-label="Desert Stars, home">Desert Stars</Link>
-        <div className="flex items-start gap-2">
-          <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{WhatsApp}"}</a>
-          <details>
-            <summary className="v4-m v4-box relative z-10 cursor-pointer"><span className="v4-closed">Menu</span><span className="v4-opened">Close</span></summary>
-            <div className="fixed inset-0 flex flex-col justify-between overflow-y-auto bg-[#0c0a08] px-5 pb-8 pt-24 text-[#efe6d6] md:px-10">
-              <nav aria-label="Menu" className="flex flex-col">
-                {[
-                  ["Experiences", "/experiences"],
-                  ["Desert safaris", "/experiences#desert"],
-                  ["Journal", "/journal"],
-                  ["About", "/about"],
-                  ["Enquire", "/enquire"],
-                ].map(([l, h]) => (
-                  <Link key={h} href={h} className="v4-g text-[#efe6d6]/45 transition-colors hover:text-[#efe6d6]">{l}</Link>
-                ))}
-              </nav>
-              <div className="v4-m mt-10 flex flex-wrap justify-between gap-4 text-[15px]">
-                <a href={site.phoneHref} className="v4-link">{site.phone}</a>
-                <a href={`mailto:${site.email}`} className="v4-link">{site.email}</a>
-                <span>{site.hours}</span>
-              </div>
-            </div>
-          </details>
-        </div>
-      </header>
+      <Header />
 
       <main>
         {/* ───────── M2 Hero ───────── */}
@@ -237,11 +109,7 @@ export default function Page() {
           <Steps tone="night" chips={["11,000+ guests hosted", "Free cancellation 24h", "Pick-up from your door", "Reply within 30 min"]} />
         </section>
 
-        <div className={`${pad} grid grid-cols-2 gap-2 bg-[#0c0a08] pt-6 md:hidden`}>
-          {["11,000+ guests hosted", "Free cancellation 24h", "Pick-up from your door", "Reply within 30 min"].map((c) => (
-            <span key={c} className="v4-m border border-[#efe6d6]/25 px-2 py-2 text-[14px]">{c}</span>
-          ))}
-        </div>
+        <StepChips chips={["11,000+ guests hosted", "Free cancellation 24h", "Pick-up from your door", "Reply within 30 min"]} />
 
         {/* ───────── M5 Split headline around a photo ───────── */}
         <section className="bg-[#0c0a08] pt-[14svh] md:pt-[17svh]" aria-label="Raised by the dunes">
@@ -328,48 +196,12 @@ export default function Page() {
           <p className="v4-s reveal max-w-[1380px] indent-[16vw] md:indent-[8vw]">
             Reach out to plan your evening in the dunes. A real person replies within 30 minutes, day and night, and you can cancel for free up to 24 hours before.
           </p>
-          <ul className="v4-giant mt-[14svh] md:ml-[calc(34.7vw-40px)]">
-            {giant.map((g) => (
-              <li key={g.label} className="flex items-start gap-3">
-                <a href={g.href} {...(g.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="v4-g block text-[clamp(54px,11vw,158px)]">{g.label}</a>
-                <span className="v4-m mt-[0.4em] hidden shrink-0 text-[14px] text-[#1c140d]/70 xl:inline">{g.note}</span>
-              </li>
-            ))}
-          </ul>
+          <GiantLinks className="mt-[14svh] md:ml-[calc(34.7vw-40px)]" />
         </section>
       </main>
 
       {/* ───────── M12 Footer ───────── */}
-      <footer className={`${pad} bg-[#efe6d6] pb-8 text-[#1c140d]`}>
-        <div className="grid gap-10 md:grid-cols-3 md:gap-5">
-          <div className="grid grid-cols-2 gap-5 md:col-span-2">
-            <ul className="v4-m space-y-[3px] text-[17px]">
-              <li><Link href="/concepts/4" className="v4-link">Home</Link></li>
-              <li><Link href="/experiences" className="v4-link">Experiences</Link></li>
-              <li><Link href="/experiences#desert" className="v4-link">Desert safaris</Link></li>
-            </ul>
-            <ul className="v4-m space-y-[3px] text-[17px]">
-              <li><Link href="/journal" className="v4-link">Journal</Link></li>
-              <li><Link href="/about" className="v4-link">About</Link></li>
-              <li><Link href="/enquire" className="v4-link">Enquire</Link></li>
-            </ul>
-          </div>
-          <div>
-            <p className="v4-m max-w-[340px] text-[17px] leading-[1.05]">Tell us your date and we will plan the rest.</p>
-            <form action="/enquire" method="get" className="mt-6 flex h-[68px] items-center border border-[#1c140d]">
-              <label htmlFor="v4-email" className="sr-only">Email address</label>
-              <input id="v4-email" name="email" type="email" required placeholder="EMAIL ADDRESS" className="v4-field v4-m h-full min-w-0 flex-1 bg-transparent px-5 text-[17px] text-[#1c140d] outline-none" />
-              <button type="submit" className="v4-m h-full px-5 hover:bg-[#1c140d] hover:text-[#efe6d6]">OK</button>
-            </form>
-            <p className="mt-4 text-[13px] text-[#1c140d]/70">{site.hours}. {site.response}</p>
-          </div>
-        </div>
-        <div className="mt-16 flex flex-col justify-between gap-3 border-t border-[#1c140d]/15 pt-5 text-[13px] text-[#1c140d]/70 md:flex-row md:items-end">
-          <span>{site.address}</span>
-          <span className="v4-i text-[20px] text-[#1c140d]">Where the dunes meet the stars.</span>
-          <span>© {new Date().getFullYear()} Desert Stars</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
