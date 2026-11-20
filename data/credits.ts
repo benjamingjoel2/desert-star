@@ -6,4 +6,5 @@ export const credits = [
   { image: "desert-sunset", title: "Sunset During Dubai Desert Safari", author: "Grocerbix", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Sunset_During_Dubai_Desert_Safari.jpg" },
   { image: "camel-ride", title: "Dubai Camel Riding", author: "Clémence Jacqueri", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Dubai_Camel_Riding.jpg" },
   { image: "camel-grazing", title: "Camel in the Desert", author: "Rob Young", license: "CC BY 2.0", source: "https://commons.wikimedia.org/wiki/File:Camel_in_the_Desert_(8668544166).jpg" },
+  { image: "sharjah-blue-souk", title: "The Souk al-Markazi (Central Market)", author: "Aleena Varghese", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:The_Souk_al-Markazi_(Central_Market).jpg" },
 ];
