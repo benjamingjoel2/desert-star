@@ -385,7 +385,7 @@ export default function Page() {
       </main>
 
       {/* W11: footer */}
-      <footer className="relative bg-[#f3f1ec] text-[#1f2a44]">
+      <footer className="relative z-50 bg-[#f3f1ec] text-[#1f2a44]">
         <div className={`${pad} grid grid-cols-2 gap-x-6 gap-y-10 pb-16 pt-16 lg:grid-cols-6 lg:gap-x-0 lg:pt-12`}>
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="inline-flex flex-col items-start gap-2" aria-label="Desert Stars home">
