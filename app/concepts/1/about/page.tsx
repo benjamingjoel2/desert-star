@@ -29,20 +29,6 @@ const steps: { time: string; cap: string; text: string; img: string; alt: string
   { time: "21:30", cap: "Home", text: "Back to your door in Dubai, the same way you came.", img: "dubai-night", alt: "Dubai towers lit up at night" },
 ];
 
-const included = [
-  "English-speaking safari guide",
-  "30–40 min dune bashing",
-  "Sandboarding & photo stops",
-  "Short camel ride",
-  "Falcon photo opportunity",
-  "Basic henna for ladies",
-  "Shisha in the common area",
-  "Premium camp, clean bathrooms",
-  "Veg, vegan & halal options",
-  "Unlimited soft drinks",
-  "Belly dance, Tanoura, fire show",
-  "Up to 6 guests per vehicle",
-];
 
 const values: [string, string][] = [
   ["Door to door", "We collect you and bring you home. No meeting points, no shuttles to find."],
@@ -219,63 +205,6 @@ export default function AboutPage() {
               );
             })}
           </ul>
-        </section>
-
-        {/* M7: sticky centre column — how an evening works */}
-        <section id="evening" aria-labelledby="v1-evening" className="relative bg-[#1f2a44] py-[12vh] text-white lg:py-[22vh]">
-          <div className={`mb-10 ${pad} lg:hidden`}>
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-[28px] font-normal">How an evening works <sup className="text-[10px]">™ (06)</sup></h2>
-            </div>
-            <p className={`mt-3 ${C} text-[18px] italic text-white/70`}>Our premium evening safari, from your door and back.</p>
-          </div>
-          <div className="lg:grid lg:grid-cols-[1fr_31.4vw_1fr]">
-            <div className="hidden lg:block">
-              <div className="sticky top-[50svh] -translate-y-1/2 pl-10 pr-8">
-                <h2 id="v1-evening" className="text-[30px] font-normal leading-[1.05]">How an evening <br />works <sup className="text-[10px] font-medium">™ (06)</sup></h2>
-                <p className={`mt-3 ${C} max-w-[240px] text-[17px] italic text-white/70`}>Our premium evening safari, from your door and back.</p>
-              </div>
-            </div>
-            <ol className="space-y-3 px-5 lg:space-y-0 lg:px-0">
-              {steps.map((s, i) => (
-                <li key={s.cap} className="relative aspect-[4/5] overflow-hidden lg:aspect-[452/600]">
-                  <div className="reveal-img zoom absolute inset-0">
-                    <Pic name={s.img} sizes="(min-width:1024px) 32vw, 100vw" alt={s.alt} />
-                    <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#18213a]/85 to-transparent" />
-                  </div>
-                  <div className="absolute inset-x-4 bottom-4">
-                    <p className={`${M} flex flex-wrap items-center gap-2 text-[19px]`}>
-                      <span className="bg-white px-1.5 text-[#1f2a44]">{s.time}</span>
-                      <span className="border border-white/70 bg-[#1f2a44]/40 px-1.5 backdrop-blur-sm">{s.cap}</span>
-                    </p>
-                    <p className="mt-3 max-w-[340px] text-[14px] font-medium leading-[1.45] text-white/90">{s.text}</p>
-                  </div>
-                  <span className={`absolute right-4 top-4 ${M} text-[17px] text-white/85`} aria-hidden="true">0{i + 1}/06</span>
-                </li>
-              ))}
-            </ol>
-            <div className="hidden lg:block">
-              <div className="sticky top-[50svh] -translate-y-1/2 pr-[100px] text-right">
-                <Link href="/experiences/premium-evening-desert-safari" className={`${M} v1-link text-[20px]`}>Discover</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* M10: bordered tiles — what every premium evening includes */}
-          <div className={`${pad} mt-[12vh] lg:mt-[18vh] lg:pr-[100px]`}>
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-              <h3 className={`${C} text-[30px] leading-[1.05] lg:text-[44px]`}>Included in the premium evening</h3>
-              <Link href="/experiences/premium-evening-desert-safari" className={`${M} v1-link self-start text-[19px] lg:self-auto`}>See the full itinerary</Link>
-            </div>
-            <ul className="mt-8 grid grid-cols-2 border-l border-t border-white/20 lg:grid-cols-4">
-              {included.map((x, i) => (
-                <li key={x} className="flex min-h-[110px] flex-col justify-between border-b border-r border-white/20 p-4 lg:min-h-[140px] lg:p-5">
-                  <span className={`${M} text-[16px] text-white/45`}>{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-[14px] font-medium leading-[1.3] lg:text-[16px]">{x}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </section>
 
         {/* W6: the promise, signed by the team + how we work */}
