@@ -78,7 +78,7 @@ const menu: [string, string][] = [
 export function Header() {
   return (
     <header className="v4-head fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 pt-5 md:px-[27px] md:pt-[26px]">
-      <Link href="/" className="block text-[#efe6d6] transition-opacity hover:opacity-80" aria-label="Desert Stars, home"><svg viewBox="0 0 37 43" className="h-[44px] w-auto md:h-[54px]" fill="currentColor" aria-hidden="true"><path d="M10 0L12.3 7.7L20 10L12.3 12.3L10 20L7.7 12.3L0 10L7.7 7.7ZM10 23L12.3 30.7L20 33L12.3 35.3L10 43L7.7 35.3L0 33L7.7 30.7ZM26 11.5L28.3 19.2L36 21.5L28.3 23.8L26 31.5L23.7 23.8L16 21.5L23.7 19.2Z" /></svg></Link>
+      <Link href="/" className="flex items-center gap-3 text-[#efe6d6] transition-opacity hover:opacity-80 md:gap-4" aria-label="Desert Stars, home"><svg viewBox="0 0 37 43" className="h-[34px] w-auto shrink-0 md:h-[44px]" fill="currentColor" aria-hidden="true"><path d="M10 0L12.3 7.7L20 10L12.3 12.3L10 20L7.7 12.3L0 10L7.7 7.7ZM10 23L12.3 30.7L20 33L12.3 35.3L10 43L7.7 35.3L0 33L7.7 30.7ZM26 11.5L28.3 19.2L36 21.5L28.3 23.8L26 31.5L23.7 23.8L16 21.5L23.7 19.2Z" /></svg><span aria-hidden="true" className="h-[26px] w-px bg-[#efe6d6]/60 md:h-[32px]" /><span className="whitespace-nowrap font-[family-name:var(--v4-sans)] text-[12px] font-medium uppercase leading-none tracking-[0.32em] md:text-[15px] md:tracking-[0.36em]">Desert Stars</span></Link>
       <div className="flex items-start gap-2">
         <a href={wa} target="_blank" rel="noopener noreferrer" className="v4-m v4-box hover:opacity-80">{"{WhatsApp}"}</a>
         <details>
