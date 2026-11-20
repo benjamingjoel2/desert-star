@@ -5,7 +5,7 @@ import { byCategory, tours } from "@/lib/tours";
 import { site, categories } from "@/data/site";
 import { shell, pad, V4Style, Header, Footer, Steps, StepChips, GiantLinks } from "@/components/concepts/v4/Chrome";
 
-export const metadata = { title: "About", description: "Desert Stars is a Dubai tour house for desert safaris, dhow cruises and guided days across the Emirates, founded by Mohammed Namil." };
+export const metadata = { title: "About", description: "Desert Stars is a local boutique desert tour operator in Dubai, founded by Mohammed Namil." };
 
 /* ── Data (facts only) ────────────────────────────────── */
 const chips: [string, string, string, string] = ["11,000+ guests hosted", "3,000+ journeys completed", "Reply within 30 min", "Free cancellation 24h"];

@@ -101,7 +101,7 @@ export default function Page() {
                 <Pic name="combo-mosque-2" alt="A falcon up close" sizes="120px" />
               </span>
               <br className="md:hidden" />
-              A Dubai desert house, sharing dune drives, camel trails and lantern-lit dinners in the red sands of Lehbab with people who would rather feel the place than tick it off.
+              A local boutique desert tour operator in Dubai. Private desert evenings, dhow cruises and guided days across the Emirates, from your door.
             </p>
           </div>
           <Steps tone="night" chips={["11,000+ guests hosted", "Free cancellation 24h", "Pick-up from your door", "Reply within 30 min"]} />
@@ -127,7 +127,7 @@ export default function Page() {
             Unhurried, curious and at home in the red sand, our drivers, guides and camp hosts would rather show you one desert evening <span className="v4-i text-[1.08em]">properly</span> than ten things in a rush.
           </p>
           <div className="reveal mt-12 grid gap-5 text-[14px] leading-[1.62] text-[#efe6d6]/85 md:ml-[24.3%] md:mt-14 md:grid-cols-2 md:gap-10" style={{ ["--d" as string]: "150ms" }}>
-            <p>{site.description} Evenings start at your door: a 4x4 collects you at 15:00 and drives out to the high red dunes of Lehbab for dune bashing, sandboarding and a camel ride as the light goes.</p>
+            <p>Evenings start at your door: a 4x4 collects you at 15:00 and drives out to the high red dunes of Lehbab for dune bashing, sandboarding and a camel ride as the light goes.</p>
             <p>Dinner is a BBQ buffet in a lantern-lit Bedouin camp, followed by Tanoura and fire shows, and you are back at your hotel around 21:30. Groups are kept to six per 4x4. {site.cancellation} {site.response}</p>
           </div>
         </section>
